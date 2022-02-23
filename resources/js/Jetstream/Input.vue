@@ -1,0 +1,20 @@
+<template>
+    <input class="appearance-none border-0 border-white ring-0 focus:ring-0 bg-black focus:bg-black text-white bottom-0 border-b shadow-sm" :value="modelValue" 
+    @input="$emit('update:modelValue', $event.target.value)" ref="input">
+</template>
+
+<script>
+    import { defineComponent } from 'vue'
+
+    export default defineComponent({
+        props: ['modelValue'],
+
+        emits: ['update:modelValue'],
+
+        methods: {
+            focus() {
+                this.$refs.input.focus()
+            }
+        }
+    })
+</script>
