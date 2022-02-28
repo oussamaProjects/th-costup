@@ -15,8 +15,8 @@
           :for="'service_' + service.id"
           class="
             select-none
-            bg-blue-100
-            hover:bg-blue-200 
+            bg-main
+            hover:bg-main 
             rounded
             flex flex-col flex-shrink-0
             justify-center
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="flex flex-col items-end justify-end">
-      <button class="px-2 py-1 rounded mt-2 bg-blue-600 text-white text-sm" @click="selectServices()">Add services</button>
+      <button class="px-2 py-1 rounded mt-2 bg-main text-custom_blue text-sm" @click="selectServices()">Add services</button>
     </div>
   </div>
 </template>

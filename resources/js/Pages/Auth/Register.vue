@@ -7,7 +7,7 @@
     </template>
 
     <form @submit.prevent="submit">
-      <div class="text-white mb-16">
+      <div class="text-custom_blue mb-16">
         <div class="text-4xl mb-4">Login</div>
         <div class="text-sm">
           Fill your personal informations <br />
@@ -112,7 +112,7 @@
       <div class="flex items-center justify-center mt-4">
         <Link
           :href="route('login')"
-          class="underline text-base text-white hover:text-white"
+          class="underline text-base text-custom_blue hover:text-custom_blue"
         >
           login
         </Link>

@@ -2,7 +2,7 @@
   <div class="step-wrapper flex justify-between" :class="stepWrapperClass">
     <button
       type="button"
-      class="my-3 px-3 text-blue-500 font-bold uppercase text-sm"
+      class="my-3 px-3 text-custom_blue font-bold uppercase text-sm"
       @click="lastStep"
       v-if="!firststep"
     >
@@ -12,7 +12,7 @@
     <div class="flex-auto flex flex-row-reverse">
       <button
         type="button"
-        class="my-3 px-3 text-blue-500 font-bold uppercase text-sm"
+        class="my-3 px-3 text-custom_blue font-bold uppercase text-sm"
         @click="nextStep"
         v-if="!laststep"
       >
@@ -23,7 +23,7 @@
       type="submit"
       class="
         mx-3 
-        text-blue-500
+        text-custom_blue
         font-bold
         uppercase
         text-sm 

@@ -1,5 +1,6 @@
 <template>
-  <div class="w-full relative p-2">
+  <div class="w-full relative p-4 border-b border-tertiary">
+    <div class="uppercase font-medium text-tertiary my-4">Gestion des projets</div>
     <div class="shadow rounded-sm p-3">
       <ch-projects-create
         :projects="projects"

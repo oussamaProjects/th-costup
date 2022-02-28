@@ -21,7 +21,7 @@
         v-model.number="service.qty"
         type="number"
         placeholder="qty"
-        :class="'qty border-gray-300 bg-blue-100 rounded-full text-center ' + this.globalClass.inputTextForm"
+        :class="'qty border-gray-300 bg-main rounded-full text-center ' + this.globalClass.inputTextForm"
         @change.prevent="calculate"
       />
     </div>
@@ -38,7 +38,7 @@
         v-model="service.occup_hour"
         type="number"
         placeholder="occup hour"
-        :class="'occup_hour border-gray-300 bg-blue-100 rounded-full text-center ' + this.globalClass.inputTextForm"
+        :class="'occup_hour border-gray-300 bg-main rounded-full text-center ' + this.globalClass.inputTextForm"
         @change.prevent="calculate"
       />
     </div>
@@ -49,7 +49,7 @@
         v-model.number="service.price"
         type="number"
         placeholder="price"
-        :class="'price border-gray-300 bg-blue-100 rounded-full text-center ' + this.globalClass.inputTextForm"
+        :class="'price border-gray-300 bg-main rounded-full text-center ' + this.globalClass.inputTextForm"
         @change.prevent="calculate"
       /> -->
 
@@ -63,7 +63,7 @@
         <input
               :value="total"
               type="number"
-              :class="'total border-gray-300 bg-blue-100 rounded-full text-center ' + this.globalClass.inputTextForm"
+              :class="'total border-gray-300 bg-main rounded-full text-center ' + this.globalClass.inputTextForm"
               name="total"
               placeholder="Total"
               v-model.number="total"
@@ -86,7 +86,7 @@
         v-model="service.profit_margin_p_c"
         type="number"
         placeholder="profit_margin_p_c"
-        :class="'profit_margin_p_c border-gray-300 bg-blue-100 rounded-full text-center ' + this.globalClass.inputTextForm"
+        :class="'profit_margin_p_c border-gray-300 bg-main rounded-full text-center ' + this.globalClass.inputTextForm"
         @change.prevent="calculate"
       />
     </div>
@@ -101,7 +101,7 @@
       <button
         name="save"
         @click="removeRow(service.id)"
-        class="text-green-700 w-full bg-green-100 rounded-xs py-1 px-2"
+        class="text-custom_blue w-full bg-green-100 rounded-xs py-1 px-2"
       >
         Retirer
       </button>
@@ -117,9 +117,9 @@ export default {
       service: this.service,
       globalClass: {
         inputSelectForm:
-          "appearance-none border border-gray-300 hover:border-gray-300 focus:border-gray-300 w-full p-2 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-blue-100 text-xs transition-all duration-300 transform",
+          "appearance-none border border-gray-300 hover:border-gray-300 focus:border-gray-300 w-full p-2 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-main text-xs transition-all duration-300 transform",
         inputTextForm:
-          "appearance-none border-0 hover:border-gray-300 focus:border-gray-300 w-full p-1 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-blue-100 text-xs transition-all duration-300 transform",
+          "appearance-none border-0 hover:border-gray-300 focus:border-gray-300 w-full p-1 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-main text-xs transition-all duration-300 transform",
       },
     };
   },

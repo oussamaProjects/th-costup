@@ -34,8 +34,8 @@
           :for="'project_' + project.id"
           class="
             select-none
-            bg-blue-100
-            hover:bg-blue-200
+            bg-main
+            hover:bg-main
             rounded
             flex flex-col flex-shrink-0
             justify-center

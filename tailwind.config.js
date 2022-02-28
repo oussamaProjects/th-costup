@@ -10,12 +10,33 @@ module.exports = {
         './resources/js/**/*.vue',
     ],
 
-    theme: {
+    theme: { 
         extend: {
             fontFamily: {
-                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
+                sans: [
+                    "Poppins",
+                    "Arimo",
+                    "Libre Baskerville",
+                    ...defaultTheme.fontFamily.sans
+                ]
             },
-        },
+            colors: { 
+                custom_red: "#fe5454",
+                custom_green: "#53dcbe",
+                custom_blue: "#102343",
+                main: "#cfdfef",
+                secondary: "#cccaf0",
+                tertiary: "#f7cee2",
+                success: "#FDC910",
+                error: "#FDC910",
+                "bg-color": "#fffAe6",
+            },
+            maxHeight: {
+                "1/3": "33.333334%",
+                "1/2": "50%",
+                "2/3": "66.666667%"
+            }
+        }
     },
 
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],

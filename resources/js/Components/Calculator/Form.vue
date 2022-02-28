@@ -33,7 +33,7 @@
             <a
               class="
                 inline-block
-                text-sm
+                text-xs 
                 font-medium
                 text-center
                 p-2
@@ -49,8 +49,8 @@
               @click.prevent="setActive"
               :class="
                 isActive('cat_' + liCatParentIndex)
-                  ? 'text-white bg-blue-800 hover:text-blue-800 hover:border-blue-800 hover:bg-white'
-                  : 'hover:text-blue-800 hover:border-blue-800 hover:bg-white'
+                  ? 'text-custom_blue bg-main hover:text-custom_blue hover:border-main hover:bg-white'
+                  : 'hover:text-custom_blue hover:border-main hover:bg-white'
               "
               :href="'#cat_' + liCatParentIndex"
             >
@@ -116,8 +116,8 @@
                         uppercase
                         font-bold
                         text-bg
-                        bg-blue-800
-                        text-white
+                        bg-main
+                        text-custom_blue
                       "
                     >
                       {{ category.parent_name }}
@@ -163,8 +163,8 @@
                         p-2
                         uppercase
                         font-bold
-                        bg-blue-500
-                        text-white
+                        bg-main
+                        text-custom_blue
                       "
                       style="min-width: 280px"
                     >
@@ -307,7 +307,7 @@ export default {
       selectFromServices: null,
       globalClass: {
         inputSelectForm:
-          "appearance-none border border-gray-300 hover:border-gray-300 focus:border-gray-300 w-full p-2 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-blue-100 text-xs transition-all duration-300 transform",
+          "appearance-none border border-gray-300 hover:border-gray-300 focus:border-gray-300 w-full p-2 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-main text-xs transition-all duration-300 transform",
       },
       displayListeServicesModal: false,
       currentstep: 0,

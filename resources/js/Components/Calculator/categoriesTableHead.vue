@@ -3,7 +3,7 @@
         <div class="categoryHead" v-if="currentGlobalStep == 1">
           <div class="flex justify-items-stretch items-stretch mt-2 text-xs">
             <div
-              class="flex items-center py-2 px-4 border uppercase font-bold"
+              class="flex items-center py-2 px-4 border uppercase"
               style="min-width: 280px"
             >
               Category name

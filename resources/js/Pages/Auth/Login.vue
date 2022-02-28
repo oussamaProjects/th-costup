@@ -38,7 +38,7 @@
         </div>
 
         <form @submit.prevent="submit">
-          <div class="text-white mb-16">
+          <div class="text-custom_blue mb-16">
             <div class="text-4xl mb-4">Welcome Back !</div>
             <div class="text-sm">
               Already have an account ?
@@ -74,7 +74,7 @@
           <div class="block mt-4">
             <label class="flex items-center">
               <jet-checkbox name="remember" v-model:checked="form.remember" />
-              <span class="ml-2 text-base text-white">Remember me</span>
+              <span class="ml-2 text-base text-custom_blue">Remember me</span>
             </label>
           </div>
 
@@ -91,14 +91,14 @@
           <div class="flex items-center justify-center mt-12">
             <Link
               :href="route('register')"
-              class="text-base text-white hover:text-white"
+              class="text-base text-custom_blue hover:text-custom_blue"
             >
               Register
             </Link>
-            <span class="mx-3 text-white">|</span>
+            <span class="mx-3 text-custom_blue">|</span>
             <Link
               :href="route('password.request')"
-              class="text-base text-white hover:text-white"
+              class="text-base text-custom_blue hover:text-custom_blue"
             >
               Forgot your password?
             </Link>
@@ -128,7 +128,7 @@
         </template>
 
         <form @submit.prevent="submit">
-          <div class="text-white mb-16">
+          <div class="text-custom_blue mb-16">
             <div class="text-4xl mb-4">Login</div>
             <div class="text-sm">
               Fill your personal informations <br />
@@ -241,7 +241,7 @@
           <div class="flex items-center justify-center mt-4">
             <Link
               :href="route('login')"
-              class="text-base text-white hover:text-white"
+              class="text-base text-custom_blue hover:text-custom_blue"
             >
               Login
             </Link>

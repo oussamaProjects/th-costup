@@ -24,34 +24,34 @@ export default {
       return this.currentGlobalStep == 0 ||
         this.currentGlobalStep == 1 ||
         this.currentGlobalStep == 2
-        ? "text-blue-500"
+        ? "text-custom_blue"
         : "text-gray-400";
     },
     activeBorderStep1() {
       return this.currentGlobalStep == 0 ||
         this.currentGlobalStep == 1 ||
         this.currentGlobalStep == 2
-        ? "border-blue-500"
+        ? "border-secondary"
         : "border-gray-200";
     },
 
     activeTextStep2() {
       return this.currentGlobalStep == 1 || this.currentGlobalStep == 2
-        ? "text-blue-500"
+        ? "text-custom_blue"
         : "text-gray-400";
     },
     activeBorderStep2() {
       return this.currentGlobalStep == 1 || this.currentGlobalStep == 2
-        ? "border-blue-500"
+        ? "border-secondary"
         : "border-gray-200";
     },
 
     activeTextStep3() {
-      return this.currentGlobalStep == 2 ? "text-blue-500" : "text-gray-400";
+      return this.currentGlobalStep == 2 ? "text-custom_blue" : "text-gray-400";
     },
     activeBorderStep3() {
       return this.currentGlobalStep == 2
-        ? "border-blue-500"
+        ? "border-secondary"
         : "border-gray-200";
     },
   },

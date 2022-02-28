@@ -4,12 +4,12 @@
       flex
       justify-items-stretch
       items-stretch
-      bg-blue-200
+      bg-main
       category-sum-values
     "
   >
     <div
-      class="flex items-center p-2 uppercase font-bold bg-blue-500 text-white"
+      class="flex items-center p-2 uppercase bg-main text-custom_blue"
       style="min-width: 280px"
     ></div>
 
@@ -76,9 +76,9 @@
       <div class="px-1 flex" style="width: 16%">
         <div
           class="
-            bg-green-700
+            bg-tertiary
             w-full
-            text-white
+            text-custom_blue
             rounded-xs
             py-1
             px-2 
@@ -95,9 +95,9 @@
 
         <div
           class="
-            bg-blue-500
+            bg-secondary
             w-full
-            text-white
+            text-custom_blue
             rounded-xs
             py-1
             px-2

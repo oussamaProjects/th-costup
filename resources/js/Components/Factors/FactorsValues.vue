@@ -69,9 +69,9 @@ export default {
       isLoading: false,
       globalClass: {
         inputSelectForm:
-          "appearance-none border border-gray-300 hover:border-gray-300 focus:border-gray-300 w-full p-2 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-blue-100 text-xs transition-all duration-300 transform",
+          "appearance-none border border-gray-300 hover:border-gray-300 focus:border-gray-300 w-full p-2 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-main text-xs transition-all duration-300 transform",
         inputTextForm:
-          "appearance-none border-0 hover:border-gray-300 focus:border-gray-300 rounded-sm w-full p-1 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-blue-100 text-xs transition-all duration-300 transform",
+          "appearance-none border-0 hover:border-gray-300 focus:border-gray-300 rounded-sm w-full p-1 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-main text-xs transition-all duration-300 transform",
       },
       availableFactorsProject: this.factorsProject,
       selectFactors: this.factorsNotInProject,

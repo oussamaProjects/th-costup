@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit" class="bg-white">
-    <div class="flex flex-wrap -mb-2">
+    <div class="flex flex-col -mb-2">
       <div
         v-if="$page.props.flash.failures.form.store.categories"
         class="alert w-full text-xs text-red-600 px-3 py-1 my-2 text-center"
@@ -15,7 +15,7 @@
         {{ $page.props.flash.success.form.store.categories }}
       </div>
 
-      <div class="w-full md:w-2/3 pr-2">
+      <div class="w-full grid grid-cols-3 gap-x-3">
         <div class="mb-2">
           <input
             id="name"
@@ -66,8 +66,8 @@
         </div>
       </div>
 
-      <div class="w-full md:w-1/3 flex flex-col">
-        <div class="mb-2">
+      <div class="w-full flex flex-col">
+        <div class="mb-2 w-44 ml-auto">
           <button
             type="submit"
             :disabled="category.processing"

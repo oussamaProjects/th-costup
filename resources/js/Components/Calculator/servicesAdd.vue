@@ -2,7 +2,7 @@
   <div class="flex flex-col text-xs">
     <div class="flex justify-items-stretch items-stretch">
       <div
-        class="flex items-center p-2 uppercase font-bold bg-blue-500 text-white"
+        class="flex items-center p-2 uppercase bg-main text-custom_blue"
         style="min-width: 280px"
       ></div>
 
@@ -15,7 +15,7 @@
               cursor-pointer
               uppercase
               font-bold
-              text-blue-800
+              text-custom_blue
               flex
             "
             @click="showListeServices"

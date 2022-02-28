@@ -5,8 +5,7 @@
         class="
           bg-gray-200
           text-gray-800
-          active:bg-blue-600
-          font-bold
+          active:bg-main
           uppercase
           text-sm
           px-6
@@ -39,10 +38,9 @@
         v-if="this.currentGlobalStep == 1"
           class="
             mx-3
-            bg-blue-500
-            text-white
-            active:bg-blue-600
-            font-bold
+            bg-main
+            text-custom_blue
+            active:bg-main
             uppercase
             text-sm
             px-6
@@ -64,12 +62,11 @@
         </button>
         <button
           class="
-            text-blue-500
+            text-custom_blue
             bg-transparent
-            border border-solid border-blue-500
-            hover:bg-blue-500 hover:text-white
-            active:bg-blue-600
-            font-bold
+            border border-solid border-main
+            hover:bg-secondary hover:text-custom_blue
+            active:bg-secondary
             uppercase
             text-sm
             px-6

@@ -57,8 +57,8 @@
           >
             <option disabled selected>Choisir une Unite de meusure</option>
             <option value="--">--</option>
-            <option value="hour-m">Heure/m</option>
-            <option value="unity">Unité</option>
+            <option value="0">Heure/m</option>
+            <option value="1">Unité</option>
           </select>
           <div
             :class="this.globalClass.textError"

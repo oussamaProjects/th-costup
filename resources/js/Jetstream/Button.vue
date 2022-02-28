@@ -10,7 +10,7 @@
       border border-transparent
       rounded-md
       font-semibold
-      text-xs text-white
+      text-xs text-custom_blue
       uppercase
       tracking-widest
       hover:bg-gray-700
