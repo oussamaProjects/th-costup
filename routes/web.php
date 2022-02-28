@@ -38,7 +38,7 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',  'App\Http\Controllers\Dashboard@index')->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',  'App\Http\Controllers\Dashboard@index')->name('dashboard');
 Route::middleware(['auth:sanctum', 'verified'])->get('/settings',  'App\Http\Controllers\Dashboard@settings')->name('settings');
 Route::middleware(['auth:sanctum', 'verified'])->get('/calculator',  'App\Http\Controllers\Dashboard@calculator')->name('calculator');
 

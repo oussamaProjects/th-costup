@@ -243,7 +243,7 @@
               :href="route('login')"
               class="text-base text-white hover:text-white"
             >
-              login
+              Login
             </Link>
           </div>
         </form>
@@ -266,14 +266,14 @@
     :class="{ active: isAnimated }"
   >
     <div class="flex flex flex-col justify-center items-center">
-      <div class="mb-2 text-4xl">Have an Account ?</div>
+      <div class="mb-2 text-4xl">Create Account</div>
       <jet-button
         class="bg-black text-3xl font-normal rounded-3xl"
         :class="{ 'opacity-25': form.processing }"
         :disabled="form.processing"
         @click="animateLogin"
       >
-        LOG IN
+        SIGN UP
       </jet-button>
     </div>
   </div>
@@ -293,14 +293,14 @@
     :class="{ active: isAnimated }"
   >
     <div class="flex flex flex-col justify-center items-center">
-      <div class="mb-2 text-4xl">Create Account</div>
+      <div class="mb-2 text-4xl">Have an Account ?</div>
       <jet-button
         class="bg-black text-3xl font-normal rounded-3xl"
         :class="{ 'opacity-25': form.processing }"
         :disabled="form.processing"
         @click="animateSignin"
       >
-        SIGN UP
+        LOG IN
       </jet-button>
     </div>
   </div>

@@ -9,15 +9,7 @@
     "
   >
     <div
-      class="
-        flex
-        items-center
-        p-2 
-        uppercase
-        font-bold
-        bg-blue-500
-        text-white
-      "
+      class="flex items-center p-2 uppercase font-bold bg-blue-500 text-white"
       style="min-width: 280px"
     ></div>
 
@@ -95,6 +87,7 @@
             cursor-pointer
             text-center
           "
+          v-if="!enableEdit"
           :data-enable-edit="category.id"
           @click="categoryEditValues"
         >
@@ -113,6 +106,7 @@
             cursor-pointer
             text-center
           "
+          v-if="!enableSave"
           @click="categorySumValues"
         >
           Enregister
@@ -125,14 +119,21 @@
 <script>
 export default {
   components: {},
-  data() {
-    return {};
+  data() { 
+    return {
+      enableEdit: false,
+      enableSave: true,
+    };
   },
   methods: {
     categorySumValues(event) {
+      this.enableSave = !this.enableSave;
+      this.enableEdit = false; 
       this.$emit("getCategorySumValues", event);
     },
     categoryEditValues(event) {
+      this.enableSave = false;
+      this.enableEdit = !this.enableEdit;
       this.$emit("getCategoryEditValues", event);
     },
   },

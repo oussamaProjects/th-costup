@@ -468,10 +468,10 @@ export default {
         _this.projectData.filter(function (category) {
           if (category.id == category_id) {
 
-            console.log(res.data);
-            console.log(category.services);
+            // console.log(res.data);
+            // console.log(category.services);
             category.services = category.services.concat(res.data);
-            console.log(category.services);
+            // console.log(category.services);
 
             categoryNode = document.querySelector(
               "[data-category_id='" + category.id + "']"
