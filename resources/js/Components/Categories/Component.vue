@@ -3,6 +3,7 @@
     <div class="shadow rounded-sm p-3">
       <ch-categories-create
         :categories="categories"
+        :servicesCategories="servicesCategories"
         :category="category"
         :globalClass="globalClass"
       />
@@ -68,7 +69,7 @@ export default {
     };
   },
 
-  props: ["categories", "formattedCategories", "globalClass"],
+  props: ["categories", "formattedCategories","servicesCategories", "globalClass"],
 
   mounted() {},
 

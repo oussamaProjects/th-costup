@@ -23,7 +23,7 @@ export default {
     },
     size: {
       type: Number,
-      default: 64,
+      default: 20,
     },
     duration: {
       type: String,

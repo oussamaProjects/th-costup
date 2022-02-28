@@ -81,8 +81,7 @@
             text-white
             rounded-xs
             py-1
-            px-2
-            mr-2
+            px-2 
             add
             cursor-pointer
             text-center
@@ -109,7 +108,7 @@
           v-if="!enableSave"
           @click="categorySumValues"
         >
-          Enregister
+          Enregistrer
         </div>
       </div>
     </div>

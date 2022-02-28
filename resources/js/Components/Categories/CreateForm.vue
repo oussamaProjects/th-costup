@@ -3,14 +3,14 @@
     <div class="flex flex-wrap -mb-2">
       <div
         v-if="$page.props.flash.failures.form.store.categories"
-        class="alert w-full text-red-600 px-3 py-1 my-2 text-center"
+        class="alert w-full text-xs text-red-600 px-3 py-1 my-2 text-center"
       >
         {{ $page.props.flash.failures.form.store.categories }}
       </div>
 
       <div
         v-if="$page.props.flash.success.form.store.categories"
-        class="alert w-full text-green-600 px-3 py-1 my-2 text-center"
+        class="alert w-full text-xs text-green-600 px-3 py-1 my-2 text-center"
       >
         {{ $page.props.flash.success.form.store.categories }}
       </div>
@@ -24,7 +24,12 @@
             placeholder="Name"
             :class="this.globalClass.inputTextForm"
           />
-          <div :class="this.globalClass.textError" v-if="$page.props.errors.name">{{ $page.props.errors.name }}</div>
+          <div
+            :class="this.globalClass.textError"
+            v-if="$page.props.errors.name"
+          >
+            {{ $page.props.errors.name }}
+          </div>
         </div>
         <div class="mb-2">
           <input
@@ -33,7 +38,7 @@
             type="text"
             placeholder="Description"
             :class="this.globalClass.inputTextForm"
-          /> 
+          />
         </div>
 
         <div class="mb-2">
@@ -45,14 +50,19 @@
             <option disabled selected>Choisir une catégorie</option>
             <option value="0">--</option>
             <option
-              v-for="category in this.categories"
+              v-for="category in this.servicesCategories"
               v-bind:key="category.id"
               :value="category.id"
             >
               {{ category.name }}
             </option>
-          </select> 
-          <div :class="this.globalClass.textError" v-if="$page.props.errors.parent_id">{{ $page.props.errors.parent_id }}</div>
+          </select>
+          <div
+            :class="this.globalClass.textError"
+            v-if="$page.props.errors.parent_id"
+          >
+            {{ $page.props.errors.parent_id }}
+          </div>
         </div>
       </div>
 
@@ -86,16 +96,16 @@ export default {
   components: {},
 
   data() {
-    return { 
+    return {
       category: {
         name: null,
         description: null,
         parent_id: null,
-      }, 
+      },
     };
   },
 
-  props: ["categories", "globalClass"],
+  props: ["categories", "globalClass", "servicesCategories"],
 
   mounted() {},
 

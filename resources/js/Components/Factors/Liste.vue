@@ -1,14 +1,14 @@
 <template>
   <div
     v-if="$page.props.flash.failures.list.factors"
-    class="alert w-full text-red-600 px-3 py-1 my-2 text-center"
+    class="alert w-full text-xs text-red-600 px-3 py-1 my-2 text-center"
   >
     {{ $page.props.flash.failures.list.factors }}
   </div>
 
   <div
     v-if="$page.props.flash.success.list.factors"
-    class="alert w-full text-green-600 px-3 py-1 my-2 text-center"
+    class="alert w-full text-xs text-green-600 px-3 py-1 my-2 text-center"
   >
     {{ $page.props.flash.success.list.factors }}
   </div>

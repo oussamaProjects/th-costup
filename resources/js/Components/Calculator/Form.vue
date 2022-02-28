@@ -14,7 +14,7 @@
 
       <!-- Tabs Start -->
       <ul
-        class="flex flex-wrap -mb-px"
+        class="flex -mb-px"
         id="myTab"
         data-tabs-toggle="#myTabContent"
         role="tablist"
@@ -36,7 +36,7 @@
                 text-sm
                 font-medium
                 text-center
-                p-3
+                p-2
                 uppercase
                 border
               "
@@ -146,10 +146,10 @@
                   >
                     <div
                       v-if="enableEditCatId != category.id"
-                      class="bg-gray-200 absolute inset-0 z-50 opacity-50"
+                      class="bg-gray-200 absolute inset-0 z-50 opacity-25"
                     ></div>
 
-                    <div v-if="enableEditCatId == category.id">
+                    <div v-if="enableEditCatId == category.id && isLoading">
                       <ChCircleLoader
                         v-if="isLoading"
                         :color="'#3b82f6'"
@@ -374,10 +374,10 @@ export default {
       margeSubTotalValue = subTotalValue + margeValue;
 
       // Assigning Variables
-      ratio_metre_hour.innerHTML = ratioMetreHourValue;
-      subTotal.innerHTML = subTotalValue;
-      marge.innerHTML = margeValue;
-      marge_subTotal.innerHTML = margeSubTotalValue;
+      ratio_metre_hour.innerHTML = ratioMetreHourValue.toFixed(2)|| 0;
+      subTotal.innerHTML = subTotalValue.toFixed(2)|| 0;
+      marge.innerHTML = margeValue.toFixed(2)|| 0;
+      marge_subTotal.innerHTML = margeSubTotalValue.toFixed(2)|| 0;
     },
 
     resetCategoriesValues(categoryNode) {
@@ -443,15 +443,14 @@ export default {
         categorySumValuesNode.querySelector(".profit_margin_p_c");
       var profitMarginHTML =
         categorySumValuesNode.querySelector(".marge_subTotal");
-
       // Assigning Variables
-      qtyHTML.innerHTML = quantityTotal.toFixed(2);
-      occup_hourHTML.innerHTML = occupHourTotal.toFixed(2);
-      priceHTML.innerHTML = priceTotal.toFixed(2);
-      subTotalHTML.innerHTML = subTotalTotal.toFixed(2);
-      margeHTML.innerHTML = margeTotal.toFixed(2);
-      percentMarginHTML.innerHTML = percentMarginTotal.toFixed(2);
-      profitMarginHTML.innerHTML = profitMarginTotal.toFixed(2);
+      qtyHTML.innerHTML = quantityTotal.toFixed(2)|| 0;
+      occup_hourHTML.innerHTML = occupHourTotal.toFixed(2)|| 0;
+      priceHTML.innerHTML = priceTotal.toFixed(2)|| 0;
+      subTotalHTML.innerHTML = subTotalTotal.toFixed(2)|| 0;
+      margeHTML.innerHTML = margeTotal.toFixed(2)|| 0;
+      percentMarginHTML.innerHTML = percentMarginTotal.toFixed(2)|| 0;
+      profitMarginHTML.innerHTML = profitMarginTotal.toFixed(2)|| 0;
     },
 
     addServices(services_id) {
@@ -467,7 +466,6 @@ export default {
         var categoryNode = null;
         _this.projectData.filter(function (category) {
           if (category.id == category_id) {
-
             // console.log(res.data);
             // console.log(category.services);
             category.services = category.services.concat(res.data);
@@ -541,7 +539,7 @@ export default {
     saveValues(event) {
       var project_id = this.project_id;
       var categoryNode = event.target.closest(".category");
-
+      
       this.saveServicesValues(project_id, categoryNode);
       this.saveCategoryValues(project_id, categoryNode);
       // this.changeProject();
@@ -658,7 +656,7 @@ export default {
     },
 
     initializeProject() {
-      console.log('refreshProjectResults from form');
+      console.log("refreshProjectResults from form");
       var _this = this;
       if (_this.project_id != 0 && _this.project_id != null) {
         axios.get(`/projects/${_this.project_id}`).then((res) => {
@@ -696,13 +694,13 @@ export default {
           return category.id === category_id;
         });
 
-        let services = resultArr[0].services; 
+        let services = resultArr[0].services;
 
         var resultArr2 = res.data.filter(function (service) {
           return !services.find(function (obj) {
             return service.id == obj.id;
           });
-        }); 
+        });
 
         this.selectFromServices = resultArr2;
         this.categoryOfSelectFromServices = category_id;
@@ -716,6 +714,7 @@ export default {
         .post("/projects/storeProjectCategories", request)
         .then(function (response) {
           _this.isLoading = false;
+          _this.enableEditCatId = 0;
         })
         .catch(function (error) {});
     },

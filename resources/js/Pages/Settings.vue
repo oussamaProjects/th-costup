@@ -17,6 +17,7 @@
           <ch-category-component
             :categories="this.categories"
             :formattedCategories="this.formattedCategories"
+            :servicesCategories="this.servicesCategories"
             :globalClass="globalClass"
           />
 

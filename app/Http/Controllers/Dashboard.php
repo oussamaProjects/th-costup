@@ -114,7 +114,7 @@ class Dashboard extends Controller
       
         $projects = Project::all();
         $factors = Factor::all();
-        $categories = Category::where('parent_id', '!=', '0')->orderBy('parent_id', 'ASC')->get();
+        $categories = Category::all(); 
 
         $services_categories = Category::where('parent_id', '!=', '0')->get();
          
@@ -199,7 +199,7 @@ class Dashboard extends Controller
             'factors' => $factors,
             'projects' => $projects,
             'categories' => $categories,
-            'formattedCategories' => $formatted_categories,
+            'formattedCategories' => $formatted_categories, 
             'services' => $services,
             // 'formattedServices' => $formatted_services,
             'servicesCategories' => $services_categories,
