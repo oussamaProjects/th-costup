@@ -69,12 +69,12 @@ export default {
 </script>
 
 <style>
-.nice-shape-container {
-  /* transform: rotate(-90deg) translateY( 100%);
+/*.nice-shape-container {
+   transform: rotate(-90deg) translateY( 100%);
     transform-origin: center center;
     margin-left: -200px;
-    width: 400px; */
-}
+    width: 400px; 
+}*/
 .nice-shape {
   height: 90px;
   max-width: 600px;
