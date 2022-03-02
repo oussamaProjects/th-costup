@@ -10,7 +10,7 @@
       @removeFactorRow="removeFactor"
     ></ch-factor-values>
 
-    <div class="flex flex-row items-center justify-items-stretch p-1 border-t">
+    <div class="flex flex-row items-center justify-items-stretch p-1 border-t text-sm">
       <div class="px-1 w-auto hidden factor_id" style="width: 15%">--</div>
       <div class="px-1 w-auto" style="width: 24%">--</div>
       <div class="px-1" style="width: 20%">--</div>

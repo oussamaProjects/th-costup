@@ -5,27 +5,27 @@
         Resultast
       </div>
       <div class="nice-shape-container">
-        <div class="font-sm nice-shape epo">
+        <div class="font-sm shadow-sm nice-shape epo">
           <div>Estimation le plus optimiste :</div>
           <div class="font-semibold">{{ this.project.epo.toFixed(2) }}</div>
         </div>
-        <div class="font-sm nice-shape epp">
+        <div class="font-sm shadow-sm nice-shape epp">
           <div>Estimation le plus probable :</div>
           <div class="font-semibold">{{ this.project.epp.toFixed(2) }}</div>
         </div>
-        <div class="font-sm nice-shape epps">
+        <div class="font-sm shadow-sm nice-shape epps">
           <div>Estimation le plus pessimiste :</div>
           <div class="font-semibold">{{ this.project.epps.toFixed(2) }}</div>
         </div>
-        <div class="font-sm nice-shape em">
+        <div class="font-sm shadow-sm nice-shape em">
           <div>Estimation Moyen :</div>
           <div class="font-semibold">{{ this.project.em.toFixed(2) }}</div>
         </div>
-        <div class="font-sm nice-shape smph">
+        <div class="font-sm shadow-sm nice-shape smph">
           <div>Coût SMPH :</div>
           <div class="font-semibold">{{ this.project.smph.toFixed(2) }}</div>
         </div>
-        <div class="font-sm nice-shape lmph">
+        <div class="font-sm shadow-sm nice-shape lmph">
           <div>Coût LMPH :</div>
           <div class="font-semibold">{{ this.project.lmph.toFixed(2) }}</div>
         </div>

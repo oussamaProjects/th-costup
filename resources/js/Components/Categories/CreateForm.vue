@@ -50,7 +50,7 @@
             <option disabled selected>Choisir une catégorie</option>
             <option value="0">--</option>
             <option
-              v-for="category in this.servicesCategories"
+              v-for="category in this.categories"
               v-bind:key="category.id"
               :value="category.id"
             >

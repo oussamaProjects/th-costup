@@ -38,26 +38,26 @@
         }
 
         table.blueTable thead tr {
-            background: #FFEB9C !important;
-            background: -moz-linear-gradient(top, #fff0b5 0%, #ffeda6 66%, #FFEB9C 100%);
-            background: -webkit-linear-gradient(top, #fff0b5 0%, #ffeda6 66%, #FFEB9C 100%);
-            background: linear-gradient(to bottom, #fff0b5 0%, #ffeda6 66%, #FFEB9C 100%);
+            background: #f7cee2 !important;
+            background: -moz-linear-gradient(top, #f7cee2 0%, #f7cee2 66%, #f7cee2 100%);
+            background: -webkit-linear-gradient(top, #f7cee2 0%, #f7cee2 66%, #f7cee2 100%);
+            background: linear-gradient(to bottom, #f7cee2 0%, #f7cee2 66%, #f7cee2 100%);
         }
 
         table.blueTable th {
             font-size: 13px;
             font-weight: normal;
-            color: #9C5700;
+            color: #d54c4c;
             text-align: center;
         }
 
         table.blueTable tfoot {
             font-size: 12px;
             font-weight: normal;
-            background: #add0ee;
-            background: -moz-linear-gradient(top, #add0ee 0%, #add0ee 66%, #add0ee 100%);
-            background: -webkit-linear-gradient(top, #add0ee 0%, #add0ee 66%, #add0ee 100%);
-            background: linear-gradient(to bottom, #add0ee 0%, #add0ee 66%, #add0ee 100%);
+            background: #cccaf0;
+            background: -moz-linear-gradient(top, #cccaf0 0%, #cccaf0 66%, #cccaf0 100%);
+            background: -webkit-linear-gradient(top, #cccaf0 0%, #cccaf0 66%, #cccaf0 100%);
+            background: linear-gradient(to bottom, #cccaf0 0%, #cccaf0 66%, #cccaf0 100%);
         }
 
         table.blueTable tfoot td {
@@ -65,8 +65,8 @@
         }
 
         table.blueTable tfoot tr {
-            background-color: rgb(198, 239, 206);
-            color: rgb(0, 97, 0);
+            background-color: #cfdfef;
+            color: #000000;
         }
 
         table.blueTable td.cat_parent {
@@ -75,8 +75,8 @@
         }
 
         table.blueTable td.cat {
-            background-color: rgb(198, 239, 206);
-            color: rgb(0, 97, 0);
+            background-color: #cfdfef;
+            color: #000000;
         }
 
         .head {
@@ -123,7 +123,7 @@
     <table class="blueTable">
 
         <thead>
-            <tr bgcolor='#FFEB9C'>
+            <tr bgcolor='#f7cee2'>
                 <th colspan="2">Catégorie</th>
                 <th>Libelé</th>
                 <th>Unité de mesure</th>
@@ -236,28 +236,28 @@
     <div>
         <style>
             .epo {
-                background-color: rgb(198, 239, 206);
-                color: rgb(0, 97, 0);
+                background-color: #cfdfef;
+                color: #000000;
             }
 
             .epp {
-                background-color: rgb(255, 235, 156);
-                color: rgb(156, 87, 0);
+                background-color: #cccaf0;
+                color: #000000;
             }
 
             .epps {
-                background-color: rgb(255, 199, 206);
-                color: rgb(156, 0, 6);
+                background-color: #f7cee2;
+                color: #000000;
             }
 
             .em {
-                background-color: rgb(217, 224, 242);
-                color: rgb(0, 0, 0);
+                background-color: #f7e3cc;
+                color: #000000;
             }
 
             .pv {
-                background-color: rgb(68, 114, 196);
-                color: rgb(255, 255, 255);
+                background-color: #cccaf0 ;
+                color: #000000;
             }
 
         </style>

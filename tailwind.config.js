@@ -27,7 +27,7 @@ module.exports = {
                 main: "#CFDFEF", // light blue
                 secondary: "#CCCAF0", // Perple
                 tertiary: "#F7CEE2", // Rose
-                tertiary: "#F7E3CC", // Brown
+                forth: "#F7E3CC", // Brown
                 success: "#5D8233",
                 error: "#D54C4C",
                 "bg-color": "#fffAe6",

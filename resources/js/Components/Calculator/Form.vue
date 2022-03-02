@@ -669,6 +669,7 @@ export default {
       if (_this.project_id != 0 && _this.project_id != null) {
         axios.get(`/projects/${_this.project_id}`).then((res) => {
           _this.project = res.data;
+      console.log(res.data);
         });
       }
     },

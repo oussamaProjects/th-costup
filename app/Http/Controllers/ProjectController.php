@@ -218,7 +218,7 @@ class ProjectController extends Controller
     {
 
         $formatted_categories = array();
-        $categories = Category::where('parent_id', '!=', '0')->orderBy('parent_id', 'ASC')->get();
+        $categories = Category::where('parent_id', '!=', 0)->orderBy('parent_id', 'ASC')->get();
 
         foreach ($categories as $cat_key => $category) {
             $parents = $category->parent()->get();
