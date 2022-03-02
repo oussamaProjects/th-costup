@@ -26,7 +26,7 @@
       <button
         name="save"
         @click="removeRow(factor)"
-        class="text-custom_blue w-full bg-green-100 rounded-xs py-1 px-2"
+        class="text-custom_blue w-full bg-secondary rounded-xs py-1 px-2"
       >
         Retirer
       </button>

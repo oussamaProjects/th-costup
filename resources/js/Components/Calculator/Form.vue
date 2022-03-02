@@ -33,7 +33,7 @@
             <a
               class="
                 inline-block
-                text-xs 
+                text-xs
                 font-medium
                 text-center
                 p-2
@@ -166,7 +166,7 @@
                         bg-main
                         text-custom_blue
                       "
-                      style="min-width: 280px"
+                      style="min-width: 240px"
                     >
                       {{ category.name }}
                     </div>
@@ -218,13 +218,19 @@
         </div>
       </div>
 
-      <ch-calculator-results
-        :project="this.project"
-        :factorsProject="this.factorsProject"
+      <ch-factors-values
+        @refreshProjectValues="initializeProject"
+        :project_id="project.id"
         :factorsNotInProject="this.factorsNotInProject"
+        :factorsProject="this.factorsProject"
         :globalClass="globalClass"
-        @refreshProjectResults="initializeProject"
         v-if="currentGlobalStep == 2"
+      />
+
+      <ch-calculator-results
+        :project="this.project" 
+        :globalClass="globalClass"
+        v-if="currentGlobalStep == 3"
       ></ch-calculator-results>
 
       <ch-stepper
@@ -273,6 +279,7 @@ import ChStepperHead from "./stepperHead.vue";
 import ChProjectsList from "./projectsListe.vue";
 import ChCategoryTableHead from "./categoriesTableHead.vue";
 import ChCircleLoader from "../CircleLoader.vue";
+import ChFactorsValues from "../Factors/FactorsValues.vue";
 
 import ChTab from "../Tab.vue";
 import ChTabs from "../Tabs.vue";
@@ -293,6 +300,7 @@ export default {
     ChCircleLoader,
     ChTab,
     ChTabs,
+    ChFactorsValues,
   },
   data() {
     return {
@@ -374,10 +382,10 @@ export default {
       margeSubTotalValue = subTotalValue + margeValue;
 
       // Assigning Variables
-      ratio_metre_hour.innerHTML = ratioMetreHourValue.toFixed(2)|| 0;
-      subTotal.innerHTML = subTotalValue.toFixed(2)|| 0;
-      marge.innerHTML = margeValue.toFixed(2)|| 0;
-      marge_subTotal.innerHTML = margeSubTotalValue.toFixed(2)|| 0;
+      ratio_metre_hour.innerHTML = ratioMetreHourValue.toFixed(2) || 0;
+      subTotal.innerHTML = subTotalValue.toFixed(2) || 0;
+      marge.innerHTML = margeValue.toFixed(2) || 0;
+      marge_subTotal.innerHTML = margeSubTotalValue.toFixed(2) || 0;
     },
 
     resetCategoriesValues(categoryNode) {
@@ -444,13 +452,13 @@ export default {
       var profitMarginHTML =
         categorySumValuesNode.querySelector(".marge_subTotal");
       // Assigning Variables
-      qtyHTML.innerHTML = quantityTotal.toFixed(2)|| 0;
-      occup_hourHTML.innerHTML = occupHourTotal.toFixed(2)|| 0;
-      priceHTML.innerHTML = priceTotal.toFixed(2)|| 0;
-      subTotalHTML.innerHTML = subTotalTotal.toFixed(2)|| 0;
-      margeHTML.innerHTML = margeTotal.toFixed(2)|| 0;
-      percentMarginHTML.innerHTML = percentMarginTotal.toFixed(2)|| 0;
-      profitMarginHTML.innerHTML = profitMarginTotal.toFixed(2)|| 0;
+      qtyHTML.innerHTML = quantityTotal.toFixed(2) || 0;
+      occup_hourHTML.innerHTML = occupHourTotal.toFixed(2) || 0;
+      priceHTML.innerHTML = priceTotal.toFixed(2) || 0;
+      subTotalHTML.innerHTML = subTotalTotal.toFixed(2) || 0;
+      margeHTML.innerHTML = margeTotal.toFixed(2) || 0;
+      percentMarginHTML.innerHTML = percentMarginTotal.toFixed(2) || 0;
+      profitMarginHTML.innerHTML = profitMarginTotal.toFixed(2) || 0;
     },
 
     addServices(services_id) {
@@ -539,7 +547,7 @@ export default {
     saveValues(event) {
       var project_id = this.project_id;
       var categoryNode = event.target.closest(".category");
-      
+
       this.saveServicesValues(project_id, categoryNode);
       this.saveCategoryValues(project_id, categoryNode);
       // this.changeProject();

@@ -78,7 +78,7 @@
                                         Permissions
                                     </button>
 
-                                    <button class="cursor-pointer ml-6 text-sm text-red-500" @click="confirmApiTokenDeletion(token)">
+                                    <button class="cursor-pointer ml-6 text-sm text-error" @click="confirmApiTokenDeletion(token)">
                                         Delete
                                     </button>
                                 </div>

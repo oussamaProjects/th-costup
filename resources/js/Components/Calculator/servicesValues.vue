@@ -1,13 +1,13 @@
 <template>
   <div
     v-if="service !== null || service !== ''"
-    class="flex flex-row items-center justify-items-stretch p-1 border-t"
+    class="flex flex-row items-center text-center justify-stretch p-1 border-t"
   >
     <div class="px-1 w-auto hidden service_id" style="width: 15%">
       {{ service.id }}
     </div>
 
-    <div class="px-1 w-auto" style="width: 15%">
+    <div class="px-1 w-auto text-left" style="width: 15%">
       {{ service.name }}
     </div>
 
@@ -101,7 +101,7 @@
       <button
         name="save"
         @click="removeRow(service.id)"
-        class="text-custom_blue w-full bg-green-100 rounded-xs py-1 px-2"
+        class="text-custom_blue w-full bg-secondary rounded-xs py-1 px-2"
       >
         Retirer
       </button>

@@ -7,13 +7,13 @@
           createNewProject = true;
           chooseNewProject = false;
         "
-        :class="this.globalClass.link"
+        :class="this.globalClass.link + ' text-error text-base'"
         >saisir</a
       >
       ou
       <a
         @click="(chooseNewProject = true), (createNewProject = false)"
-        :class="this.globalClass.link"
+        :class="this.globalClass.link + ' text-error text-base'"
         >choisir</a
       >
       un project?

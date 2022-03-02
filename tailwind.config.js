@@ -24,11 +24,12 @@ module.exports = {
                 custom_red: "#fe5454",
                 custom_green: "#53dcbe",
                 custom_blue: "#102343",
-                main: "#cfdfef",
-                secondary: "#cccaf0",
-                tertiary: "#f7cee2",
-                success: "#FDC910",
-                error: "#FDC910",
+                main: "#CFDFEF", // light blue
+                secondary: "#CCCAF0", // Perple
+                tertiary: "#F7CEE2", // Rose
+                tertiary: "#F7E3CC", // Brown
+                success: "#5D8233",
+                error: "#D54C4C",
                 "bg-color": "#fffAe6",
             },
             maxHeight: {

@@ -1,14 +1,14 @@
 <template>
   <div
     v-if="$page.props.flash.failures.list.factors"
-    class="alert w-full text-xs text-red-600 px-3 py-1 my-2 text-center"
+    class="alert w-full text-xs text-error px-3 py-1 my-2 text-center"
   >
     {{ $page.props.flash.failures.list.factors }}
   </div>
 
   <div
     v-if="$page.props.flash.success.list.factors"
-    class="alert w-full text-xs text-green-600 px-3 py-1 my-2 text-center"
+    class="alert w-full text-xs text-success px-3 py-1 my-2 text-center"
   >
     {{ $page.props.flash.success.list.factors }}
   </div>
@@ -40,7 +40,7 @@
           <a href="#" @click="showUpdateFactorsModal(factor.id)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="text-green-800 h-3 w-3"
+              class="text-success h-3 w-3"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -56,7 +56,7 @@
           <a href="#" @click="deleteCategory(factor.id)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="ml-2 text-red-600 h-3 w-3"
+              class="ml-2 text-error h-3 w-3"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

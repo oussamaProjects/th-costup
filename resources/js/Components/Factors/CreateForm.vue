@@ -3,14 +3,14 @@
     <div class="flex flex-col -mb-2">
       <div
         v-if="$page.props.flash.failures.form.store.factors"
-        class="alert w-full text-xs text-red-600 px-3 py-1 my-2 text-center"
+        class="alert w-full text-xs text-error px-3 py-1 my-2 text-center"
       >
         {{ $page.props.flash.failures.form.store.factors }}
       </div>
 
       <div
         v-if="$page.props.flash.success.form.store.factors"
-        class="alert w-full text-xs text-green-600 px-3 py-1 my-2 text-center"
+        class="alert w-full text-xs text-success px-3 py-1 my-2 text-center"
       >
         {{ $page.props.flash.success.form.store.factors }}
       </div>

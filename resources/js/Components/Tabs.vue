@@ -74,7 +74,7 @@ ul.tabs__header > li.tab__selected {
 
 .tab {
   display: inline-block;
-  color: black;
+  color: success;
   padding: 20px;
   min-width: 800px;
   border-radius: 10px;

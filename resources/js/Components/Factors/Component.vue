@@ -1,6 +1,6 @@
 <template>
   <div class="w-full relative p-4 border-b border-tertiary">
-    <div class="uppercase font-medium text-tertiary my-4">Gestion des facteurs</div>
+    <div class="uppercase font-medium text-custom_blue my-4">Gestion des facteurs</div>
     <div class="shadow rounded-sm p-3">
       <ch-factors-create
         :factors="factors"

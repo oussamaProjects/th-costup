@@ -3,14 +3,16 @@
     class="
       flex
       justify-items-stretch
-      items-stretch
+      items-stretch 
+      text-xs
+      uppercase
       bg-main
       category-sum-values
     "
   >
     <div
-      class="flex items-center p-2 uppercase bg-main text-custom_blue"
-      style="min-width: 280px"
+      class="flex items-center p-2 uppercase text-custom_blue"
+      style="min-width: 240px"
     ></div>
 
     <div
@@ -18,11 +20,13 @@
       class="
         flex flex-row
         items-center
-        justify-items-stretch
+        text-center
+        justify-center
         p-1
         border-t
         flex-grow
         relative
+        h-full
       "
     >
       <div class="px-1 w-auto" style="width: 15%"></div>
@@ -68,7 +72,10 @@
       </div>
 
       <div class="px-1" style="width: 8%">
-        <div :v-bind="category.marge_subTotal" class="marge_subTotal">
+        <div
+          :v-bind="category.marge_subTotal"
+          class="marge_subTotal text-error font-medium"
+        >
           {{ category.marge_subTotal }}
         </div>
       </div>
@@ -76,12 +83,12 @@
       <div class="px-1 flex" style="width: 16%">
         <div
           class="
-            bg-tertiary
+            bg-success
             w-full
-            text-custom_blue
+            text-white
             rounded-xs
             py-1
-            px-2 
+            px-2
             add
             cursor-pointer
             text-center
@@ -95,9 +102,9 @@
 
         <div
           class="
-            bg-secondary
+            bg-error
             w-full
-            text-custom_blue
+            text-white
             rounded-xs
             py-1
             px-2
@@ -118,7 +125,7 @@
 <script>
 export default {
   components: {},
-  data() { 
+  data() {
     return {
       enableEdit: false,
       enableSave: true,
@@ -127,7 +134,7 @@ export default {
   methods: {
     categorySumValues(event) {
       this.enableSave = !this.enableSave;
-      this.enableEdit = false; 
+      this.enableEdit = false;
       this.$emit("getCategorySumValues", event);
     },
     categoryEditValues(event) {

@@ -9,7 +9,7 @@
           uppercase
           text-sm
           px-6
-          py-2 
+          py-2
           shadow
           hover:shadow-lg
           outline-none
@@ -24,18 +24,14 @@
         @click="lastStep"
         v-if="!firststep"
       >
-      <div v-if="this.currentGlobalStep == 1">
-        Choose Project
-      </div>
-      
-      <div v-if="this.currentGlobalStep == 2">
-        Calculator
-      </div>
-        
+        <div v-if="this.currentGlobalStep == 1">Choose Project</div>
+        <div v-if="this.currentGlobalStep == 2">Calculator</div>
+        <div v-if="this.currentGlobalStep == 3">Facteurs</div>
       </button>
+
       <div class="flex-auto flex flex-row-reverse">
-        <button
-        v-if="this.currentGlobalStep == 1"
+        <button 
+        v-if="this.currentGlobalStep == 1 || this.currentGlobalStep == 2"
           class="
             mx-3
             bg-main
@@ -56,10 +52,13 @@
             duration-150
           "
           type="button"
-          @click="nextStep" 
+          @click="nextStep"
         >
-          Results
+          
+        <div v-if="this.currentGlobalStep == 1">Facteurs</div>
+        <div v-if="this.currentGlobalStep == 2">Results</div>
         </button>
+
         <button
           class="
             text-custom_blue

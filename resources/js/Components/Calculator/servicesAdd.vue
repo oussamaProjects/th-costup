@@ -3,7 +3,7 @@
     <div class="flex justify-items-stretch items-stretch">
       <div
         class="flex items-center p-2 uppercase bg-main text-custom_blue"
-        style="min-width: 280px"
+        style="min-width: 240px"
       ></div>
 
       <div class="flex flex-col border-b border-r flex-grow">

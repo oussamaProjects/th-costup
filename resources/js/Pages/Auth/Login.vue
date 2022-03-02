@@ -12,37 +12,38 @@
       flex flex-col
       sm:justify-center
       items-center
-      bg-black
+      bg-main
       animate
     "
     :class="isLoginAnimated ? ' runToLeft' : ' runToRight'"
   >
-    <div class="
-      min-h-screen
-      flex flex-col
-      sm:justify-center
-      items-center
-      pt-6
-      sm:pt-0
-      bg-black
-      absolute
-      w-4/5
-      opacity-0" :class="{ activeLogin: isLoginAnimated }">
+    <div
+      class="
+        min-h-screen
+        flex flex-col
+        sm:justify-center
+        items-center
+        pt-6
+        sm:pt-0
+        absolute
+        w-4/5
+        opacity-0
+      "
+      :class="{ activeLogin: isLoginAnimated }"
+    >
       <jet-authentication-card>
         <template #logo>
           <jet-authentication-card-logo />
         </template>
 
-        <div v-if="status" class="mb-4 font-medium text-base text-green-600">
+        <div v-if="status" class="mb-4 font-medium text-base text-success">
           {{ status }}
         </div>
 
         <form @submit.prevent="submit">
-          <div class="text-custom_blue mb-16">
+          <div class="text-black mb-16">
             <div class="text-4xl mb-4">Welcome Back !</div>
-            <div class="text-sm">
-              Already have an account ?
-            </div>
+            <div class="text-sm">Already have an account ?</div>
           </div>
 
           <jet-validation-errors class="mb-4" />
@@ -53,7 +54,7 @@
               id="email"
               type="email"
               class="mt-1 block w-full"
-              v-model="form.email"
+              v-model="formLogin.email"
               required
               autofocus
             />
@@ -65,7 +66,7 @@
               id="password"
               type="password"
               class="mt-1 block w-full"
-              v-model="form.password"
+              v-model="formLogin.password"
               required
               autocomplete="current-password"
             />
@@ -73,16 +74,19 @@
 
           <div class="block mt-4">
             <label class="flex items-center">
-              <jet-checkbox name="remember" v-model:checked="form.remember" />
-              <span class="ml-2 text-base text-custom_blue">Remember me</span>
+              <jet-checkbox
+                name="remember"
+                v-model:checked="formLogin.remember"
+              />
+              <span class="ml-2 text-base text-black">Remember me</span>
             </label>
           </div>
 
           <div class="flex items-center justify-center mt-12">
             <jet-button
               class="bg-gray-400 text-3xl font-normal rounded-3xl"
-              :class="{ 'opacity-25': form.processing }"
-              :disabled="form.processing"
+              :class="{ 'opacity-25': formLogin.processing }"
+              :disabled="formLogin.processing"
             >
               Log in
             </jet-button>
@@ -91,14 +95,14 @@
           <div class="flex items-center justify-center mt-12">
             <Link
               :href="route('register')"
-              class="text-base text-custom_blue hover:text-custom_blue"
+              class="text-base text-black hover:text-black"
             >
               Register
             </Link>
-            <span class="mx-3 text-custom_blue">|</span>
+            <span class="mx-3 text-black">|</span>
             <Link
               :href="route('password.request')"
-              class="text-base text-custom_blue hover:text-custom_blue"
+              class="text-base text-black hover:text-black"
             >
               Forgot your password?
             </Link>
@@ -115,7 +119,7 @@
         items-center
         pt-6
         sm:pt-0
-        bg-black
+        bg-main
         absolute
         w-4/5
         opacity-0
@@ -127,8 +131,8 @@
           <jet-authentication-card-logo />
         </template>
 
-        <form @submit.prevent="submit">
-          <div class="text-custom_blue mb-16">
+        <form @submit.prevent="submitRegister">
+          <div class="text-black mb-16">
             <div class="text-4xl mb-4">Login</div>
             <div class="text-sm">
               Fill your personal informations <br />
@@ -145,7 +149,7 @@
                 id="name"
                 type="text"
                 class="mt-1 block w-full"
-                v-model="form.name"
+                v-model="formRegister.name"
                 required
                 autofocus
                 autocomplete="name"
@@ -158,7 +162,7 @@
                 id="email"
                 type="email"
                 class="mt-1 block w-full"
-                v-model="form.email"
+                v-model="formRegister.email"
                 required
               />
             </div>
@@ -170,7 +174,7 @@
               id="password"
               type="password"
               class="mt-1 block w-full"
-              v-model="form.password"
+              v-model="formRegister.password"
               required
               autocomplete="new-password"
             />
@@ -182,7 +186,7 @@
               id="password_confirmation"
               type="password"
               class="mt-1 block w-full"
-              v-model="form.password_confirmation"
+              v-model="formRegister.password_confirmation"
               required
               autocomplete="new-password"
             />
@@ -197,7 +201,7 @@
                 <jet-checkbox
                   name="terms"
                   id="terms"
-                  v-model:checked="form.terms"
+                  v-model:checked="formRegister.terms"
                 />
 
                 <div class="ml-2">
@@ -231,8 +235,8 @@
           <div class="flex items-center justify-center mt-12">
             <jet-button
               class="bg-gray-400 text-3xl font-normal rounded-3xl"
-              :class="{ 'opacity-25': form.processing }"
-              :disabled="form.processing"
+              :class="{ 'opacity-25': formRegister.processing }"
+              :disabled="formRegister.processing"
             >
               Register
             </jet-button>
@@ -241,7 +245,7 @@
           <div class="flex items-center justify-center mt-4">
             <Link
               :href="route('login')"
-              class="text-base text-custom_blue hover:text-custom_blue"
+              class="text-base text-black hover:text-black"
             >
               Login
             </Link>
@@ -268,9 +272,14 @@
     <div class="flex flex flex-col justify-center items-center">
       <div class="mb-2 text-4xl">Create Account</div>
       <jet-button
-        class="bg-black text-3xl font-normal rounded-3xl"
-        :class="{ 'opacity-25': form.processing }"
-        :disabled="form.processing"
+        class="
+          bg-main
+          hover:bg-secondary
+          text-3xl
+          font-normal
+          rounded-3xl
+          opacity-75
+        "
         @click="animateLogin"
       >
         SIGN UP
@@ -295,9 +304,14 @@
     <div class="flex flex flex-col justify-center items-center">
       <div class="mb-2 text-4xl">Have an Account ?</div>
       <jet-button
-        class="bg-black text-3xl font-normal rounded-3xl"
-        :class="{ 'opacity-25': form.processing }"
-        :disabled="form.processing"
+        class="
+          bg-main
+          hover:bg-secondary
+          text-3xl
+          font-normal
+          rounded-3xl
+          opacity-75
+        "
         @click="animateSignin"
       >
         LOG IN
@@ -337,10 +351,17 @@ export default defineComponent({
 
   data() {
     return {
-      form: this.$inertia.form({
+      formLogin: this.$inertia.form({
         email: "",
         password: "",
         remember: false,
+      }),
+      formRegister: this.$inertia.form({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        terms: false,
       }),
       isLoginAnimated: true,
       isSigninAnimated: false,
@@ -359,14 +380,19 @@ export default defineComponent({
     },
 
     submit() {
-      this.form
+      this.formLogin
         .transform((data) => ({
           ...data,
-          remember: this.form.remember ? "on" : "",
+          remember: this.formLogin.remember ? "on" : "",
         }))
         .post(this.route("login"), {
-          onFinish: () => this.form.reset("password"),
+          onFinish: () => this.formLogin.reset("password"),
         });
+    },
+    submitRegister() {
+      this.formRegister.post(this.route("register"), {
+        onFinish: () => this.formRegister.reset("password", "password_confirmation"),
+      });
     },
   },
 });

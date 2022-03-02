@@ -1,22 +1,22 @@
 <template>
     <Head title="Welcome" />
 
-    <div class="relative flex items-top justify-center min-h-screen bg-black dark:bg-gray-900 sm:items-center sm:pt-0">
+    <div class="relative flex items-top justify-center min-h-screen bg-success dark:bg-gray-900 sm:items-center sm:pt-0">
         <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-            <Link v-if="$page.props.user" :href="route('calculator')" class="text-sm text-custom_blue underline mr-2">
+            <Link v-if="$page.props.user" :href="route('calculator')" class="text-sm text-secondary underline mr-2">
                 Calculator
             </Link>
 
-            <Link v-if="$page.props.user" :href="route('settings')" class="text-sm text-custom_blue underline">
+            <Link v-if="$page.props.user" :href="route('settings')" class="text-sm text-secondary underline">
                 Settings
             </Link>
 
             <template v-else>
-                <Link :href="route('login')" class="text-sm text-custom_blue underline">
+                <Link :href="route('login')" class="text-sm text-secondary underline">
                     Log in
                 </Link>
 
-                <Link v-if="canRegister" :href="route('login')" class="ml-4 text-sm text-custom_blue underline">
+                <Link v-if="canRegister" :href="route('login')" class="ml-4 text-sm text-secondary underline">
                     Register
                 </Link>
             </template>
