@@ -18,7 +18,7 @@ class CreateServicesTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('unit_measure')->default(0);
-            $table->enum('unit_measure', ['hour-m', 'unity', '--'])->nullable()->default(['hour-m', 'unity', '--']);
+            // $table->enum('unit_measure', ['hour-m', 'unity', '--'])->nullable()->default(['unity']);
             $table->integer('qty')->default(0);
             $table->float('occup_hour')->default(0);
             $table->float('price')->default(0);
