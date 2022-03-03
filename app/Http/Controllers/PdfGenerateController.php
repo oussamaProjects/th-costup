@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Project;
 use App\Models\Service;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -13,7 +14,6 @@ class PdfGenerateController extends Controller
 {
     public function PDFgenerate(Project $project)
     {
-
         //  dd($_categories);
         $data = [
             'title' => 'NiceSnippets Blog',
@@ -21,7 +21,7 @@ class PdfGenerateController extends Controller
             'project' =>  $this->project_values($project),
             'factors' => $project->factors()->get(),
         ];
-        
+
         $pdf = PDF::loadView('myPDF', $data)->setPaper('a4', 'landscape');
 
         return $pdf->stream('Arbeitsstunden');
@@ -29,7 +29,8 @@ class PdfGenerateController extends Controller
     }
 
 
-    public function categories_values(Project $project){
+    public function categories_values(Project $project)
+    {
 
         $_categories = array();
         $count = 0;
@@ -72,7 +73,7 @@ class PdfGenerateController extends Controller
             $services = Service::where('category_id', '=', $category->id)->get();
 
             $_categories[$cat_key]['services'] = array();
-            
+
             foreach ($services as $serv_key => $service) {
                 $count += $services->count();
                 // echo '<br>services->count '. $services->count();
@@ -109,54 +110,10 @@ class PdfGenerateController extends Controller
         }
 
         return $_categories;
-
     }
 
     public function project_values(Project $project)
     {
-
-        $categories_values = DB::table('projects')
-            ->select('projects_categories.*')
-            ->join('projects_categories', 'projects_categories.project_id', 'projects.id')
-            ->join('categories', 'categories.id', 'projects_categories.category_id')
-            ->where('projects.id', '=', $project->id)
-            ->distinct()
-            ->get();
-
-        if (!$categories_values->isEmpty()) {
-
-            $qty = 0;
-            $occup_hour = 0;
-            $price = 0;
-            $total = 0;
-            $profit_margin_p_c = 0;
-            $total_plus_margin = 0;
-
-            foreach ($categories_values as $key => $value) {
-                $qty += $value->qty;
-                $occup_hour += $value->occup_hour;
-                $price += $value->price;
-                $total += $value->total;
-                $profit_margin_p_c += 0;
-                $total_plus_margin += $value->total_plus_margin;
-            }
-
-            $epo = $total_plus_margin;
-            $epps = ($epo * 0.06) + ($epo * 0.05) + $epo;
-            $epp = ($epo + $epps) / 2;
-            $em = ((1 * $epo) + (4 * $epp) + (1 * $epps)) / 6;
-            $smph = ($em * 1) / 4;
-            $lmph = ($em * 1) / 4;
-
-            $project->epo = $epo;
-            $project->epp = $epp;
-            $project->epps = $epps;
-            $project->em = $em;
-            $project->smph = $smph;
-            $project->lmph = $lmph;
-            $project->save();
-        }
-
-        return $project;
+        return UtilityController::project_calculation($project);
     }
 }

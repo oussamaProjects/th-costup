@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="factor !== null || factor !== ''"
-    class="flex flex-row items-center justify-items-stretch p-1 border-t"
+    class="flex flex-row items-center justify-items-stretch p-1 border-t text-sm"
   >
     <div class="px-1 w-auto hidden factor_id" style="width: 15%">
       {{ factor.id }}

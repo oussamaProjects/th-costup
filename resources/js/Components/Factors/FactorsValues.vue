@@ -2,15 +2,27 @@
   <ChCircleLoader v-if="this.isLoading" :color="'#3b82f6'"></ChCircleLoader>
 
   <div class="flex flex-col w-full">
-    <ch-factor-values
-      v-for="(factor, index) in availableFactorsProject"
-      v-bind:key="index"
-      :factor="factor"
-      :globalClass="globalClass"
-      @removeFactorRow="removeFactor"
-    ></ch-factor-values>
+    
+    <transition-group name="factorList" tag="p">
+      <ch-factor-values
+        v-for="(factor, index) in availableFactorsProject"
+        v-bind:key="index"
+        :factor="factor"
+        :globalClass="globalClass"
+        @removeFactorRow="removeFactor"
+      ></ch-factor-values>
+    </transition-group>
 
-    <div class="flex flex-row items-center justify-items-stretch p-1 border-t text-sm">
+    <div
+      class="
+        flex flex-row
+        items-center
+        justify-items-stretch
+        p-1
+        border-t
+        text-sm
+      "
+    >
       <div class="px-1 w-auto hidden factor_id" style="width: 15%">--</div>
       <div class="px-1 w-auto" style="width: 24%">--</div>
       <div class="px-1" style="width: 20%">--</div>
@@ -35,10 +47,19 @@
       </div>
     </div>
 
-    <div class="flex flex-row items-center justify-items-stretch p-1 border-t">
-      <div class="px-1 w-auto hidden factor_id" style="width: 15%"> </div>
-      <div class="px-1 w-auto" style="width: 24%"> </div>
-      <div class="px-1" style="width: 20%"> </div>
+    <div
+      class="
+        flex flex-row
+        items-center
+        justify-items-stretch
+        p-1
+        border-t
+        text-sm
+      "
+    >
+      <div class="px-1 w-auto hidden factor_id" style="width: 15%"></div>
+      <div class="px-1 w-auto" style="width: 24%"></div>
+      <div class="px-1" style="width: 20%"></div>
       <!-- <div class="px-1" style="width: 8%">--</div> -->
       <div class="px-1 ml-auto" style="width: 16%">
         <button
@@ -95,6 +116,7 @@ export default {
 
       _this.$emit("removeFactorToForm", key);
     },
+
     addFactor(event) {
       var _this = this;
       if (_this.key != 0) {
@@ -138,6 +160,7 @@ export default {
 
       _this.$emit("refreshProjectValues", _this.isLoading);
     },
+
     async storeProjectFactors(request) {
       var _this = this;
       _this.isLoading = true;
@@ -155,4 +178,17 @@ export default {
 </script>
 
 <style>
+.factorList-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.factorList-enter-active,
+.factorList-leave-active {
+  transition: all 1s;
+}
+/* .factorList-leave-active below version 2.1.8 */
+.factorList-enter, .factorList-leave-to  {
+  opacity: 0;
+  transform: translateX(30px);
+}
 </style>
