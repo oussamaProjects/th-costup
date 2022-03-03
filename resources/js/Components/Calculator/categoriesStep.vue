@@ -52,8 +52,8 @@ export default {
     },
   },
   mounted() {
-    console.log(this.nextStepText);
-    console.log(this.prevStepText);
+    // console.log(this.nextStepText);
+    // console.log(this.prevStepText);
   },
   computed: {
     active() {

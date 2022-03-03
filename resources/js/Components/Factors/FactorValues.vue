@@ -54,7 +54,7 @@ export default {
       this.$emit("calculateProjectValues", event);
     },
     removeRow(event) {
-      console.log(event);
+      // console.log(event);
       this.$emit("removeFactorRow", event);
     },
   },

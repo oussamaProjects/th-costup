@@ -19650,14 +19650,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     initializeProject: function initializeProject() {
-      console.log("refreshProjectResults from form");
-
+      // console.log("refreshProjectResults from form");
       var _this = this;
 
       if (_this.project_id != 0 && _this.project_id != null) {
         axios.get("/projects/".concat(_this.project_id)).then(function (res) {
-          _this.project = res.data;
-          console.log(res.data);
+          _this.project = res.data; // console.log(res.data);
         });
       }
     },
@@ -19870,9 +19868,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("step-change", this.currentstep - 1);
     }
   },
-  mounted: function mounted() {
-    console.log(this.nextStepText);
-    console.log(this.prevStepText);
+  mounted: function mounted() {// console.log(this.nextStepText);
+    // console.log(this.prevStepText);
   },
   computed: {
     active: function active() {
@@ -19970,8 +19967,8 @@ __webpack_require__.r(__webpack_exports__);
         query: {
           data: this.project.id
         }
-      });
-      console.log(routeData);
+      }); // console.log(routeData);
+
       window.open(routeData.href, "_blank");
     }
   },
@@ -20566,7 +20563,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("calculateProjectValues", event);
     },
     removeRow: function removeRow(event) {
-      console.log(event);
+      // console.log(event);
       this.$emit("removeFactorRow", event);
     }
   },
@@ -20622,8 +20619,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       var afp = _this.availableFactorsProject;
-      var sf = _this.selectFactors;
-      console.log(key);
+      var sf = _this.selectFactors; // console.log(key);
+
       sf.push(key);
       afp = afp.filter(function (item) {
         return item.id != key.id;
@@ -20655,9 +20652,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var factorsPercent = 0;
       var _i = 0;
 
-      var _this = this;
+      var _this = this; // console.log(_this.project_id);
 
-      console.log(_this.project_id);
 
       _this.availableFactorsProject.forEach(function (factor) {
         factorTotal += factor.value;

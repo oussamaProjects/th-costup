@@ -228,7 +228,7 @@
       />
 
       <ch-calculator-results
-        :project="this.project" 
+        :project="this.project"
         :globalClass="globalClass"
         v-if="currentGlobalStep == 3"
       ></ch-calculator-results>
@@ -664,12 +664,12 @@ export default {
     },
 
     initializeProject() {
-      console.log("refreshProjectResults from form");
+      // console.log("refreshProjectResults from form");
       var _this = this;
       if (_this.project_id != 0 && _this.project_id != null) {
         axios.get(`/projects/${_this.project_id}`).then((res) => {
           _this.project = res.data;
-      console.log(res.data);
+          // console.log(res.data);
         });
       }
     },

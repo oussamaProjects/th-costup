@@ -106,7 +106,7 @@ export default {
       var afp = _this.availableFactorsProject;
       var sf = _this.selectFactors;
 
-      console.log(key);
+      // console.log(key);
       sf.push(key);
 
       afp = afp.filter((item) => item.id != key.id);
@@ -139,7 +139,7 @@ export default {
       var factorsPercent = 0;
       var _i = 0;
       var _this = this;
-      console.log(_this.project_id);
+      // console.log(_this.project_id);
       _this.availableFactorsProject.forEach(function (factor) {
         factorTotal += factor.value;
         if (_this.project_id != 0 && _this.project_id != null) {
