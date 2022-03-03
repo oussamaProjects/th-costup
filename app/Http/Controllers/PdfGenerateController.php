@@ -75,8 +75,8 @@ class PdfGenerateController extends Controller
             
             foreach ($services as $serv_key => $service) {
                 $count += $services->count();
-                echo '<br>services->count '. $services->count();
-                echo '<br>count '. $count;
+                // echo '<br>services->count '. $services->count();
+                // echo '<br>count '. $count;
                 $_categories[$cat_key]['count_parent'] = $count;
 
                 $services_values = DB::table('projects')
