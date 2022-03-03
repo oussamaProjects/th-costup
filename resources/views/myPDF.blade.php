@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
-    <!-- Fonts --> 
+    <!-- Fonts -->
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -141,7 +141,6 @@
         {{-- {{ dd($categories) }} --}}
 
         @foreach ($categories ?? '' as $category)
-
             @foreach ($category['services'] as $service)
                 <tr>
 
@@ -170,13 +169,13 @@
                     <td>{{ $service['name'] }}</td>
                     <td>{{ $service['unit_measure'] }}</td>
                     <td>{{ $service['qty'] }}</td>
-                    <td>{{ $service['qty'] / $service['occup_hour'] }}</td>
+                    <td>{{ round($service['qty'] / $service['occup_hour'], 2) }}</td>
                     <td>{{ $service['occup_hour'] }}</td>
                     <td>{{ $service['price'] }}</td>
-                    <td>{{ $service['total'] }}</td>
-                    <td>{{ ($service['total'] * $service['profit_margin_p_c']) / 100 }}</td>
-                    <td>{{ $service['profit_margin_p_c'] }}</td>
-                    <td>{{ $service['total_plus_margin'] }}</td>
+                    <td>{{ round($service['total'], 2) }}</td>
+                    <td>{{ round(($service['total'] * $service['profit_margin_p_c']) / 100, 2) }}</td>
+                    <td>{{ round($service['profit_margin_p_c'], 2) }}</td>
+                    <td>{{ round($service['total_plus_margin'], 2) }}</td>
                 </tr>
             @endforeach
             <tfoot>
@@ -187,15 +186,14 @@
                         <td>{{ $category['qty'] }}</td>
                         <td></td>
                         <td>{{ $category['occup_hour'] }}</td>
-                        <td>{{ $category['price'] }}</td>
-                        <td>{{ $category['total'] }}</td>
-                        <td>{{ ($category['total'] * $category['profit_margin_p_c']) / 100 }}</td>
-                        <td>{{ $category['profit_margin_p_c'] }}</td>
-                        <td>{{ $category['total_plus_margin'] }}</td>
+                        <td>{{ round($category['price'], 2) }}</td>
+                        <td>{{ round($category['total'], 2) }}</td>
+                        <td>{{ round(($category['total'] * $category['profit_margin_p_c']) / 100, 2) }}</td>
+                        <td>{{ round($category['profit_margin_p_c'], 2) }}</td>
+                        <td>{{ round($category['total_plus_margin'], 2) }}</td>
                     </tr>
                 @endif
             </tfoot>
-
         @endforeach
 
         @if (!$factors->isEmpty())
@@ -204,7 +202,6 @@
                 $valueTotal = 0;
             @endphp
             @foreach ($factors ?? '' as $key => $factor)
-
                 @php
                     $valueTotal += $factor['value'];
                 @endphp
@@ -256,7 +253,7 @@
             }
 
             .pv {
-                background-color: #cccaf0 ;
+                background-color: #cccaf0;
                 color: #000000;
             }
 
@@ -265,23 +262,23 @@
         <table class="blueTable">
             <tr>
                 <td class="epo">Estimation le plus optimiste</td>
-                <td>{{ $project['epo'] }}</td>
+                <td>{{ round($project['epo'], 2) }}</td>
             </tr>
             <tr>
                 <td class="epp">Estimation le plus probable</td>
-                <td>{{ $project['epp'] }}</td>
+                <td>{{ round($project['epp'], 2) }}</td>
             </tr>
             <tr>
                 <td class="epps">Estimation le plus pessimiste</td>
-                <td>{{ $project['epps'] }}</td>
+                <td>{{ round($project['epps'], 2) }}</td>
             </tr>
             <tr>
                 <td class="em">Estimation Moyen</td>
-                <td>{{ $project['em'] }}</td>
+                <td>{{ round($project['em'], 2) }}</td>
             </tr>
             <tr>
                 <td class="pv">Prix de vente H.T</td>
-                <td>{{ $project['em'] }}</td>
+                <td>{{ round($project['em'], 2) }}</td>
             </tr>
         </table>
     </div>
@@ -299,12 +296,12 @@
             <tr>
                 <td>Custommer Demand</td>
                 <td>1</td>
-                <td rowspan="2" class="epo">{{ $project['smph'] }}</td>
+                <td rowspan="2" class="epo">{{ round($project['smph'], 2) }}</td>
 
 
                 <td>Custommer Demand</td>
                 <td>1</td>
-                <td rowspan="2" class="epo">{{ $project['lmph'] }}</td>
+                <td rowspan="2" class="epo">{{ round($project['lmph'], 2) }}</td>
 
             </tr>
 
