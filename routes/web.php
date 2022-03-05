@@ -39,8 +39,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',  'App\Http\Controllers\Dashboard@index')->name('dashboard');
-Route::middleware(['auth:sanctum', 'verified'])->get('/settings',  'App\Http\Controllers\Dashboard@settings')->name('settings');
-Route::middleware(['auth:sanctum', 'verified'])->get('/calculator',  'App\Http\Controllers\Dashboard@calculator')->name('calculator');
+Route::middleware(['auth:sanctum', 'verified'])->get('/settings',   'App\Http\Controllers\Dashboard@settings')->name('settings');
+Route::middleware(['auth:sanctum', 'verified'])->get('/calculator', 'App\Http\Controllers\Dashboard@calculator')->name('calculator');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dac',        'App\Http\Controllers\Dashboard@dac')->name('dac');
 
 Route::resource('factors', 'App\Http\Controllers\FactorController');
 
@@ -51,6 +52,9 @@ Route::get('projects/{project}/factorsNotInProject',         'App\Http\Controlle
 Route::post('projects/storeProjectFactors',    'App\Http\Controllers\ProjectController@storeProjectFactors')->name('store-project-factors');
 
 Route::get('projects/{project}/values',         'App\Http\Controllers\ProjectController@getProjectValues')->name('get-project-values');
+
+Route::get('projects/{project}/preDac',         'App\Http\Controllers\ProjectController@getProjectPreDac')->name('get-project-pre-dac');
+
 Route::post('projects/storeProjectCategories',  'App\Http\Controllers\ProjectController@storeProjectCategories')->name('store-project-categories');
 
 

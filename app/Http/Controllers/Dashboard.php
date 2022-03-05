@@ -104,7 +104,49 @@ class Dashboard extends Controller
             'factors' => $factors,
             'projects' => $projects,
             'categories' => $categories,
-             
+        ]);
+
+    }
+    public function dac()
+    {
+      
+        $projects = Project::all(); 
+
+        $formatted_categories = array();
+        $categories = Category::where('parent_id', '!=', 0)->orderBy('parent_id', 'ASC')->get();
+
+        foreach ($categories as $cat_key => $category) {
+            $parents = $category->parent()->get();
+
+            $formatted_categories[$cat_key]['id']                = $category->id;
+            $formatted_categories[$cat_key]['name']              = $category->name;
+            $formatted_categories[$cat_key]['description']       = $category->description;
+
+            if (!$parents->isEmpty()) {
+                $formatted_categories[$cat_key]['parent_id']    = $parents[0]->id;
+                $formatted_categories[$cat_key]['parent_name']  = $parents[0]->name;
+            }
+
+            $services = Service::where('category_id', '=', $category->id)->get();
+
+            $formatted_categories[$cat_key]['services'] = array();
+            foreach ($services as $serv_key => $service) {
+ 
+                    array_push($formatted_categories[$cat_key]['services'], array(
+                        'id' => $service->id,
+                        'name'         => $service->name,
+                        'description'  => $service->description,
+                        'qty'          => 0,
+                        'actual'       => 0,
+                        'gap'          => 0,
+                        'saved'        => 0
+                    ));
+            }
+        }
+
+        return Inertia::render('DAC', [ 
+            'projects' => $projects,
+            'categories' => $formatted_categories,
         ]);
 
     }

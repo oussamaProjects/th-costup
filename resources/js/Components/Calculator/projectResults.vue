@@ -84,7 +84,7 @@ export default {
   margin: 8px 0;
   display: flex;
   align-items: center;
-  justify-content: end;
+  /* justify-content: end; */
   padding: 0 28px;
 }
 

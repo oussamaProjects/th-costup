@@ -32,6 +32,14 @@
                                 </jet-nav-link>
                             </div>
  
+
+                            <!-- Navigation Links -->
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <jet-nav-link :href="route('dac')" :active="route().current('dac')">
+                                    Dac
+                                </jet-nav-link>
+                            </div>
+ 
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -158,6 +166,10 @@
                             
                         <jet-responsive-nav-link :href="route('calculator')" :active="route().current('calculator')"> 
                             Calculator
+                        </jet-responsive-nav-link> 
+                            
+                        <jet-responsive-nav-link :href="route('dac')" :active="route().current('dac')"> 
+                            Dac
                         </jet-responsive-nav-link> 
 
                     </div>
