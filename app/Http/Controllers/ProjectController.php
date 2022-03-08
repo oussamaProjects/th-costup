@@ -243,7 +243,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getProjectPreDac(Project $project)
+    public function getProjectPreSAG(Project $project)
     {
 
         $formatted_categories = array();
@@ -283,7 +283,7 @@ class ProjectController extends Controller
                     'name'         => $service->name,
                     'description'  => $service->description,
                     'qty'          => $quantity,
-                    'actual'       => 0,
+                    'actual'       => $quantity,
                     'gap'          => 0,
                     'saved'        => 1
                 ));
@@ -326,7 +326,6 @@ class ProjectController extends Controller
 
         return $factors;
     }
-
 
     /**
      * storeProjectValues

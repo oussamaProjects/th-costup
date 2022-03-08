@@ -33,7 +33,7 @@
 
       <div class="max-full mt-4 flex">
         <a
-          :href="'/pdf-generate/' + this.project.id"
+          :href="'/pdf-dac/' + this.project.id"
           target="_blank"
           :class="
             'bg-main ml-auto w-44 text-center ' + globalClass.buttonForm

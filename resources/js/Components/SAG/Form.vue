@@ -12,55 +12,13 @@
         :globalClass="globalClass"
       ></ch-projects-list>
 
-      <!-- Tabs Start -->
-      <ul
-        class="flex -mb-px"
-        id="myTab"
-        data-tabs-toggle="#myTabContent"
-        role="tablist"
-        v-if="this.currentGlobalStep == 1"
+      <ch-categories-tab
+        :mainCategories="projectData"
+        :currentGlobalStep="currentGlobalStep"
+        :activeItem="activeItem"
+        @setActive="setActive"
       >
-        <span :set="(liCatParentIndex = 0)"></span>
-
-        <div v-for="(category, index) in projectData" v-bind:key="index">
-          <li
-            v-if="liCatParentName != category.parent_name"
-            class="mr-2"
-            role="presentation"
-            :title="category.parent_name"
-          >
-            <span :set="(liCatParentIndex += 1)"></span>
-            <a
-              class="
-                inline-block
-                text-xs
-                font-medium
-                text-center
-                p-2
-                uppercase
-                border
-              "
-              :id="'cat_' + liCatParentIndex + '-tab'"
-              :data-tabs-target="'cat_' + liCatParentIndex"
-              type="button"
-              role="tab"
-              :aria-controls="'cat_' + liCatParentIndex"
-              aria-selected="false"
-              @click.prevent="setActive"
-              :class="
-                isActive('cat_' + liCatParentIndex)
-                  ? 'text-custom_blue bg-main hover:text-custom_blue hover:border-main hover:bg-white'
-                  : 'hover:text-custom_blue hover:border-main hover:bg-white'
-              "
-              :href="'#cat_' + liCatParentIndex"
-            >
-              {{ liCatParentIndex }} - {{ category.parent_name }}
-            </a>
-          </li>
-          <span :set="(liCatParentName = category.parent_name)"></span>
-        </div>
-      </ul>
-      <!-- End Tabs -->
+      </ch-categories-tab>
 
       <div id="myTabContent">
         <div
@@ -202,6 +160,20 @@
         </div>
       </div>
 
+      <div class="categoryContent relative" v-if="this.currentGlobalStep == 2">
+        <div class="max-full mt-4 flex">
+          <a
+            :href="'/pdf-sag/' + this.project.id"
+            target="_blank"
+            :class="
+              'bg-main ml-auto w-44 text-center ' + globalClass.buttonForm
+            "
+            rel="noopener noreferrer"
+            >Standard Actual Gap</a
+          >
+        </div>
+      </div>
+
       <ch-stepper
         :currentGlobalStep="this.currentGlobalStep"
         :step="3"
@@ -222,12 +194,14 @@ import ChStepper from "./stepper.vue";
 import ChStepperHead from "./stepperHead.vue";
 import ChCircleLoader from "../CircleLoader.vue";
 
+import ChCategoriesTab from "../categoriesTab.vue";
 import ChTab from "../Tab.vue";
 import ChTabs from "../Tabs.vue";
 
 export default {
   components: {
     ChCategoriesStep,
+    ChCategoriesTab,
     ChCategoryTableHead,
     ChCategoryValuesRow,
     ChProjectsList,
@@ -250,7 +224,6 @@ export default {
         inputSelectForm:
           "appearance-none border border-gray-300 hover:border-gray-300 focus:border-gray-300 w-full p-2 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-main text-xs transition-all duration-300 transform",
       },
-      displayListeServicesModal: false,
       currentstep: 0,
       currentGlobalStep: 0,
       activeItem: "cat_1",
@@ -270,7 +243,7 @@ export default {
       this.project_id = project_id;
 
       this.initializeProject();
-      this.getProjectValues();
+      this.getProjectSAG();
 
       setTimeout(() => {
         this.calculateAll();
@@ -279,7 +252,7 @@ export default {
 
     changeProject() {
       this.initializeProject();
-      this.getProjectValues();
+      this.getProjectSAG();
     },
 
     resetServicesValues(serviceNode) {
@@ -354,20 +327,29 @@ export default {
       _this.resetCategoriesValues(categoryNode);
     },
 
-    saveValues(event) {
-      var project_id = this.project_id;
-      var categoryNode = event.target.closest(".category");
-
-      // this.saveServicesDac(project_id, categoryNode);
-      // this.saveCategoryDac(project_id, categoryNode);
-      // this.changeProject();
-    },
-
     enableEditValues(event) {
       this.enableEditCatId = event.target.getAttribute("data-enable-edit");
     },
 
-    saveServicesDac(project_id, categoryNode) {
+    initializeProject() {
+      var _this = this;
+      if (_this.project_id != 0 && _this.project_id != null) {
+        axios.get(`/projects/${_this.project_id}`).then((res) => {
+          _this.project = res.data;
+        });
+      }
+    },
+
+    saveValues(event) {
+      var project_id = this.project_id;
+      var categoryNode = event.target.closest(".category");
+
+      this.saveServicesSAG(project_id, categoryNode);
+      this.saveCategorySAG(project_id, categoryNode);
+      this.changeProject();
+    },
+
+    saveServicesSAG(project_id, categoryNode) {
       var _this = this;
       var _i = 0;
 
@@ -379,17 +361,17 @@ export default {
 
       categoryServicesNode.forEach(function (serviceNode) {
         var service_id = serviceNode.querySelector(".service_id").innerHTML;
-        var quantity = serviceNode.querySelector(".qty").value;
+        var qty = serviceNode.querySelector(".qty").value;
         var actual = serviceNode.querySelector(".actual").value;
         var gap = serviceNode.querySelector(".gap").innerHTML;
 
         // Parsing
-        quantity = parseInt(quantity);
+        qty = parseInt(qty);
         actual = parseInt(actual);
         gap = parseInt(gap);
 
         if (project_id != 0 && project_id != null) {
-          if (quantity != null && gap != null && profitMargin != null)
+          if (qty != null && actual != null && gap != null)
             servicesRequest[_i] = {
               project_id,
               service_id,
@@ -402,11 +384,11 @@ export default {
       });
 
       if (project_id != 0 && project_id != null) {
-        _this.storeDacProjectServices(servicesRequest);
+        _this.storeSAGProjectServices(servicesRequest);
       }
     },
 
-    saveCategoryDac(project_id, categoryNode) {
+    saveCategorySAG(project_id, categoryNode) {
       var _this = this;
       var quantityTotal = 0;
       var actualTotal = 0;
@@ -435,30 +417,21 @@ export default {
           gap: gapTotal,
         };
 
-        _this.storeDacProjectCategories(request);
+        _this.storeSAGProjectCategories(request);
       } else {
         alert("Please select a Project");
       }
     },
 
-    initializeProject() {
-      var _this = this;
-      if (_this.project_id != 0 && _this.project_id != null) {
-        axios.get(`/projects/${_this.project_id}`).then((res) => {
-          _this.project = res.data;
-        });
-      }
+    async storeSAGProjectServices(request) {
+      await axios.post("/sag/storeSAGProjectServices", request);
     },
 
-    async storeDacProjectServices(request) {
-      await axios.post("/dac/storeDacProjectServices", request);
-    },
-
-    async storeDacProjectCategories(request) {
+    async storeSAGProjectCategories(request) {
       var _this = this;
       _this.isLoading = true;
       await axios
-        .post("/dac/storeDacProjectCategories", request)
+        .post("/sag/storeSAGProjectCategories", request)
         .then(function (response) {
           _this.isLoading = false;
           _this.enableEditCatId = 0;
@@ -466,10 +439,10 @@ export default {
         .catch(function (error) {});
     },
 
-    async getProjectValues() {
+    async getProjectSAG() {
       var _this = this;
       if (_this.project_id != 0 && _this.project_id != null) {
-        var { data } = await axios.get(`/projects/${_this.project_id}/preDac`);
+        var { data } = await axios.get(`/projects/${_this.project_id}/preSAG`);
         _this.projectData = data;
       } else _this.projectData = _this.categories;
     },

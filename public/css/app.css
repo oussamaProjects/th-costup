@@ -1357,17 +1357,14 @@ select {
 .w-3 {
 	width: 0.75rem;
 }
+.w-14 {
+	width: 3.5rem;
+}
 .w-1\/2 {
 	width: 50%;
 }
 .w-4\/5 {
 	width: 80%;
-}
-.w-28 {
-	width: 7rem;
-}
-.w-14 {
-	width: 3.5rem;
 }
 .min-w-0 {
 	min-width: 0px;

@@ -107,7 +107,7 @@ class Dashboard extends Controller
         ]);
 
     }
-    public function dac()
+    public function SAG()
     {
       
         $projects = Project::all(); 
@@ -144,7 +144,7 @@ class Dashboard extends Controller
             }
         }
 
-        return Inertia::render('DAC', [ 
+        return Inertia::render('SAG', [ 
             'projects' => $projects,
             'categories' => $formatted_categories,
         ]);

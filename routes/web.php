@@ -41,7 +41,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',  'App\Http\Controllers\Dashboard@index')->name('dashboard');
 Route::middleware(['auth:sanctum', 'verified'])->get('/settings',   'App\Http\Controllers\Dashboard@settings')->name('settings');
 Route::middleware(['auth:sanctum', 'verified'])->get('/calculator', 'App\Http\Controllers\Dashboard@calculator')->name('calculator');
-Route::middleware(['auth:sanctum', 'verified'])->get('/dac',        'App\Http\Controllers\Dashboard@dac')->name('dac');
+Route::middleware(['auth:sanctum', 'verified'])->get('/SAG',        'App\Http\Controllers\Dashboard@SAG')->name('sag');
 
 Route::resource('factors', 'App\Http\Controllers\FactorController');
 
@@ -53,15 +53,15 @@ Route::post('projects/storeProjectFactors',    'App\Http\Controllers\ProjectCont
 
 Route::get('projects/{project}/values',         'App\Http\Controllers\ProjectController@getProjectValues')->name('get-project-values');
 
-Route::get('projects/{project}/preDac',         'App\Http\Controllers\ProjectController@getProjectPreDac')->name('get-project-pre-dac');
 
 Route::post('projects/storeProjectCategories',  'App\Http\Controllers\ProjectController@storeProjectCategories')->name('store-project-categories');
-
-
 Route::post('projects/storeProjectServices',    'App\Http\Controllers\ProjectController@storeProjectServices')->name('store-project-services');
 Route::post('projects/deleteProjectServices',    'App\Http\Controllers\ProjectController@deleteProjectServices')->name('delete-project-services');
-
 Route::post('projects/storeProjectCalculation', 'App\Http\Controllers\ProjectController@storeProjectCalculation')->name('store-project-calculation');
+
+Route::get('projects/{project}/preSAG',       'App\Http\Controllers\ProjectController@getProjectPreSAG')->name('get-project-pre-sag');
+Route::post('sag/storeSAGProjectCategories',  'App\Http\Controllers\SAGController@storeSAGProjectCategories')->name('store-sag-project-categories');
+Route::post('sag/storeSAGProjectServices',    'App\Http\Controllers\SAGController@storeSAGProjectServices')->name('store-sag-project-services');
 
 Route::resource('categories', 'App\Http\Controllers\CategoryController');
 Route::get('categories/{category}/services', 'App\Http\Controllers\CategoryController@getCategoryServices')->name('get-category-services');
@@ -69,4 +69,8 @@ Route::get('categories/{category}/services', 'App\Http\Controllers\CategoryContr
 Route::resource('services', 'App\Http\Controllers\ServiceController');
 Route::get('services/{services}/selected', 'App\Http\Controllers\ServiceController@getSelectedServices');
 
-Route::get('pdf-generate/{project}','App\Http\Controllers\PdfGenerateController@PDFgenerate')->name('generate-pdf');
+Route::get('pdf-dac/{project}','App\Http\Controllers\PdfGenerateController@dac')->name('generate-dac-pdf');
+Route::get('pdf-sag/{project}','App\Http\Controllers\PdfGenerateController@sag')->name('generate-sag-pdf');
+
+
+Route::resource('sag', 'SAGController');

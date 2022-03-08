@@ -35,8 +35,8 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <jet-nav-link :href="route('dac')" :active="route().current('dac')">
-                                    Dac
+                                <jet-nav-link :href="route('sag')" :active="route().current('sag')">
+                                    SAG
                                 </jet-nav-link>
                             </div>
  
@@ -168,8 +168,8 @@
                             Calculator
                         </jet-responsive-nav-link> 
                             
-                        <jet-responsive-nav-link :href="route('dac')" :active="route().current('dac')"> 
-                            Dac
+                        <jet-responsive-nav-link :href="route('sag')" :active="route().current('sag')"> 
+                            SAG
                         </jet-responsive-nav-link> 
 
                     </div>

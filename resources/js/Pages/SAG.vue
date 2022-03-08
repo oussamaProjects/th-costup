@@ -1,8 +1,8 @@
 <template>
-  <app-layout title="DAC">
+  <app-layout title="SAG">
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        DAC
+        SAG
       </h2>
     </template>
 
@@ -10,10 +10,9 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         
         <div class="flex bg-white overflow-hidden shadow-lg sm:rounded">
-          <ch-dac-form
+          <ch-sag-form
             :projects="this.projects"
-            :categories="this.categories"
-            :factors="this.factors"
+            :categories="this.categories" 
             :globalClass="globalClass"
           />
         </div>
@@ -25,12 +24,12 @@
 <script>
 import { defineComponent } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue"; 
-import ChDacForm from "../Components/Dac/Form.vue";
+import ChSagForm from "../Components/SAG/Form.vue"; 
 
 export default defineComponent({
   components: {
     AppLayout, 
-    ChDacForm,
+    ChSagForm,
   },
 
   data() {
