@@ -31,7 +31,7 @@
 
       <div class="flex-auto flex flex-row-reverse">
         <button 
-        v-if="this.currentGlobalStep == 1 || this.currentGlobalStep == 2"
+        v-if="this.currentGlobalStep == 1"
           class="
             mx-3
             bg-main

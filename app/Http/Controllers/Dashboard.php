@@ -13,7 +13,7 @@ class Dashboard extends Controller
 {
     public function index()
     {
-      
+
         $projects = Project::all();
         $categories = Category::where('parent_id', '!=', '0')->orderBy('parent_id', 'ASC')->get();
 
@@ -90,12 +90,11 @@ class Dashboard extends Controller
             'formattedServices' => $formatted_services,
             'servicesCategories' => $services_categories,
         ]);
-        
     }
 
     public function calculator()
     {
-      
+
         $projects = Project::all();
         $factors = Factor::all();
         $categories = Category::where('parent_id', '!=', '0')->orderBy('parent_id', 'ASC')->get();
@@ -105,12 +104,11 @@ class Dashboard extends Controller
             'projects' => $projects,
             'categories' => $categories,
         ]);
-
     }
     public function SAG()
     {
-      
-        $projects = Project::all(); 
+
+        $projects = Project::all();
 
         $formatted_categories = array();
         $categories = Category::where('parent_id', '!=', 0)->orderBy('parent_id', 'ASC')->get();
@@ -131,41 +129,40 @@ class Dashboard extends Controller
 
             $formatted_categories[$cat_key]['services'] = array();
             foreach ($services as $serv_key => $service) {
- 
-                    array_push($formatted_categories[$cat_key]['services'], array(
-                        'id' => $service->id,
-                        'name'         => $service->name,
-                        'description'  => $service->description,
-                        'qty'          => 0,
-                        'actual'       => 0,
-                        'gap'          => 0,
-                        'saved'        => 0
-                    ));
+
+                array_push($formatted_categories[$cat_key]['services'], array(
+                    'id' => $service->id,
+                    'name'         => $service->name,
+                    'description'  => $service->description,
+                    'qty'          => 0,
+                    'actual'       => 0,
+                    'gap'          => 0,
+                    'saved'        => 0
+                ));
             }
         }
 
-        return Inertia::render('SAG', [ 
+        return Inertia::render('SAG', [
             'projects' => $projects,
             'categories' => $formatted_categories,
         ]);
-
     }
-    
+
     public function settings()
     {
-      
+
         $projects = Project::all();
         $factors = Factor::all();
-        $categories = Category::all(); 
+        $categories = Category::all();
 
         $services_categories = Category::where('parent_id', '!=', '0')->get();
-         
+
 
         $services = DB::table('services')
-        ->select('services.*', 'categories.name as category_name')
-        ->join('categories', 'categories.id', 'services.category_id')  
-        ->get();
- 
+            ->select('services.*', 'categories.name as category_name')
+            ->join('categories', 'categories.id', 'services.category_id')
+            ->get();
+
         $formatted_categories =  array();
         // $formatted_services =  array();
 
@@ -241,10 +238,22 @@ class Dashboard extends Controller
             'factors' => $factors,
             'projects' => $projects,
             'categories' => $categories,
-            'formattedCategories' => $formatted_categories, 
+            'formattedCategories' => $formatted_categories,
             'services' => $services,
             // 'formattedServices' => $formatted_services,
             'servicesCategories' => $services_categories,
+        ]);
+    }
+
+    public function mapView()
+    {
+        $project = Project::findOrFail(1);
+        $category = Category::findOrFail(2); 
+        
+        return Inertia::render('mapView', [
+            'project' => $project,
+            'sag' => UtilityController::sag_values($project),
+            'mainOeuvre' => $category->services()->get(),
         ]);
     }
 }

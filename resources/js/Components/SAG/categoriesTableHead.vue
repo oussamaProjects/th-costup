@@ -24,10 +24,10 @@
         >
           <div class="px-1 w-auto text-left hidden"></div>
           <div class="px-1 w-auto text-left" style="width: 20%">Nom</div>
-          <div class="px-1" style="width: 20%">Quantité</div>
-          <div class="px-1" style="width: 20%">Actual</div>
-          <div class="px-1" style="width: 20%">Gap</div>
-          <div class="px-1" style="width: 20%">
+          <div class="px-1" style="width: 20%">Standard</div>
+          <div class="px-1" style="width: 15%">Actual</div>
+          <div class="px-1" style="width: 15%">Gap</div>
+          <div class="px-1" style="width: 30%">
             <div class="flex">
               <div class="ml-auto p-1"></div>
             </div>

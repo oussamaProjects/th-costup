@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -80,13 +81,14 @@ class SAGController extends Controller
     {
         //
     }
- /**
+
+    /**
      * Store a Project Service resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeSAGProjectServices(Request $requestArray)
+    public function storeSAGProjectResource(Request $requestArray)
     {
         foreach ($requestArray->all() as $key => $request) {
             if ($request != null) {
@@ -97,19 +99,18 @@ class SAGController extends Controller
 
                 $project = Project::findOrFail($project_id);
 
-                $data = [ 
-                    'sag_id' => $sag_id, 
-                    'qty'    => $request['qty'], 
-                    'actual' => $request['actual'], 
-                    'gap'    => $request['gap'], 
-                ]; 
+                $data = [
+                    'sag_id' => $sag_id,
+                    'qty'    => $request['qty'],
+                    'actual' => $request['actual'],
+                    'gap'    => $request['gap'],
+                ];
 
 
                 if (!$project->sag_resources->contains($resource_id))
                     $project->sag_resources()->attach($resource_id, $data);
                 else
                     $project->sag_resources()->updateExistingPivot($resource_id, $data);
-
             }
         }
     }
@@ -130,10 +131,10 @@ class SAGController extends Controller
         $project = Project::findOrFail($project_id);
 
         $data = [
-            'sag_id' => $sag_id, 
-            'qty'    => $request['qty'], 
-            'actual' => $request['actual'], 
-            'gap'    => $request['gap'], 
+            'sag_id' => $sag_id,
+            'qty'    => $request['qty'],
+            'actual' => $request['actual'],
+            'gap'    => $request['gap'],
         ];
 
         if (!$project->sag_categories->contains($category_id))
@@ -144,4 +145,51 @@ class SAGController extends Controller
         // return Redirect::route('settings')->with('flash.success.calculator.categories', 'Le project  "' . $project->name . '" a été modifié !');
     }
 
+    /**
+     * Delete a Project Service resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteSAGProjectResource(Request $request)
+    {
+        if ($request != null) {
+            $project_id = $request['project_id'];
+            $resource_id = $request['service_id'];
+
+            $project = Project::findOrFail($project_id);
+
+            if ($project->sag_resources->contains($resource_id))
+                $project->sag_resources()->detach($resource_id);
+        }
+    }
+
+    /**
+     * Store a Project Service resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeSAGMovementNote(Request $requestArray)
+    {
+        foreach ($requestArray->all() as $key => $request) {
+            if ($request != null) {
+                
+                $history = new History();
+
+                $project_id  = $request['project_id'];
+
+                $sag_resources_id = $request['sag_resources_id'];
+                $note             = $request['note'];
+                $movement         = $request['movement'];
+
+                $history->sag_resources_id = $sag_resources_id;
+                $history->note = $note;
+                $history->movement = $movement; 
+
+                $history->save();
+
+            }
+        }
+    }
 }

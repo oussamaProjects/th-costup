@@ -126,7 +126,7 @@
             <tr bgcolor='#f7cee2'>
                 <th colspan="2">Catégorie</th>
                 <th>Libelé</th>
-                <th>Quantité</th>
+                <th>Standard</th>
                 <th>Actual</th>
                 <th>Gap</th>
             </tr>

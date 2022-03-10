@@ -138,9 +138,10 @@
                           :data-service_id="service.id"
                         >
                           <ch-services-values-row
-                            :service="service"
+                            :resource="service"
                             @calculateValues="calculate"
                             :globalClass="this.globalClass"
+                            @showHistories="showHistoriesModal"
                           ></ch-services-values-row>
                         </div>
                       </transition-group>
@@ -181,6 +182,27 @@
       >
       </ch-stepper>
     </div>
+
+    <jet-dialog-modal
+      :show="displayHistoriesModal"
+      @close="closeHistoriesModal"
+    >
+      <template #title>Histories </template>
+
+      <template #content>
+        <ch-histories
+          :histories="histories"
+          :resource="resource"
+          :globalClass="globalClass"
+        />
+      </template>
+
+      <template #footer>
+        <jet-secondary-button @click="closeHistoriesModal">
+          Cancel
+        </jet-secondary-button>
+      </template>
+    </jet-dialog-modal>
   </div>
 </template>
 
@@ -190,6 +212,8 @@ import ChCategoryTableHead from "./categoriesTableHead.vue";
 import ChCategoryValuesRow from "./categoriesValuesSum.vue";
 import ChProjectsList from "./projectsList.vue";
 import ChServicesValuesRow from "./servicesValues.vue";
+import JetDialogModal from "@/Jetstream/DialogModal.vue";
+import ChHistories from "./Histories.vue";
 import ChStepper from "./stepper.vue";
 import ChStepperHead from "./stepperHead.vue";
 import ChCircleLoader from "../CircleLoader.vue";
@@ -205,7 +229,9 @@ export default {
     ChCategoryTableHead,
     ChCategoryValuesRow,
     ChProjectsList,
+    JetDialogModal,
     ChServicesValuesRow,
+    ChHistories,
     ChStepper,
     ChStepperHead,
     ChCircleLoader,
@@ -219,7 +245,8 @@ export default {
       project: null,
       isLoading: false,
       projectData: null,
-      selectFromServices: null,
+      histories: null,
+      displayHistoriesModal: false,
       globalClass: {
         inputSelectForm:
           "appearance-none border border-gray-300 hover:border-gray-300 focus:border-gray-300 w-full p-2 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-main text-xs transition-all duration-300 transform",
@@ -230,6 +257,22 @@ export default {
     };
   },
   methods: {
+    showHistoriesModal(resource_id) {
+      this.displayHistoriesModal = true;
+      this.getResourceHistories(resource_id);
+    },
+
+    closeHistoriesModal() {
+      this.displayHistoriesModal = false;
+    },
+
+    async getResourceHistories(resource_id) {
+      await axios.get(`/resources/${resource_id}/histories`).then((res) => {
+        console.log(res);
+        this.histories = res.data;
+      });
+    },
+
     isActive(menuItem) {
       return this.activeItem === menuItem;
     },
@@ -274,6 +317,7 @@ export default {
       // Assigning Variables
       gap.innerHTML = gapValue || 0;
     },
+
     resetCategoriesValues(categoryNode) {
       var _this = this;
       var quantityTotal = 0;
@@ -344,12 +388,15 @@ export default {
       var project_id = this.project_id;
       var categoryNode = event.target.closest(".category");
 
-      this.saveServicesSAG(project_id, categoryNode);
+      this.saveResourceSAG(project_id, categoryNode);
       this.saveCategorySAG(project_id, categoryNode);
+
+      this.saveResourceSAGNote(project_id, categoryNode);
+
       this.changeProject();
     },
 
-    saveServicesSAG(project_id, categoryNode) {
+    saveResourceSAG(project_id, categoryNode) {
       var _this = this;
       var _i = 0;
 
@@ -384,7 +431,7 @@ export default {
       });
 
       if (project_id != 0 && project_id != null) {
-        _this.storeSAGProjectServices(servicesRequest);
+        _this.storeSAGProjectResource(servicesRequest);
       }
     },
 
@@ -423,8 +470,42 @@ export default {
       }
     },
 
-    async storeSAGProjectServices(request) {
-      await axios.post("/sag/storeSAGProjectServices", request);
+    async storeSAGProjectResource(request) {
+      await axios.post("/sag/storeSAGProjectResource", request);
+    },
+
+    saveResourceSAGNote(project_id, categoryNode) {
+      var _this = this;
+      var _i = 0;
+
+      var resourcesRequest = Array();
+      var resourcesNode = categoryNode.querySelector(".services");
+      var resourcesValuesNode = resourcesNode.querySelector(".services-values");
+      var categoryResourcesNode =
+        resourcesValuesNode.querySelectorAll(".service");
+
+      categoryResourcesNode.forEach(function (resourceNode) {
+        var sag_resources_id =
+          resourceNode.querySelector(".sag_resources_id").innerHTML;
+        var note = resourceNode.querySelector(".note").value;
+        var movement = -1;
+        // var movement = resourceNode.querySelector(".movement").value;
+
+        if (note != null && movement != null)
+          resourcesRequest[_i] = {
+            project_id,
+            sag_resources_id,
+            note,
+            movement,
+          };
+        _i++;
+      });
+
+      _this.storeSAGMovementNote(resourcesRequest);
+    },
+
+    async storeSAGMovementNote(request) {
+      await axios.post("/sag/storeSAGMovementNote", request);
     },
 
     async storeSAGProjectCategories(request) {

@@ -39,6 +39,13 @@
                                     SAG
                                 </jet-nav-link>
                             </div>
+
+                                <!-- Navigation Links -->
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <jet-nav-link :href="route('mapView')" :active="route().current('mapView')">
+                                    Map view
+                                </jet-nav-link>
+                            </div>
  
                         </div>
 
@@ -170,6 +177,10 @@
                             
                         <jet-responsive-nav-link :href="route('sag')" :active="route().current('sag')"> 
                             SAG
+                        </jet-responsive-nav-link> 
+                        
+                        <jet-responsive-nav-link :href="route('mapView')" :active="route().current('mapView')"> 
+                            Map view
                         </jet-responsive-nav-link> 
 
                     </div>

@@ -22,7 +22,7 @@ class Category extends Model
 
     public function projects()
     {
-        return $this->belongsToMany(Project::class);
+        return $this->belongsToMany(Project::class, 'sag_categories', 'category_id', 'project_id');
     }
 
     public function services()

@@ -245,52 +245,7 @@ class ProjectController extends Controller
      */
     public function getProjectPreSAG(Project $project)
     {
-
-        $formatted_categories = array();
-        $categories = Category::where('parent_id', '!=', 0)->orderBy('parent_id', 'ASC')->get();
-
-        foreach ($categories as $cat_key => $category) {
-            $parents = $category->parent()->get();
-
-            $formatted_categories[$cat_key]['id']                = $category->id;
-            $formatted_categories[$cat_key]['name']              = $category->name;
-            $formatted_categories[$cat_key]['description']       = $category->description;
-
-            if (!$parents->isEmpty()) {
-                $formatted_categories[$cat_key]['parent_id']    = $parents[0]->id;
-                $formatted_categories[$cat_key]['parent_name']  = $parents[0]->name;
-            }
-
-            $services = Service::where('category_id', '=', $category->id)->get();
-
-            $formatted_categories[$cat_key]['services'] = array();
-            foreach ($services as $serv_key => $service) {
-
-                $services_values = DB::table('projects')
-                    ->select('projects_services.*')
-                    ->join('projects_services', 'projects_services.project_id', 'projects.id')
-                    ->join('services', 'services.id', 'projects_services.service_id')
-                    ->where('projects.id', '=', $project->id)
-                    ->where('services.id', '=', $service->id)
-                    ->distinct()
-                    ->get();
-                $quantity = 0;
-                if (!$services_values->isEmpty()) {
-                    $quantity = $services_values[0]->qty;
-                }  
-                array_push($formatted_categories[$cat_key]['services'], array(
-                    'id' => $service->id,
-                    'name'         => $service->name,
-                    'description'  => $service->description,
-                    'qty'          => $quantity,
-                    'actual'       => $quantity,
-                    'gap'          => 0,
-                    'saved'        => 1
-                ));
-            }
-        }
-
-        return $formatted_categories;
+        return UtilityController::sag_values($project);
     }
 
     /**
@@ -312,7 +267,6 @@ class ProjectController extends Controller
      */
     public function getFactorsNotInProject(Project $project)
     {
-
         $factors_project = DB::table('projects')
             ->select('factors.*')
             ->join('projects_factors', 'projects_factors.project_id', 'projects.id')

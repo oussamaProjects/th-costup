@@ -151,6 +151,24 @@ class ServiceController extends Controller
     public function getSelectedServices(String $services_id)
     {
         $services = Service::whereIn('id', explode(',', $services_id))->get();
+        $formatted_services =  array();
+
+        foreach ($services as $service_key => $service) {
+
+            $formatted_services[$service_key]['id']                = $service->id;
+            $formatted_services[$service_key]['name']              = $service->name;
+            $formatted_services[$service_key]['description']       = $service->description;
+            $formatted_services[$service_key]['unit_measure']      = $service->unit_measure;
+            $formatted_services[$service_key]['qty']               = $service->qty;
+            $formatted_services[$service_key]['percent_imputed']   = $service->percent_imputed;
+            $formatted_services[$service_key]['occup_hour']        = $service->occup_hour;
+            $formatted_services[$service_key]['price']             = $service->price;
+            $formatted_services[$service_key]['total']             = $service->total;
+            $formatted_services[$service_key]['profit_margin_p_c'] = $service->profit_margin_p_c;
+            $formatted_services[$service_key]['total_plus_margin'] = $service->total_plus_margin;
+            $formatted_services[$service_key]['saved']             = 0;
+        }
+
         return $services;
     }
 }

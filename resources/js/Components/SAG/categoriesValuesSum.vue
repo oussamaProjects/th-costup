@@ -39,19 +39,19 @@
         </div>
       </div>
 
-      <div class="px-1" style="width: 20%">
+      <div class="px-1" style="width: 15%">
         <div :v-bind="category.actual" class="actual">
           {{ category.actual }}
         </div>
       </div>
 
-      <div class="px-1" style="width: 20%">
+      <div class="px-1" style="width: 15%">
         <div :v-bind="category.gap" class="gap">
           {{ category.gap }}
         </div>
       </div>
 
-      <div class="px-1 flex" style="width: 20%">
+      <div class="px-1 flex" style="width: 30%">
         <div
           class="
             bg-success

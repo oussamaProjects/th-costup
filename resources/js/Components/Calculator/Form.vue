@@ -352,6 +352,9 @@ export default {
     },
 
     resetServicesValues(serviceNode) {
+      console.log("resetServicesValues");
+      console.log(serviceNode);
+
       var occup_hour = serviceNode.querySelector(".occup_hour").value;
       var price = serviceNode.querySelector(".price").innerHTML;
       var profit_margin_p_c =
@@ -452,13 +455,21 @@ export default {
       var profitMarginHTML =
         categorySumValuesNode.querySelector(".marge_subTotal");
       // Assigning Variables
-      qtyHTML.innerHTML = quantityTotal.toFixed(2) || 0;
-      occup_hourHTML.innerHTML = occupHourTotal.toFixed(2) || 0;
-      priceHTML.innerHTML = priceTotal.toFixed(2) || 0;
-      subTotalHTML.innerHTML = subTotalTotal.toFixed(2) || 0;
-      margeHTML.innerHTML = margeTotal.toFixed(2) || 0;
-      percentMarginHTML.innerHTML = percentMarginTotal.toFixed(2) || 0;
-      profitMarginHTML.innerHTML = profitMarginTotal.toFixed(2) || 0;
+      qtyHTML.innerHTML = !isNaN(quantityTotal) ? quantityTotal.toFixed(2) : 0;
+      occup_hourHTML.innerHTML = !isNaN(occupHourTotal)
+        ? occupHourTotal.toFixed(2)
+        : 0;
+      priceHTML.innerHTML = !isNaN(priceTotal) ? priceTotal.toFixed(2) : 0;
+      subTotalHTML.innerHTML = !isNaN(subTotalTotal)
+        ? subTotalTotal.toFixed(2)
+        : 0;
+      margeHTML.innerHTML = !isNaN(margeTotal) ? margeTotal.toFixed(2) : 0;
+      percentMarginHTML.innerHTML = !isNaN(percentMarginTotal)
+        ? percentMarginTotal.toFixed(2)
+        : 0;
+      profitMarginHTML.innerHTML = !isNaN(profitMarginTotal)
+        ? profitMarginTotal.toFixed(2)
+        : 0;
     },
 
     addServices(services_id) {
@@ -477,20 +488,22 @@ export default {
             // console.log(res.data);
             // console.log(category.services);
             category.services = category.services.concat(res.data);
-            // console.log(category.services);
 
             categoryNode = document.querySelector(
               "[data-category_id='" + category.id + "']"
             );
 
             // Re-Calculate the data after the DOM is changed
-            setTimeout(() => {
-              _this.resetCategoriesValues(categoryNode);
-            }, 200);
           } else {
             return false;
           }
         });
+
+        setTimeout(() => {
+          _this.resetCategoriesValues(categoryNode);
+          _this.saveServicesValues(_this.project_id, categoryNode);
+          _this.saveCategoryValues(_this.project_id, categoryNode);
+        }, 1200);
       });
     },
 
@@ -521,7 +534,11 @@ export default {
           if (serviceNode !== null) serviceNode.remove();
 
           _this.deleteProjectServices(request);
+          _this.deleteSAGProjectResource(request);
+
           _this.resetCategoriesValues(categoryNode);
+
+          _this.saveServicesValues(_this.project_id, categoryNode);
           _this.saveCategoryValues(_this.project_id, categoryNode);
         }
       });
@@ -562,6 +579,7 @@ export default {
       var _i = 0;
 
       var servicesRequest = Array();
+      var sagRequest = Array();
       var servicesNode = categoryNode.querySelector(".services");
       var servicesValuesNode = servicesNode.querySelector(".services-values");
       var categoryServicesNode =
@@ -569,7 +587,7 @@ export default {
 
       categoryServicesNode.forEach(function (serviceNode) {
         var service_id = serviceNode.querySelector(".service_id").innerHTML;
-        var quantity = serviceNode.querySelector(".qty").value;
+        var qty = serviceNode.querySelector(".qty").value;
         var occup_hour = serviceNode.querySelector(".occup_hour").value;
         var price = serviceNode.querySelector(".price").innerHTML;
         var subTotal = serviceNode.querySelector(".subTotal").innerHTML;
@@ -580,7 +598,10 @@ export default {
           serviceNode.querySelector(".marge_subTotal").innerHTML;
 
         // Parsing
-        quantity = parseFloat(quantity);
+        qty = parseFloat(qty);
+        var actual = qty;
+        var gap = 0;
+
         occup_hour = parseFloat(occup_hour);
         price = parseFloat(price);
         subTotal = parseFloat(subTotal);
@@ -589,24 +610,39 @@ export default {
         profitMargin = parseFloat(profitMargin);
 
         if (project_id != 0 && project_id != null) {
-          if (quantity != null && subTotal != null && profitMargin != null)
+          if (qty != null && subTotal != null && profitMargin != null) {
             servicesRequest[_i] = {
               project_id: project_id,
               service_id: service_id,
-              qty: quantity,
+              qty: qty,
               occup_hour: occup_hour,
               price: price,
               total: subTotal,
               profit_margin_p_c: percentMargin,
               total_plus_margin: profitMargin,
             };
-          _i++;
+
+            sagRequest[_i] = {
+              project_id,
+              service_id,
+              qty,
+              actual,
+              gap,
+            };
+
+            _i++;
+          }
         }
       });
 
       if (project_id != 0 && project_id != null) {
         _this.storeProjectServices(servicesRequest);
+        _this.storeSAGProjectResource(sagRequest);
       }
+    },
+
+    async storeSAGProjectResource(request) {
+      await axios.post("/sag/storeSAGProjectResource", request);
     },
 
     saveCategoryValues(project_id, categoryNode) {
@@ -657,10 +693,31 @@ export default {
           total_plus_margin: profitMarginTotal,
         };
 
+        var sagRequest = {
+          project_id: project_id,
+          category_id: category_id,
+          qty: quantityTotal,
+          actual: quantityTotal,
+          gap: 0,
+        };
+
         _this.storeProjectCategories(request);
+        _this.storeSAGProjectCategories(sagRequest);
       } else {
         alert("Please select a Project");
       }
+    },
+
+    async storeSAGProjectCategories(request) {
+      var _this = this;
+      _this.isLoading = true;
+      await axios
+        .post("/sag/storeSAGProjectCategories", request)
+        .then(function (response) {
+          _this.isLoading = false;
+          _this.enableEditCatId = 0;
+        })
+        .catch(function (error) {});
     },
 
     initializeProject() {
@@ -690,11 +747,16 @@ export default {
     },
 
     async storeProjectServices(request) {
+      console.log(request);
       await axios.post("/projects/storeProjectServices", request);
     },
 
     async deleteProjectServices(request) {
       await axios.post("/projects/deleteProjectServices", request);
+    },
+
+    async deleteSAGProjectResource(request) {
+      await axios.post("/sag/deleteSAGProjectResource", request);
     },
 
     async getCategoryServices(category_id) {
