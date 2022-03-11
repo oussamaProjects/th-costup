@@ -97,6 +97,14 @@ export default {
         ? "border-secondary"
         : "border-gray-200";
     },
+    activeTextStep5() {
+      return this.currentGlobalStep == 4 ? "text-custom_blue" : "text-gray-400";
+    },
+    activeBorderStep5() {
+      return this.currentGlobalStep == 4
+        ? "border-secondary"
+        : "border-gray-200";
+    },
   },
   mounted() {},
   props: ["currentGlobalStep"],

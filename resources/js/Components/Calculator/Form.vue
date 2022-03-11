@@ -226,7 +226,7 @@
 
         <ch-factors-values
           @refreshProjectValues="initializeProject"
-          :project_id="project.id"
+          :project="project"
           :factorsNotInProject="this.factorsNotInProject"
           :factorsProject="this.factorsProject"
           :globalClass="globalClass"
@@ -234,7 +234,7 @@
         />
 
         <ch-extras-component
-          :project_id="project.id"
+          :project="project"
           :extras="projectExtras"
           :globalClass="globalClass"
           v-if="currentGlobalStep == 3"
@@ -495,10 +495,8 @@ export default {
         var categoryNode = null;
         _this.projectData.filter(function (category) {
           if (category.id == category_id) {
-            // console.log(res.data);
-            // console.log(category.services);
+           
             category.services = category.services.concat(res.data);
-            // console.log(category.services);
 
             categoryNode = document.querySelector(
               "[data-category_id='" + category.id + "']"
@@ -687,12 +685,10 @@ export default {
     },
 
     initializeProject() {
-      // console.log("refreshProjectResults from form");
       var _this = this;
       if (_this.project_id != 0 && _this.project_id != null) {
         axios.get(`/projects/${_this.project_id}`).then((res) => {
           _this.project = res.data;
-          // console.log(res.data);
         });
       }
     },
@@ -774,22 +770,20 @@ export default {
 
     globalStepChanged(step) {
       this.currentGlobalStep = step;
-
-      console.log(this.currentGlobalStep);
       this.isPageLoading = true;
       if (this.currentGlobalStep == 1) {
         setTimeout(() => {
           this.calculateAll();
-        this.isPageLoading = false;
         }, 1000);
       }
 
       if (this.currentGlobalStep >= 2) {
         this.initializeProject();
-        setTimeout(() => {
-          this.isPageLoading = false;
-        }, 1000);
       }
+
+      setTimeout(() => {
+        this.isPageLoading = false;
+      }, 1000);
     },
 
     calculateAll() {

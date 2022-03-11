@@ -19474,11 +19474,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.projectData.filter(function (category) {
                     if (category.id == category_id) {
-                      // console.log(res.data);
-                      // console.log(category.services);
-                      category.services = category.services.concat(res.data); // console.log(category.services);
-
-                      // console.log(category.services);
+                      category.services = category.services.concat(res.data);
                       categoryNode = document.querySelector("[data-category_id='" + category.id + "']");
                     } else {
                       return false;
@@ -19661,12 +19657,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     initializeProject: function initializeProject() {
-      // console.log("refreshProjectResults from form");
       var _this = this;
 
       if (_this.project_id != 0 && _this.project_id != null) {
         axios.get("/projects/".concat(_this.project_id)).then(function (res) {
-          _this.project = res.data; // console.log(res.data);
+          _this.project = res.data;
         });
       }
     },
@@ -19828,23 +19823,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this8 = this;
 
       this.currentGlobalStep = step;
-      console.log(this.currentGlobalStep);
       this.isPageLoading = true;
 
       if (this.currentGlobalStep == 1) {
         setTimeout(function () {
           _this8.calculateAll();
-
-          _this8.isPageLoading = false;
         }, 1000);
       }
 
       if (this.currentGlobalStep >= 2) {
         this.initializeProject();
-        setTimeout(function () {
-          _this8.isPageLoading = false;
-        }, 1000);
       }
+
+      setTimeout(function () {
+        _this8.isPageLoading = false;
+      }, 1000);
     },
     calculateAll: function calculateAll() {
       var categoryNode = null;
@@ -19901,9 +19894,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("step-change", this.currentstep - 1);
     }
   },
-  mounted: function mounted() {// console.log(this.nextStepText);
-    // console.log(this.prevStepText);
-  },
+  mounted: function mounted() {},
   computed: {
     active: function active() {
       return this.step.id == this.currentstep;
@@ -20000,8 +19991,7 @@ __webpack_require__.r(__webpack_exports__);
         query: {
           data: this.project.id
         }
-      }); // console.log(routeData);
-
+      });
       window.open(routeData.href, "_blank");
     }
   },
@@ -20219,6 +20209,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     activeBorderStep4: function activeBorderStep4() {
       return this.currentGlobalStep == 3 || this.currentGlobalStep == 4 ? "border-secondary" : "border-gray-200";
+    },
+    activeTextStep5: function activeTextStep5() {
+      return this.currentGlobalStep == 4 ? "text-custom_blue" : "text-gray-400";
+    },
+    activeBorderStep5: function activeBorderStep5() {
+      return this.currentGlobalStep == 4 ? "border-secondary" : "border-gray-200";
     }
   },
   mounted: function mounted() {},
@@ -20508,7 +20504,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  props: ["project_id", "extras", "globalClass"],
+  props: ["project", "extras", "globalClass"],
   mounted: function mounted() {},
   methods: {}
 });
@@ -20526,33 +20522,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _CircleLoader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CircleLoader.vue */ "./resources/js/Components/CircleLoader.vue");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {},
+  components: {
+    ChCircleLoader: _CircleLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
-      project_id: this.project_id,
-      extras: this.extras
+      extras: this.extras,
+      isLoading: false
     };
   },
-  props: ["project_id", "extras", "globalClass"],
+  props: ["project", "extras", "globalClass"],
   mounted: function mounted() {},
   methods: {
     submit: function submit() {
       var _this = this;
 
-      console.log(_this.project_id);
       _this.isLoading = true;
       var request = {
-        project_id: _this.project_id,
+        project_id: _this.project.id,
         extras: _this.extras
       };
       axios.post("/projects/storeProjectExtras", request).then(function (response) {
         _this.isLoading = false;
       })["catch"](function (error) {});
-      _this.extras.smph_custommer_demand = null;
-      _this.extras.smph_production_available_time = null;
-      _this.extras.lmph_custommer_demand = null;
-      _this.extras.lmph_production_available_time = null;
     }
   }
 });
@@ -20757,21 +20752,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       _this.$emit("addFactorToForm", event);
     },
-    saveFactorValues: function saveFactorValues(project_id) {
+    saveFactorValues: function saveFactorValues() {
       var factorsRequest = Array();
       var factorTotal = 0;
       var factorsPercent = 0;
       var _i = 0;
 
-      var _this = this; // console.log(_this.project_id);
+      var _this = this;
 
+      console.log('saveFactorValues');
+      console.log(_this.project.id);
 
       _this.availableFactorsProject.forEach(function (factor) {
         factorTotal += factor.value;
 
-        if (_this.project_id != 0 && _this.project_id != null) {
+        if (_this.project.id != 0 && _this.project.id != null) {
           factorsRequest[_i] = {
-            project_id: _this.project_id,
+            project_id: _this.project.id,
             factor_id: factor.id,
             value: factor.value
           };
@@ -20779,9 +20776,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
 
-      if (project_id != 0 && project_id != null) {
-        _this.storeProjectFactors(factorsRequest);
-      }
+      _this.storeProjectFactors(factorsRequest);
 
       factorsPercent = factorTotal / this.availableFactorsProject.length;
 
@@ -20814,7 +20809,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: {},
-  props: ["project_id", "factorsNotInProject", "factorsProject", "globalClass"]
+  props: ["project", "factorsNotInProject", "factorsProject", "globalClass"]
 });
 
 /***/ }),
@@ -23813,20 +23808,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ch-categories-step\r\n            :currentstep=\"currentstep\"\r\n            :step=\"catParentIndex\"\r\n            :stepcount=\"2\"\r\n            @step-change=\"stepChanged\"\r\n          >\r\n          </ch-categories-step> ")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $data.currentGlobalStep == 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ch_factors_values, {
     key: 2,
     onRefreshProjectValues: $options.initializeProject,
-    project_id: $data.project.id,
+    project: $data.project,
     factorsNotInProject: this.factorsNotInProject,
     factorsProject: this.factorsProject,
     globalClass: $props.globalClass
   }, null, 8
   /* PROPS */
-  , ["onRefreshProjectValues", "project_id", "factorsNotInProject", "factorsProject", "globalClass"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentGlobalStep == 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ch_extras_component, {
+  , ["onRefreshProjectValues", "project", "factorsNotInProject", "factorsProject", "globalClass"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentGlobalStep == 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ch_extras_component, {
     key: 3,
-    project_id: $data.project.id,
+    project: $data.project,
     extras: $data.projectExtras,
     globalClass: $props.globalClass
   }, null, 8
   /* PROPS */
-  , ["project_id", "extras", "globalClass"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentGlobalStep == 4 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ch_calculator_results, {
+  , ["project", "extras", "globalClass"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentGlobalStep == 4 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ch_calculator_results, {
     key: 4,
     project: this.project,
     globalClass: $props.globalClass
@@ -24803,9 +24798,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), _hoisted_6], 2
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('border-t-4 ' + _ctx.activeBorderStep5 + ' pt-4')
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('border-t-4 ' + $options.activeBorderStep5 + ' pt-4')
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('uppercase  ' + _ctx.activeTextStep5 + ' font-semibold')
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('uppercase  ' + $options.activeTextStep5 + ' font-semibold')
   }, " Step 5 ", 2
   /* CLASS */
   ), _hoisted_7], 2
@@ -25476,12 +25471,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ch_extras_create = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ch-extras-create");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ch_extras_create, {
-    project_id: $props.project_id,
+    project: $props.project,
     extras: $props.extras,
     globalClass: $props.globalClass
   }, null, 8
   /* PROPS */
-  , ["project_id", "extras", "globalClass"])])]);
+  , ["project", "extras", "globalClass"])])]);
 }
 
 /***/ }),
@@ -25500,7 +25495,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "flex flex-col -mb-2"
+  "class": "flex flex-col -mb-2 relative"
 };
 var _hoisted_2 = {
   key: 0,
@@ -25557,6 +25552,8 @@ var _hoisted_16 = {
 };
 var _hoisted_17 = ["value"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_ChCircleLoader = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ChCircleLoader");
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
     onSubmit: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.submit && $options.submit.apply($options, arguments);
@@ -25630,7 +25627,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "submit",
     disabled: $props.extras.processing,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(this.globalClass.buttonForm)
-  }, " Enregistrer ", 10
+  }, " Register ", 10
   /* CLASS, PROPS */
   , _hoisted_15)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [$props.extras.progress ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("progress", {
     key: 0,
@@ -25638,7 +25635,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     max: "100"
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.extras.progress.percentage) + "% ", 9
   /* TEXT, PROPS */
-  , _hoisted_17)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])], 32
+  , _hoisted_17)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $data.isLoading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ChCircleLoader, {
+    key: 2,
+    color: '#3b82f6'
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 32
   /* HYDRATE_EVENTS */
   );
 }
@@ -33380,7 +33380,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.factorList-item {\r\n  display: inline-block;\r\n  margin-right: 10px;\n}\n.factorList-enter-active,\r\n.factorList-leave-active {\r\n  transition: all 1s;\n}\r\n/* .factorList-leave-active below version 2.1.8 */\n.factorList-enter, .factorList-leave-to  {\r\n  opacity: 0;\r\n  transform: translateX(30px);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.factorList-item {\r\n  display: inline-block;\r\n  margin-right: 10px;\n}\n.factorList-enter-active,\r\n.factorList-leave-active {\r\n  transition: all 1s;\n}\r\n/* .factorList-leave-active below version 2.1.8 */\n.factorList-enter,\r\n.factorList-leave-to {\r\n  opacity: 0;\r\n  transform: translateX(30px);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

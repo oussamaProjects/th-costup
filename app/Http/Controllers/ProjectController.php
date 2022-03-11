@@ -360,7 +360,6 @@ class ProjectController extends Controller
     public function storeProjectExtras(Request $request)
     {
 
-
         $project = Project::where('id', '=', $request->input('project_id'))->first();
         $project->smph_custommer_demand = $request['extras']['smph_custommer_demand'] ?? 0;
         $project->smph_production_available_time = $request['extras']['smph_production_available_time'] ?? 0;
@@ -369,7 +368,7 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return Redirect::back()->with('flash.success.form.update.projects', 'Le project "' . $project->name . '" a été bien modifié !');
+        return Redirect::back()->with('flash.success.form.store.extras', 'Le project "' . $project->name . '" a été bien modifié !');
     }
 
     /**

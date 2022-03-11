@@ -3,7 +3,7 @@
     <div class="w-1/2">
       <div class="uppercase font-medium text-custom_blue my-4"></div>
       <ch-extras-create
-        :project_id="project_id"
+        :project="project"
         :extras="extras"
         :globalClass="globalClass"
       />
@@ -30,7 +30,7 @@ export default {
     };
   },
 
-  props: ["project_id", "extras", "globalClass"],
+  props: ["project", "extras", "globalClass"],
 
   mounted() {},
 

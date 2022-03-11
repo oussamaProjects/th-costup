@@ -24,6 +24,11 @@ class UtilityController extends Controller
         $factorsPercent = 0;
         $_i = 0;
 
+        $smph_cd = ($project->smph_custommer_demand == 0) ? 1 : $project->smph_custommer_demand;
+        $smph_pat = ($project->smph_production_available_time) ? 1 : $project->smph_production_available_time;
+        $lmph_cd = ($project->lmph_custommer_demand) ? 1 : $project->lmph_custommer_demand;
+        $lmph_pat = ($project->lmph_production_available_time) ? 1 : $project->lmph_production_available_time;
+
         if (!$categories_values->isEmpty()) {
 
             $projectFactors = $project->factors()->get();
@@ -55,16 +60,16 @@ class UtilityController extends Controller
             $epps = ($epo * $factorsPercent / 100) + ($epo) + $epo;
             $epp = ($epo + $epps) / 2;
             $em = ((1 * $epo) + (4 * $epp) + (1 * $epps)) / 6;
-            $smph = ($em * $project->smph_custommer_demand) / $project->smph_production_available_time;
-            $lmph = ($em * $project->lmph_custommer_demand) / $project->lmph_production_available_time;
+            $smph = ($em * $smph_cd) / $smph_pat;
+            $lmph = ($em * $lmph_cd) / $lmph_pat;
 
-            $project->epo = $epo;
-            $project->epp = $epp;
+            $project->epo  = $epo;
+            $project->epp  = $epp;
             $project->epps = $epps;
-            $project->em = $em;
+            $project->em   = $em;
             $project->smph = $smph;
             $project->lmph = $lmph;
-            
+
             $project->save();
         }
 

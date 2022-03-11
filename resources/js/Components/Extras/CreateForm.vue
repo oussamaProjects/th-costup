@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit" class="bg-white">
-    <div class="flex flex-col -mb-2">
+    <div class="flex flex-col -mb-2 relative">
       <div
         v-if="$page.props.flash.failures.form.store.extras"
         class="alert w-full text-xs text-error px-3 py-1 my-2 text-center"
@@ -94,7 +94,7 @@
             :disabled="extras.processing"
             :class="this.globalClass.buttonForm"
           >
-            Enregistrer
+            Register
           </button>
         </div>
       </div>
@@ -108,33 +108,35 @@
           {{ extras.progress.percentage }}%
         </progress>
       </div>
+
+      <ChCircleLoader v-if="isLoading" :color="'#3b82f6'"></ChCircleLoader>
     </div>
   </form>
 </template>
 
 <script>
+import ChCircleLoader from "../CircleLoader.vue";
 export default {
-  components: {},
+  components: { ChCircleLoader },
 
   data() {
     return {
-      project_id: this.project_id,
       extras: this.extras,
+      isLoading: false,
     };
   },
 
-  props: ["project_id", "extras", "globalClass"],
+  props: ["project", "extras", "globalClass"],
 
   mounted() {},
 
   methods: {
     submit() {
       var _this = this;
-      console.log(_this.project_id);
       _this.isLoading = true;
 
       var request = {
-        project_id: _this.project_id,
+        project_id: _this.project.id,
         extras: _this.extras,
       };
 
@@ -144,11 +146,6 @@ export default {
           _this.isLoading = false;
         })
         .catch(function (error) {});
-
-      _this.extras.smph_custommer_demand = null;
-      _this.extras.smph_production_available_time = null;
-      _this.extras.lmph_custommer_demand = null;
-      _this.extras.lmph_production_available_time = null;
     },
   },
 };

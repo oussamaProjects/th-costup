@@ -62,7 +62,6 @@ export default {
         name: "generate-pdf",
         query: { data: this.project.id },
       });
-      // console.log(routeData);
       window.open(routeData.href, "_blank");
     },
   },
