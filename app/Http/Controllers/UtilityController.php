@@ -37,7 +37,7 @@ class UtilityController extends Controller
                 $_i++;
                 $factorTotal += $factor->value;
             }
-            if ($_i != 0 || $factorTotal != 0)
+            if ($_i != 0 && $factorTotal != 0)
                 $factorsPercent = $factorTotal / $_i;
 
             $qty = 0;
@@ -71,7 +71,7 @@ class UtilityController extends Controller
             $project->lmph = $lmph;
 
             $project->save();
-            
+
         }
 
         return $project;
