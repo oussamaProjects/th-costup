@@ -19403,55 +19403,58 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var percentMarginTotal = 0;
       var profitMarginTotal = 0;
       var i = 0;
-      var categorySumValuesNode = categoryNode.querySelector(".category-sum-values");
-      var servicesNode = categoryNode.querySelector(".services");
-      var servicesValuesNode = servicesNode.querySelector(".services-values");
-      var categoryServicesNode = servicesValuesNode.querySelectorAll(".service");
-      categoryServicesNode.forEach(function (serviceNode) {
-        _this.resetServicesValues(serviceNode);
 
-        i++;
-        var service_id = serviceNode.getAttribute("data-service_id");
-        var quantity = serviceNode.querySelector(".qty").value;
-        var occup_hour = serviceNode.querySelector(".occup_hour").value;
-        var price = serviceNode.querySelector(".price").innerHTML;
-        var subTotal = serviceNode.querySelector(".subTotal").innerHTML;
-        var marge = serviceNode.querySelector(".marge").innerHTML;
-        var percentMargin = serviceNode.querySelector(".profit_margin_p_c").value;
-        var profitMargin = serviceNode.querySelector(".marge_subTotal").innerHTML; // Parsing
+      if (this.currentGlobalStep == 1) {
+        var categorySumValuesNode = categoryNode.querySelector(".category-sum-values");
+        var servicesNode = categoryNode.querySelector(".services");
+        var servicesValuesNode = servicesNode.querySelector(".services-values");
+        var categoryServicesNode = servicesValuesNode.querySelectorAll(".service");
+        categoryServicesNode.forEach(function (serviceNode) {
+          _this.resetServicesValues(serviceNode);
 
-        quantity = parseFloat(quantity);
-        occup_hour = parseFloat(occup_hour);
-        price = parseFloat(price);
-        subTotal = parseFloat(subTotal);
-        marge = parseFloat(marge);
-        percentMargin = parseFloat(percentMargin);
-        profitMargin = parseFloat(profitMargin);
-        quantityTotal += quantity;
-        occupHourTotal += occup_hour;
-        priceTotal += price;
-        subTotalTotal += subTotal;
-        margeTotal += marge;
-        percentMarginTotal += percentMargin;
-        profitMarginTotal += profitMargin;
-      });
-      percentMarginTotal = percentMarginTotal / i;
-      var category_id = categoryNode.getAttribute("data-category_id");
-      var qtyHTML = categorySumValuesNode.querySelector(".qty");
-      var occup_hourHTML = categorySumValuesNode.querySelector(".occup_hour");
-      var priceHTML = categorySumValuesNode.querySelector(".price");
-      var subTotalHTML = categorySumValuesNode.querySelector(".subTotal");
-      var margeHTML = categorySumValuesNode.querySelector(".marge");
-      var percentMarginHTML = categorySumValuesNode.querySelector(".profit_margin_p_c");
-      var profitMarginHTML = categorySumValuesNode.querySelector(".marge_subTotal"); // Assigning Variables
+          i++;
+          var service_id = serviceNode.getAttribute("data-service_id");
+          var quantity = serviceNode.querySelector(".qty").value;
+          var occup_hour = serviceNode.querySelector(".occup_hour").value;
+          var price = serviceNode.querySelector(".price").innerHTML;
+          var subTotal = serviceNode.querySelector(".subTotal").innerHTML;
+          var marge = serviceNode.querySelector(".marge").innerHTML;
+          var percentMargin = serviceNode.querySelector(".profit_margin_p_c").value;
+          var profitMargin = serviceNode.querySelector(".marge_subTotal").innerHTML; // Parsing
 
-      qtyHTML.innerHTML = quantityTotal.toFixed(2) || 0;
-      occup_hourHTML.innerHTML = occupHourTotal.toFixed(2) || 0;
-      priceHTML.innerHTML = priceTotal.toFixed(2) || 0;
-      subTotalHTML.innerHTML = subTotalTotal.toFixed(2) || 0;
-      margeHTML.innerHTML = margeTotal.toFixed(2) || 0;
-      percentMarginHTML.innerHTML = percentMarginTotal.toFixed(2) || 0;
-      profitMarginHTML.innerHTML = profitMarginTotal.toFixed(2) || 0;
+          quantity = parseFloat(quantity);
+          occup_hour = parseFloat(occup_hour);
+          price = parseFloat(price);
+          subTotal = parseFloat(subTotal);
+          marge = parseFloat(marge);
+          percentMargin = parseFloat(percentMargin);
+          profitMargin = parseFloat(profitMargin);
+          quantityTotal += quantity;
+          occupHourTotal += occup_hour;
+          priceTotal += price;
+          subTotalTotal += subTotal;
+          margeTotal += marge;
+          percentMarginTotal += percentMargin;
+          profitMarginTotal += profitMargin;
+        });
+        percentMarginTotal = percentMarginTotal / i;
+        var category_id = categoryNode.getAttribute("data-category_id");
+        var qtyHTML = categorySumValuesNode.querySelector(".qty");
+        var occup_hourHTML = categorySumValuesNode.querySelector(".occup_hour");
+        var priceHTML = categorySumValuesNode.querySelector(".price");
+        var subTotalHTML = categorySumValuesNode.querySelector(".subTotal");
+        var margeHTML = categorySumValuesNode.querySelector(".marge");
+        var percentMarginHTML = categorySumValuesNode.querySelector(".profit_margin_p_c");
+        var profitMarginHTML = categorySumValuesNode.querySelector(".marge_subTotal"); // Assigning Variables
+
+        qtyHTML.innerHTML = quantityTotal.toFixed(2) || 0;
+        occup_hourHTML.innerHTML = occupHourTotal.toFixed(2) || 0;
+        priceHTML.innerHTML = priceTotal.toFixed(2) || 0;
+        subTotalHTML.innerHTML = subTotalTotal.toFixed(2) || 0;
+        margeHTML.innerHTML = margeTotal.toFixed(2) || 0;
+        percentMarginHTML.innerHTML = percentMarginTotal.toFixed(2) || 0;
+        profitMarginHTML.innerHTML = profitMarginTotal.toFixed(2) || 0;
+      }
     },
     addServices: function addServices(services_id) {
       // Get the selected services from database
