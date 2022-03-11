@@ -55,8 +55,8 @@ class UtilityController extends Controller
             $epps = ($epo * $factorsPercent / 100) + ($epo) + $epo;
             $epp = ($epo + $epps) / 2;
             $em = ((1 * $epo) + (4 * $epp) + (1 * $epps)) / 6;
-            $smph = ($em * 1) / 4;
-            $lmph = ($em * 1) / 4;
+            $smph = ($em * $project->smph_custommer_demand) / $project->smph_production_available_time;
+            $lmph = ($em * $project->lmph_custommer_demand) / $project->lmph_production_available_time;
 
             $project->epo = $epo;
             $project->epp = $epp;
@@ -64,6 +64,7 @@ class UtilityController extends Controller
             $project->em = $em;
             $project->smph = $smph;
             $project->lmph = $lmph;
+            
             $project->save();
         }
 

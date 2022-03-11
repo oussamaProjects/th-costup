@@ -238,7 +238,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * getProjectValues
+     * getProjectFactors
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -249,7 +249,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * getProjectValues
+     * getFactorsNotInProject
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -269,6 +269,24 @@ class ProjectController extends Controller
             ->get();
 
         return $factors;
+    }
+
+    /**
+     * getProjectExtras
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getProjectExtras(Project $project)
+    {
+        $extras = array(
+            "smph_custommer_demand" => $project->smph_custommer_demand,
+            "smph_production_available_time" => $project->smph_production_available_time,
+            "lmph_custommer_demand" => $project->lmph_custommer_demand,
+            "lmph_production_available_time" => $project->lmph_production_available_time,
+        );
+
+        return $extras;
     }
 
 
@@ -323,13 +341,35 @@ class ProjectController extends Controller
 
         if ($check_name !== null) {
             $project->save();
-            return Redirect::route('settings')->with('flash.failures.form.update.projects', 'Le project "' . $project->name . '" exist deja !');
+            return Redirect::route('settings')->with('flash.failures.form.update.projects', 'Le project "' . $project->name . '" a été bien modifié ! mais le nom exist deja !');
         }
 
         $project->name = $request->input('name');
         $project->save();
 
         return Redirect::route('settings')->with('flash.success.form.update.projects', 'Le project "' . $project->name . '" a été bien modifié !');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function storeProjectExtras(Request $request)
+    {
+
+
+        $project = Project::where('id', '=', $request->input('project_id'))->first();
+        $project->smph_custommer_demand = $request['extras']['smph_custommer_demand'] ?? 0;
+        $project->smph_production_available_time = $request['extras']['smph_production_available_time'] ?? 0;
+        $project->lmph_custommer_demand = $request['extras']['lmph_custommer_demand'] ?? 0;
+        $project->lmph_production_available_time = $request['extras']['lmph_production_available_time'] ?? 0;
+
+        $project->save();
+
+        return Redirect::back()->with('flash.success.form.update.projects', 'Le project "' . $project->name . '" a été bien modifié !');
     }
 
     /**

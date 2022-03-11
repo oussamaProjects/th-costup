@@ -2,7 +2,7 @@
   <div class="relative p-2">
     <div class="w-ful" v-if="this.project">
       <div class="text-center text-2xl font-medium uppercase m-8">
-        Resultast
+        Results
       </div>
       <div class="nice-shape-container">
         <div class="font-sm shadow-sm nice-shape epo">
@@ -35,12 +35,14 @@
         <a
           :href="'/pdf-generate/' + this.project.id"
           target="_blank"
-          :class="
-            'bg-main ml-auto w-44 text-center ' + globalClass.buttonForm
-          "
+          :class="'bg-main ml-auto w-44 text-center ' + globalClass.buttonForm"
           rel="noopener noreferrer"
           >Generate the PDF</a
         >
+      </div>
+      <div class="max-full mt-4 ">
+        <p class="text-xs">SMPH = square meter per hour</p>
+        <p class="text-xs">LMPH = linear meter per hour</p>
       </div>
     </div>
   </div>
@@ -84,7 +86,7 @@ export default {
   margin: 8px 0;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 0 28px;
 }
 

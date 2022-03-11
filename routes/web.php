@@ -25,7 +25,7 @@ Route::get('/clear-cache', function () {
 |
 */
 
-Route::get('/', function () {  
+Route::get('/', function () {
     // $password = '123456';
     // $hashedPassword = Hash::make($password);
     // echo $hashedPassword;
@@ -52,6 +52,8 @@ Route::post('projects/storeProjectFactors',    'App\Http\Controllers\ProjectCont
 
 Route::get('projects/{project}/values',         'App\Http\Controllers\ProjectController@getProjectValues')->name('get-project-values');
 Route::post('projects/storeProjectCategories',  'App\Http\Controllers\ProjectController@storeProjectCategories')->name('store-project-categories');
+Route::get('projects/{project}/extras',  'App\Http\Controllers\ProjectController@getProjectExtras')->name('get-project-extras');
+Route::post('projects/storeProjectExtras',      'App\Http\Controllers\ProjectController@storeProjectExtras')->name('store-project-extras');
 
 
 Route::post('projects/storeProjectServices',    'App\Http\Controllers\ProjectController@storeProjectServices')->name('store-project-services');
@@ -65,4 +67,4 @@ Route::get('categories/{category}/services', 'App\Http\Controllers\CategoryContr
 Route::resource('services', 'App\Http\Controllers\ServiceController');
 Route::get('services/{services}/selected', 'App\Http\Controllers\ServiceController@getSelectedServices');
 
-Route::get('pdf-generate/{project}','App\Http\Controllers\PdfGenerateController@PDFgenerate')->name('generate-pdf');
+Route::get('pdf-generate/{project}', 'App\Http\Controllers\PdfGenerateController@PDFgenerate')->name('generate-pdf');

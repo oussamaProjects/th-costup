@@ -26,12 +26,17 @@
       >
         <div v-if="this.currentGlobalStep == 1">Choose Project</div>
         <div v-if="this.currentGlobalStep == 2">Calculator</div>
-        <div v-if="this.currentGlobalStep == 3">Facteurs</div>
+        <div v-if="this.currentGlobalStep == 3">Factors</div>
+        <div v-if="this.currentGlobalStep == 4">SMPH/LMPH</div>
       </button>
 
       <div class="flex-auto flex flex-row-reverse">
-        <button 
-        v-if="this.currentGlobalStep == 1 || this.currentGlobalStep == 2"
+        <button
+          v-if="
+            this.currentGlobalStep == 1 ||
+            this.currentGlobalStep == 2 ||
+            this.currentGlobalStep == 3
+          "
           class="
             mx-3
             bg-main
@@ -54,9 +59,9 @@
           type="button"
           @click="nextStep"
         >
-          
-        <div v-if="this.currentGlobalStep == 1">Facteurs</div>
-        <div v-if="this.currentGlobalStep == 2">Results</div>
+          <div v-if="this.currentGlobalStep == 1">Factors</div>
+          <div v-if="this.currentGlobalStep == 2">SMPH/LMPH</div>
+          <div v-if="this.currentGlobalStep == 3">Results</div>
         </button>
 
         <button
