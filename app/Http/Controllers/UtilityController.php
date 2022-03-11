@@ -21,7 +21,7 @@ class UtilityController extends Controller
             ->get();
 
         $factorTotal = 0;
-        $factorsPercent = 0;
+        $factorsPercent = 1;
         $_i = 0;
 
         $smph_cd = ($project->smph_custommer_demand == 0) ? 1 : $project->smph_custommer_demand;
@@ -37,7 +37,7 @@ class UtilityController extends Controller
                 $_i++;
                 $factorTotal += $factor->value;
             }
-            if ($_i != 0)
+            if ($_i != 0 || $factorTotal != 0)
                 $factorsPercent = $factorTotal / $_i;
 
             $qty = 0;
