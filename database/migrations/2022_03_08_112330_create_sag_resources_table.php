@@ -16,8 +16,8 @@ class CreateSagResourcesTable extends Migration
         Schema::create('sag_resources', function (Blueprint $table) {
             $table->id();
             
-            $table->bigInteger('project_id')->unsigned();
-            $table->foreign('project_id')->references('id')->on('projects');
+            // $table->bigInteger('project_id')->unsigned();
+            // $table->foreign('project_id')->references('id')->on('projects');
             
             $table->bigInteger('sag_id')->unsigned();
             $table->foreign('sag_id')->references('id')->on('sag');

@@ -6,6 +6,7 @@ use App\Models\History;
 use App\Models\SagResource;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use function PHPUnit\Framework\isNull;
 
@@ -90,9 +91,13 @@ class HistoryController extends Controller
 
     public function getHistories(int $id)
     {
-        $histories = History::all(); 
-        // $resource = SagResource::findOrFail($id);
-        // $histories = $resource->histories();
+
+        $histories = DB::table('histories')
+        ->join('sag_resources', 'sag_resources.id', '=', 'histories.sag_resources_id')
+        ->where('sag_resources.id',  '=', $id)
+        ->select('histories.*')
+        ->get();
+
         return $histories;
     }
 }

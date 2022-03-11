@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sag extends Model
 {
     use HasFactory;
+    protected $table = 'sag';
 
     public function project()
     {
@@ -16,11 +17,11 @@ class Sag extends Model
 
     public function resources()
     {
-        return $this->belongsToMany(Service::class, 'sag_resources', 'sag_id', 'resource_id');
+        return $this->belongsToMany(Service::class, 'sag_resources', 'sag_id', 'resource_id')->withTimestamps();
     }
     
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'sag_categories', 'sag_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'sag_categories', 'sag_id', 'category_id')->withTimestamps();
     }
 }

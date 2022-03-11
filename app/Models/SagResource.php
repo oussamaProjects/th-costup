@@ -13,6 +13,6 @@ class SagResource extends Model
 
     public function histories()
     {
-        $this->hasMany(History::class, 'sag_resources_id', 'id');
+        $this->hasMany(History::class, 'sag_resources_id');
     }
 }

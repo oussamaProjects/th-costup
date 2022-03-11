@@ -187,20 +187,13 @@
       :show="displayHistoriesModal"
       @close="closeHistoriesModal"
     >
-      <template #title>Histories </template>
-
+      <!-- <template #title>Histories </template> -->
       <template #content>
         <ch-histories
           :histories="histories"
           :resource="resource"
           :globalClass="globalClass"
         />
-      </template>
-
-      <template #footer>
-        <jet-secondary-button @click="closeHistoriesModal">
-          Cancel
-        </jet-secondary-button>
       </template>
     </jet-dialog-modal>
   </div>
@@ -268,7 +261,6 @@ export default {
 
     async getResourceHistories(resource_id) {
       await axios.get(`/resources/${resource_id}/histories`).then((res) => {
-        console.log(res);
         this.histories = res.data;
       });
     },
@@ -300,7 +292,7 @@ export default {
 
     resetServicesValues(serviceNode) {
       var service_id = serviceNode.getAttribute("data-service_id");
-      var quantity = serviceNode.querySelector(".qty").value;
+      var quantity = serviceNode.querySelector(".qty").innerHTML;
       var actual = serviceNode.querySelector(".actual").value;
       var gap = serviceNode.querySelector(".gap");
 
@@ -338,7 +330,7 @@ export default {
         _this.resetServicesValues(serviceNode);
         i++;
         var service_id = serviceNode.getAttribute("data-service_id");
-        var quantity = serviceNode.querySelector(".qty").value;
+        var quantity = serviceNode.querySelector(".qty").innerHTML;
         var actual = serviceNode.querySelector(".actual").value;
         var gap = serviceNode.querySelector(".gap").innerHTML;
 
@@ -388,10 +380,9 @@ export default {
       var project_id = this.project_id;
       var categoryNode = event.target.closest(".category");
 
+      this.saveResourceSAGNote(project_id, categoryNode);
       this.saveResourceSAG(project_id, categoryNode);
       this.saveCategorySAG(project_id, categoryNode);
-
-      this.saveResourceSAGNote(project_id, categoryNode);
 
       this.changeProject();
     },
@@ -408,7 +399,7 @@ export default {
 
       categoryServicesNode.forEach(function (serviceNode) {
         var service_id = serviceNode.querySelector(".service_id").innerHTML;
-        var qty = serviceNode.querySelector(".qty").value;
+        var qty = serviceNode.querySelector(".qty").innerHTML;
         var actual = serviceNode.querySelector(".actual").value;
         var gap = serviceNode.querySelector(".gap").innerHTML;
 
@@ -488,8 +479,11 @@ export default {
         var sag_resources_id =
           resourceNode.querySelector(".sag_resources_id").innerHTML;
         var note = resourceNode.querySelector(".note").value;
-        var movement = -1;
-        // var movement = resourceNode.querySelector(".movement").value;
+        var id_history_status =
+          resourceNode.querySelector(".id_history_status").value;
+        var movement = resourceNode.querySelector(".movement").innerHTML;
+
+        console.log(id_history_status);
 
         if (note != null && movement != null)
           resourcesRequest[_i] = {
@@ -499,8 +493,10 @@ export default {
             movement,
           };
         _i++;
-      });
 
+        resourceNode.querySelector(".note").value = "";
+        resourceNode.querySelector(".movement").innerHTML = "";
+      });
       _this.storeSAGMovementNote(resourcesRequest);
     },
 
@@ -525,7 +521,7 @@ export default {
       if (_this.project_id != 0 && _this.project_id != null) {
         var { data } = await axios.get(`/projects/${_this.project_id}/preSAG`);
         _this.projectData = data;
-      } else _this.projectData = _this.categories;
+      }
     },
 
     stepChanged(step) {

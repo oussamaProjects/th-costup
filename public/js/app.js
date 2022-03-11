@@ -21413,7 +21413,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return axios.get("/resources/".concat(resource_id, "/histories")).then(function (res) {
-                  console.log(res);
                   _this2.histories = res.data;
                 });
 
@@ -21448,7 +21447,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     resetServicesValues: function resetServicesValues(serviceNode) {
       var service_id = serviceNode.getAttribute("data-service_id");
-      var quantity = serviceNode.querySelector(".qty").value;
+      var quantity = serviceNode.querySelector(".qty").innerHTML;
       var actual = serviceNode.querySelector(".actual").value;
       var gap = serviceNode.querySelector(".gap");
       var actualValue = null;
@@ -21477,7 +21476,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         i++;
         var service_id = serviceNode.getAttribute("data-service_id");
-        var quantity = serviceNode.querySelector(".qty").value;
+        var quantity = serviceNode.querySelector(".qty").innerHTML;
         var actual = serviceNode.querySelector(".actual").value;
         var gap = serviceNode.querySelector(".gap").innerHTML; // Parsing
 
@@ -21520,9 +21519,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     saveValues: function saveValues(event) {
       var project_id = this.project_id;
       var categoryNode = event.target.closest(".category");
+      this.saveResourceSAGNote(project_id, categoryNode);
       this.saveResourceSAG(project_id, categoryNode);
       this.saveCategorySAG(project_id, categoryNode);
-      this.saveResourceSAGNote(project_id, categoryNode);
       this.changeProject();
     },
     saveResourceSAG: function saveResourceSAG(project_id, categoryNode) {
@@ -21535,7 +21534,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var categoryServicesNode = servicesValuesNode.querySelectorAll(".service");
       categoryServicesNode.forEach(function (serviceNode) {
         var service_id = serviceNode.querySelector(".service_id").innerHTML;
-        var qty = serviceNode.querySelector(".qty").value;
+        var qty = serviceNode.querySelector(".qty").innerHTML;
         var actual = serviceNode.querySelector(".actual").value;
         var gap = serviceNode.querySelector(".gap").innerHTML; // Parsing
 
@@ -21617,8 +21616,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       categoryResourcesNode.forEach(function (resourceNode) {
         var sag_resources_id = resourceNode.querySelector(".sag_resources_id").innerHTML;
         var note = resourceNode.querySelector(".note").value;
-        var movement = -1; // var movement = resourceNode.querySelector(".movement").value;
-
+        var id_history_status = resourceNode.querySelector(".id_history_status").value;
+        var movement = resourceNode.querySelector(".movement").innerHTML;
+        console.log(id_history_status);
         if (note != null && movement != null) resourcesRequest[_i] = {
           project_id: project_id,
           sag_resources_id: sag_resources_id,
@@ -21626,6 +21626,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           movement: movement
         };
         _i++;
+        resourceNode.querySelector(".note").value = "";
+        resourceNode.querySelector(".movement").innerHTML = "";
       });
 
       _this.storeSAGMovementNote(resourcesRequest);
@@ -21686,7 +21688,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this = _this5;
 
                 if (!(_this.project_id != 0 && _this.project_id != null)) {
-                  _context5.next = 9;
+                  _context5.next = 7;
                   break;
                 }
 
@@ -21697,13 +21699,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$get = _context5.sent;
                 data = _yield$axios$get.data;
                 _this.projectData = data;
-                _context5.next = 10;
-                break;
 
-              case 9:
-                _this.projectData = _this.categories;
-
-              case 10:
+              case 7:
               case "end":
                 return _context5.stop();
             }
@@ -21931,6 +21928,9 @@ __webpack_require__.r(__webpack_exports__);
   components: {},
   data: function data() {
     return {
+      history_status: false,
+      oldActual: this.resource.actual,
+      movement: 0,
       resource: this.resource,
       globalClass: {
         inputSelectForm: "appearance-none border border-gray-300 hover:border-gray-300 focus:border-gray-300 w-full p-2 text-gray-700 leading-tight focus:outline-none bg-white hover:bg-main text-xs transition-all duration-300 transform",
@@ -21938,10 +21938,20 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  watch: {
+    resource: function resource() {
+      this.oldActual = this.resource.actual;
+    }
+  },
   mounted: function mounted() {},
   methods: {
     calculate: function calculate(event) {
+      var _parseInt;
+
+      var newValue = (_parseInt = parseInt(event.target.value)) !== null && _parseInt !== void 0 ? _parseInt : 0;
+      this.movement = newValue - this.oldActual;
       this.$emit("calculateValues", event);
+      this.history_status = true;
     },
     showHistories: function showHistories(event) {
       this.$emit("showHistories", event);
@@ -28184,11 +28194,6 @@ var _hoisted_20 = {
   "class": "max-full mt-4 flex"
 };
 var _hoisted_21 = ["href"];
-
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Histories ");
-
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ");
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
 
@@ -28209,8 +28214,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ch_stepper = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ch-stepper");
 
   var _component_ch_histories = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ch-histories");
-
-  var _component_jet_secondary_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-secondary-button");
 
   var _component_jet_dialog_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-dialog-modal");
 
@@ -28332,9 +28335,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     show: $data.displayHistoriesModal,
     onClose: $options.closeHistoriesModal
   }, {
-    title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_22];
-    }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ch_histories, {
         histories: $data.histories,
@@ -28343,20 +28343,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8
       /* PROPS */
       , ["histories", "resource", "globalClass"])];
-    }),
-    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_secondary_button, {
-        onClick: $options.closeHistoriesModal
-      }, {
-        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_23];
-        }),
-        _: 1
-        /* STABLE */
-
-      }, 8
-      /* PROPS */
-      , ["onClick"])];
     }),
     _: 1
     /* STABLE */
@@ -28704,27 +28690,52 @@ var _hoisted_5 = {
     "width": "20%"
   }
 };
-var _hoisted_6 = {
+var _hoisted_6 = ["v-bind"];
+var _hoisted_7 = {
   "class": "px-1",
   style: {
     "width": "15%"
   }
 };
-var _hoisted_7 = ["max"];
-var _hoisted_8 = {
+var _hoisted_8 = ["max"];
+var _hoisted_9 = {
   "class": "px-1",
   style: {
     "width": "15%"
   }
 };
-var _hoisted_9 = ["v-bind"];
-var _hoisted_10 = {
+var _hoisted_10 = ["v-bind"];
+var _hoisted_11 = {
   "class": "px-1",
   style: {
     "width": "20%"
   }
 };
-var _hoisted_11 = {
+var _hoisted_12 = ["disabled"];
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "0"
+}, "--", -1
+/* HOISTED */
+);
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "1"
+}, "Absense", -1
+/* HOISTED */
+);
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "2"
+}, "Maladie", -1
+/* HOISTED */
+);
+
+var _hoisted_16 = [_hoisted_13, _hoisted_14, _hoisted_15];
+var _hoisted_17 = {
+  "class": "px-1 w-auto hidden movement"
+};
+var _hoisted_18 = {
   "class": "px-1",
   style: {
     "width": "10%"
@@ -28737,55 +28748,55 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.resource.name), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    name: "qty",
-    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $props.resource.qty = $event;
-    }),
-    type: "number",
-    placeholder: "qty",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('qty border-gray-300 bg-main rounded-full text-center w-14 ' + this.globalClass.inputTextForm),
-    onChange: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return $options.calculate && $options.calculate.apply($options, arguments);
-    }, ["prevent"]))
-  }, null, 34
-  /* CLASS, HYDRATE_EVENTS */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.resource.qty, void 0, {
-    number: true
-  }]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "v-bind": $props.resource.qty,
+    "class": "qty"
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.resource.qty), 9
+  /* TEXT, PROPS */
+  , _hoisted_6)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     name: "actual",
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $props.resource.actual = $event;
     }),
     type: "number",
     min: "0",
     max: $props.resource.qty,
+    onKeyDown: "return false",
     placeholder: "actual",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('actual border-gray-300 bg-main rounded-full text-center w-14 ' + this.globalClass.inputTextForm),
-    onChange: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onChange: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.calculate && $options.calculate.apply($options, arguments);
     }, ["prevent"]))
   }, null, 42
   /* CLASS, PROPS, HYDRATE_EVENTS */
-  , _hoisted_7), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.resource.actual, void 0, {
+  , _hoisted_8), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.resource.actual, void 0, {
     number: true
-  }]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "v-bind": $props.resource.gap,
     "class": "gap"
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.resource.gap), 9
   /* TEXT, PROPS */
-  , _hoisted_9)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  , _hoisted_10)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    name: "id_history_status",
+    id: "id_history_status",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('id_history_status border-gray-300 bg-main rounded-sm ' + this.globalClass.inputTextForm),
+    disabled: !this.history_status
+  }, _hoisted_16, 10
+  /* CLASS, PROPS */
+  , _hoisted_12), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     name: "note",
     id: "note",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('note border-gray-300 bg-main rounded-sm ' + this.globalClass.inputTextForm),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)('note border-gray-300 bg-main rounded-sm hidden ' + this.globalClass.inputTextForm),
     cols: "10",
     rows: "1"
   }, "\r\n      ", 2
   /* CLASS */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.movement), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "my-1 px-1 text-custom_blue text-sm",
-    onClick: _cache[4] || (_cache[4] = function ($event) {
+    onClick: _cache[2] || (_cache[2] = function ($event) {
       return $options.showHistories($props.resource.sag_resources_id);
     })
   }, " Histories ")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
@@ -30789,16 +30800,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "px-6 py-4"
+  "class": "px-4 py-4"
 };
 var _hoisted_2 = {
   "class": "text-lg"
 };
 var _hoisted_3 = {
-  "class": "mt-4"
+  "class": ""
 };
 var _hoisted_4 = {
-  "class": "px-6 py-4 bg-gray-100 text-right"
+  "class": "text-right"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("modal");
@@ -31131,7 +31142,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-            "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto", _ctx.maxWidthClass])
+            "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["mb-10 bg-white rounded overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto", _ctx.maxWidthClass])
           }, [_ctx.show ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default", {
             key: 0
           }) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2

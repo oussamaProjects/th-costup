@@ -160,7 +160,11 @@ class SAGController extends Controller
             $project = Project::findOrFail($project_id);
 
             if ($project->sag_resources->contains($resource_id))
-                $project->sag_resources()->detach($resource_id);
+                try {
+                    $project->sag_resources()->detach($resource_id);
+                } catch (\Throwable $th) {
+                    echo $th;
+                }
         }
     }
 

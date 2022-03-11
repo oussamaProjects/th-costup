@@ -3,7 +3,6 @@
     v-if="resource !== null || resource !== ''"
     class="flex flex-row items-center text-center justify-stretch p-1 border-t"
   >
-
     <div class="px-1 w-auto hidden service_id">
       {{ resource.id }}
     </div>
@@ -17,18 +16,11 @@
     </div>
 
     <div class="px-1" style="width: 20%">
-      <input
-        name="qty"
-        v-model.number="resource.qty"
-        type="number"
-        placeholder="qty"
-        :class="
-          'qty border-gray-300 bg-main rounded-full text-center w-14 ' +
-          this.globalClass.inputTextForm
-        "
-        @change.prevent="calculate"
-      />
+      <div :v-bind="resource.qty" class="qty">
+        {{ resource.qty }}
+      </div>
     </div>
+
     <div class="px-1" style="width: 15%">
       <input
         name="actual"
@@ -36,6 +28,7 @@
         type="number"
         min="0"
         :max="resource.qty"
+        onKeyDown="return false"
         placeholder="actual"
         :class="
           'actual border-gray-300 bg-main rounded-full text-center w-14 ' +
@@ -52,11 +45,25 @@
     </div>
 
     <div class="px-1" style="width: 20%">
+      <select
+        name="id_history_status"
+        id="id_history_status"
+        :class="
+          'id_history_status border-gray-300 bg-main rounded-sm ' +
+          this.globalClass.inputTextForm
+        "
+        :disabled="!this.history_status"
+      >
+        <option value="0">--</option>
+        <option value="1">Absense</option>
+        <option value="2">Maladie</option>
+      </select>
+
       <textarea
         name="note"
         id="note"
         :class="
-          'note border-gray-300 bg-main rounded-sm ' +
+          'note border-gray-300 bg-main rounded-sm hidden ' +
           this.globalClass.inputTextForm
         "
         cols="10"
@@ -64,6 +71,8 @@
       >
       </textarea>
     </div>
+
+    <div class="px-1 w-auto hidden movement">{{ movement }}</div>
 
     <div class="px-1" style="width: 10%">
       <button
@@ -74,7 +83,6 @@
         Histories
       </button>
     </div>
-
   </div>
 </template>
 
@@ -83,6 +91,9 @@ export default {
   components: {},
   data() {
     return {
+      history_status: false,
+      oldActual: this.resource.actual,
+      movement: 0,
       resource: this.resource,
       globalClass: {
         inputSelectForm:
@@ -92,12 +103,21 @@ export default {
       },
     };
   },
+
+  watch: {
+    resource() {
+      this.oldActual = this.resource.actual;
+    },
+  },
   mounted() {},
   methods: {
     calculate(event) {
+      var newValue = parseInt(event.target.value) ?? 0;
+      this.movement = newValue - this.oldActual;
       this.$emit("calculateValues", event);
+      this.history_status = true;
     },
-    showHistories(event) { 
+    showHistories(event) {
       this.$emit("showHistories", event);
     },
   },
