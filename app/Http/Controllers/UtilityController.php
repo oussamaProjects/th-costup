@@ -25,9 +25,9 @@ class UtilityController extends Controller
         $_i = 0;
 
         $smph_cd = ($project->smph_custommer_demand == 0) ? 1 : $project->smph_custommer_demand;
-        $smph_pat = ($project->smph_production_available_time) ? 1 : $project->smph_production_available_time;
-        $lmph_cd = ($project->lmph_custommer_demand) ? 1 : $project->lmph_custommer_demand;
-        $lmph_pat = ($project->lmph_production_available_time) ? 1 : $project->lmph_production_available_time;
+        $smph_pat = ($project->smph_production_available_time == 0) ? 1 : $project->smph_production_available_time;
+        $lmph_cd = ($project->lmph_custommer_demand == 0) ? 1 : $project->lmph_custommer_demand;
+        $lmph_pat = ($project->lmph_production_available_time == 0) ? 1 : $project->lmph_production_available_time;
 
         if (!$categories_values->isEmpty()) {
 
