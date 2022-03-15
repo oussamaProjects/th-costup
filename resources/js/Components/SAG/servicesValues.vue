@@ -46,17 +46,23 @@
 
     <div class="px-1" style="width: 20%">
       <select
-        name="id_history_status"
-        id="id_history_status"
+        name="history_statues_id"
+        id="history_statues_id"
         :class="
-          'id_history_status border-gray-300 bg-main rounded-sm ' +
+          'history_statues_id border-gray-300 bg-main rounded-sm ' +
           this.globalClass.inputTextForm
         "
-        :disabled="!this.history_status"
+        :disabled="!this.active_history_status"
       >
         <option value="0">--</option>
-        <option value="1">Absense</option>
-        <option value="2">Maladie</option>
+
+        <option
+          v-for="statue in statusToDisplay"
+          :key="statue.id"
+          :value="statue.id"
+        >
+          {{ statue.name }}
+        </option>
       </select>
 
       <textarea
@@ -74,7 +80,7 @@
 
     <div class="px-1 w-auto hidden movement">{{ movement }}</div>
 
-    <div class="px-1" style="width: 10%">
+    <div class="px-1 z-50" style="width: 10%">
       <button
         type="button"
         class="my-1 px-1 text-custom_blue text-sm"
@@ -91,8 +97,9 @@ export default {
   components: {},
   data() {
     return {
-      history_status: false,
+      active_history_status: false,
       oldActual: this.resource.actual,
+      category: this.category,
       movement: 0,
       resource: this.resource,
       globalClass: {
@@ -115,14 +122,21 @@ export default {
       var newValue = parseInt(event.target.value) ?? 0;
       this.movement = newValue - this.oldActual;
       this.$emit("calculateValues", event);
-      this.history_status = true;
+      this.active_history_status = true;
     },
     showHistories(event) {
       this.$emit("showHistories", event);
     },
   },
-  computed: {},
-  props: ["resource", "globalClass"],
+  computed: {
+    statusToDisplay() {
+      var category_id = this.category.id;
+      return this.statues.filter((statue) => {
+        return statue.category_id == category_id;
+      });
+    },
+  },
+  props: ["category", "resource", "statues", "globalClass"],
 };
 </script>
 

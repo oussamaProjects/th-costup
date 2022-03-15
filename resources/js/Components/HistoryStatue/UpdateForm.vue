@@ -1,76 +1,68 @@
 <template>
   <form @submit.prevent="submit" class="bg-white">
-    <div class="flex flex-col -mb-2">
+    <input id="id" v-model="statue.id" type="hidden" />
+    
+    <div class="flex flex-wrap -mb-2">
       <div
-        v-if="$page.props.flash.failures.form.store.categories"
+        v-if="$page.props.flash.failures.form.update.history_statues"
         class="alert w-full text-xs text-error px-3 py-1 my-2 text-center"
       >
-        {{ $page.props.flash.failures.form.store.categories }}
+        {{ $page.props.flash.failures.form.update.history_statues }}
       </div>
 
       <div
-        v-if="$page.props.flash.success.form.store.categories"
+        v-if="$page.props.flash.success.form.update.history_statues"
         class="alert w-full text-xs text-success px-3 py-1 my-2 text-center"
       >
-        {{ $page.props.flash.success.form.store.categories }}
+        {{ $page.props.flash.success.form.update.history_statues }}
       </div>
 
-      <div class="w-full grid grid-cols-3 gap-x-3">
+      <div class="w-full md:w-2/3 pr-2">
         <div class="mb-2">
           <input
             id="name"
-            v-model="category.name"
+            v-model="statue.name"
             type="text"
             placeholder="Name"
             :class="this.globalClass.inputTextForm"
           />
-          <div
-            :class="this.globalClass.textError"
-            v-if="$page.props.errors.name"
-          >
-            {{ $page.props.errors.name }}
-          </div>
+          <div :class="this.globalClass.textError" v-if="$page.props.errors.name">{{ $page.props.errors.name }}</div>
         </div>
         <div class="mb-2">
           <input
             id="description"
-            v-model="category.description"
+            v-model="statue.description"
             type="text"
             placeholder="Description"
             :class="this.globalClass.inputTextForm"
-          />
+          /> 
         </div>
 
         <div class="mb-2">
           <select
-            id="parent_id"
-            v-model="category.parent_id"
+            id="category_id"
+            v-model="statue.category_id"
             :class="this.globalClass.inputTextForm"
           >
             <option disabled selected>Choisir une catégorie</option>
             <option value="0">--</option>
             <option
-              v-for="category in this.categories"
+              v-for="category in this.ChildCategories"
               v-bind:key="category.id"
               :value="category.id"
             >
               {{ category.name }}
             </option>
-          </select>
-          <div
-            :class="this.globalClass.textError"
-            v-if="$page.props.errors.parent_id"
-          >
-            {{ $page.props.errors.parent_id }}
-          </div>
+          </select> 
+          <div :class="this.globalClass.textError" v-if="$page.props.errors.category_id">{{ $page.props.errors.category_id }}</div>
         </div>
       </div>
 
-      <div class="w-full flex flex-col">
-        <div class="mb-2 w-44 ml-auto">
+      <div class="w-full md:w-1/3 flex flex-col">
+        <div class="mb-2">
           <button
             type="submit"
-            :disabled="category.processing"
+            :disabled="statue.processing"
             :class="this.globalClass.buttonForm"
           >
             Enregistrer
@@ -80,11 +72,11 @@
 
       <div class="w-full">
         <progress
-          v-if="category.progress"
-          :value="category.progress.percentage"
+          v-if="statue.progress"
+          :value="statue.progress.percentage"
           max="100"
         >
-          {{ category.progress.percentage }}%
+          {{ statue.progress.percentage }}%
         </progress>
       </div>
     </div>
@@ -97,24 +89,21 @@ export default {
 
   data() {
     return {
-      category: {
-        name: null,
-        description: null,
-        parent_id: null,
+      globalClass: {
+        inputTextForm: this.globalClass.inputTextForm,
+        buttonForm: this.globalClass.buttonForm,
+        link: this.globalClass.link,
       },
     };
   },
 
-  props: ["categories", "globalClass", "ChildCategories"],
+  props: ["ChildCategories", "statue", "globalClass"],
 
   mounted() {},
 
   methods: {
     submit() {
-      this.$inertia.post("/categories", this.category);
-      this.category.id = null;
-      this.category.name = null;
-      this.category.description = null;
+      this.$inertia.put(`/history_statues/${this.statue.id}`, this.statue);
     },
   },
 };

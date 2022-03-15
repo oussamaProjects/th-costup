@@ -105,7 +105,7 @@
             <option disabled selected>Choisir une catégorie</option>
             <option value="0">--</option>
             <option
-              v-for="category in this.categories"
+              v-for="category in this.ChildCategories"
               v-bind:key="category.id"
               :value="category.id"
             >
@@ -160,7 +160,7 @@ export default {
     };
   },
 
-  props: ["services", "globalClass", "categories"],
+  props: ["services", "globalClass", "ChildCategories"],
 
   mounted() {},
 

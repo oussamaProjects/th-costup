@@ -183,13 +183,15 @@ class SAGController extends Controller
 
                 $project_id  = $request['project_id'];
 
-                $sag_resources_id = $request['sag_resources_id'];
-                $note             = $request['note'];
-                $movement         = $request['movement'];
+                $sag_resources_id   = $request['sag_resources_id'];
+                $note               = $request['note'];
+                $history_statues_id = $request['history_statues_id'];
+                $movement           = $request['movement'];
 
-                $history->sag_resources_id = $sag_resources_id;
-                $history->note = $note;
-                $history->movement = $movement; 
+                $history->sag_resources_id   = $sag_resources_id;
+                $history->note               = $note;
+                $history->history_statues_id = $history_statues_id;
+                $history->movement           = $movement; 
 
                 $history->save();
 

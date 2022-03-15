@@ -12,6 +12,7 @@
         <div class="flex bg-white overflow-hidden shadow-lg sm:rounded">
           <ch-sag-form
             :projects="this.projects"
+            :history_statues="this.history_statues"
             :categories="this.categories" 
             :globalClass="globalClass"
           />
@@ -51,6 +52,7 @@ export default defineComponent({
 
   props: [ 
     "projects",
+    "history_statues",
     "categories",  
   ],
 });

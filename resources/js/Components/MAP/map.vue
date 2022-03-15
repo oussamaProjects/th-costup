@@ -1,16 +1,20 @@
 <template>
-  <div>
-    <div class="map relative">
-   
-      <ch-interactive-map
-        :mainOeuvre="mainOeuvre"
-        :imgSrc="'https://rewind.youtube/static/comps/u7wmt63vujeebudmp2jgztujcatu3llkqaehjeyt3jz5y6o7dbqq.webp'"
-      ></ch-interactive-map>
-      <ch-project-intro :project="project"></ch-project-intro>
-      <ch-sag-list :sag="sag"></ch-sag-list>
-      <ch-alert :message="'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente vel animi ab debitis nihil ex eaque consequatur incidunt facilis quas. Recusandae expedita, natus reiciendis mollitia doloremque dolor accusamus veritatis quos!'"></ch-alert>
-
-    </div>
+  <div class="map relative w-full">
+    <Carousel :autoplay="50000" :wrapAround="true">
+      <slide v-for="project in projects" v-bind:key="project.id">
+        <div class="carousel__item w-full">
+          <ch-interactive-map 
+            :mainOeuvre="project.main_oeuvre"
+            :imgSrc="image"
+          ></ch-interactive-map>
+          <ch-project-intro :project="project"></ch-project-intro>
+          <ch-sag-list :sag="project.sag"></ch-sag-list>
+          <ch-alert
+            :message="'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente dolor accusamus veritatis quos!'"
+          ></ch-alert>
+        </div>
+      </slide>
+    </Carousel>
   </div>
 </template>
 
@@ -20,18 +24,33 @@ import ChSagList from "./SagList.vue";
 import ChInteractiveMap from "./InteractiveMap.vue";
 import ChAlert from "./alert.vue";
 
+// If you are using PurgeCSS, make sure to whitelist the carousel CSS classes
+import "vue3-carousel/dist/carousel.css";
+import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+
 export default {
-  components: { ChProjectIntro, ChSagList, ChInteractiveMap,ChAlert },
+  components: {
+    ChProjectIntro,
+    ChSagList,
+    ChInteractiveMap,
+    ChAlert,
+    Carousel, 
+    Slide,
+    Pagination,
+    Navigation,
+  },
 
   data() {
-    return {};
+    return {
+      image: "./images/map-exemple  .jpg",
+    };
   },
 
   mounted() {},
 
-  props: ["project", "sag", "mainOeuvre"],
+  props: ["projects"],
 };
 </script>
 
-<style>
+<style scoped>
 </style>

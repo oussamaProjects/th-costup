@@ -99,7 +99,7 @@
   <ch-update-modal
     :showUpdateModal="displayUpdateServicesModal"
     :services="services"
-    :categories="categories"
+    :ChildCategories="ChildCategories"
     :service="service"
     @closeModal="closeUpdateModal"
     :globalClass="this.globalClass"
@@ -128,7 +128,7 @@ export default {
     "formattedServices",
     "service",
     "globalClass",
-    "categories",
+    "ChildCategories",
   ],
 
   mounted() {},

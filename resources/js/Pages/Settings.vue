@@ -17,18 +17,24 @@
           <ch-category-component
             :categories="this.categories"
             :formattedCategories="this.formattedCategories"
-            :servicesCategories="this.servicesCategories"
+            :ChildCategories="this.ChildCategories"
             :globalClass="globalClass"
           />
 
           <ch-service-component
             :services="this.services"
-            :categories="this.servicesCategories"
+            :ChildCategories="this.ChildCategories"
             :globalClass="globalClass"
           />
           
           <ch-factor-component
             :factors="this.factors" 
+            :globalClass="globalClass"
+          />
+
+          <ch-history-statue-component
+            :history_statues="this.history_statues" 
+            :ChildCategories="this.ChildCategories" 
             :globalClass="globalClass"
           />
 
@@ -47,6 +53,7 @@ import ChCategoryComponent from "../Components/Categories/Component.vue";
 import ChServiceComponent from "../Components/Services/Component.vue";
 import ChCalculatorForm from "../Components/Calculator/Form.vue";
 import ChFactorComponent from "../Components/Factors/Component.vue";
+import ChHistoryStatueComponent from "../Components/HistoryStatue/Component.vue";
 
 export default defineComponent({
   components: {
@@ -56,6 +63,7 @@ export default defineComponent({
     ChProjectComponent,
     ChFactorComponent,
     ChCalculatorForm,
+    ChHistoryStatueComponent,
   },
 
   data() {
@@ -80,7 +88,8 @@ export default defineComponent({
     "services",
     "factors",
     // "formattedServices",
-    "servicesCategories",
+    "ChildCategories",
+    "history_statues",
   ],
 });
 </script>

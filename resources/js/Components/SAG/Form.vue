@@ -97,7 +97,7 @@
                   >
                     <div
                       v-if="enableEditCatId != category.id"
-                      class="bg-gray-200 absolute inset-0 z-50 opacity-25"
+                      class="bg-gray-200 absolute inset-0 z-30 opacity-25"
                     ></div>
 
                     <div v-if="enableEditCatId == category.id && isLoading">
@@ -139,6 +139,8 @@
                         >
                           <ch-services-values-row
                             :resource="service"
+                            :category="category"
+                            :statues="history_statues"
                             @calculateValues="calculate"
                             :globalClass="this.globalClass"
                             @showHistories="showHistoriesModal"
@@ -196,6 +198,7 @@
         />
       </template>
     </jet-dialog-modal>
+
   </div>
 </template>
 
@@ -479,15 +482,16 @@ export default {
         var sag_resources_id =
           resourceNode.querySelector(".sag_resources_id").innerHTML;
         var note = resourceNode.querySelector(".note").value;
-        var id_history_status =
-          resourceNode.querySelector(".id_history_status").value;
+        var history_statues_id =
+          resourceNode.querySelector(".history_statues_id").value;
         var movement = resourceNode.querySelector(".movement").innerHTML;
 
-        console.log(id_history_status);
+        console.log(history_statues_id);
 
         if (note != null && movement != null)
           resourcesRequest[_i] = {
             project_id,
+            history_statues_id,
             sag_resources_id,
             note,
             movement,
@@ -495,6 +499,7 @@ export default {
         _i++;
 
         resourceNode.querySelector(".note").value = "";
+        resourceNode.querySelector(".history_statues_id").value = 0;
         resourceNode.querySelector(".movement").innerHTML = "";
       });
       _this.storeSAGMovementNote(resourcesRequest);
@@ -551,7 +556,7 @@ export default {
   },
   async mounted() {},
   computed: {},
-  props: ["projects", "categories", "globalClass"],
+  props: ["projects", "categories", "history_statues", "globalClass"],
 };
 </script>
 

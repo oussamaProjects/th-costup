@@ -93,10 +93,11 @@ class HistoryController extends Controller
     {
 
         $histories = DB::table('histories')
-        ->join('sag_resources', 'sag_resources.id', '=', 'histories.sag_resources_id')
-        ->where('sag_resources.id',  '=', $id)
-        ->select('histories.*')
-        ->get();
+            ->join('sag_resources', 'sag_resources.id', '=', 'histories.sag_resources_id')
+            ->leftJoin('history_statues', 'history_statues.id', '=', 'histories.history_statues_id')
+            ->where('sag_resources.id',  '=', $id)
+            ->select('histories.*', 'history_statues.name as statue_name', 'history_statues.description as statue_description')
+            ->get();
 
         return $histories;
     }

@@ -3,12 +3,7 @@
     <template #title>Ajouter une categorie </template>
 
     <template #content>
-      <ch-services-update
-        :services="services"
-        :ChildCategories="ChildCategories"
-        :service="service"
-        :globalClass="this.globalClass"
-      />
+      <ch-history-statues-update :ChildCategories="ChildCategories" :statue="statue" :globalClass="this.globalClass"/>
     </template>
 
     <template #footer>
@@ -18,29 +13,23 @@
 </template>
 
 <script>
-import ChServicesUpdate from "./UpdateForm.vue";
+import ChHistoryStatuesUpdate from "./UpdateForm.vue";
 
 import JetDialogModal from "@/Jetstream/DialogModal.vue";
 
 export default {
   components: {
     JetDialogModal,
-    ChServicesUpdate,
+    ChHistoryStatuesUpdate,
   },
 
   data() {
-    return {
-      showUpdateModal: this.showUpdateModal,
+    return { 
+      showUpdateModal: this.showUpdateModal, 
     };
   },
 
-  props: [
-    "services",
-    "service",
-    "showUpdateModal",
-    "globalClass",
-    "ChildCategories",
-  ],
+  props: ["ChildCategories", "statue", "showUpdateModal", "globalClass"],
 
   mounted() {},
 

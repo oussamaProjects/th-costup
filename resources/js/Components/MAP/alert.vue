@@ -1,5 +1,5 @@
 <template>
-  <div class="alert-cookie out bg-red-600 text-white shadow">
+  <div class="alert-cookie out bg-red-400 text-white shadow">
     <div class="inner">
       <p class="scrolling copy">
         {{ message }}

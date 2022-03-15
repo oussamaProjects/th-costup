@@ -10,10 +10,8 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         
         <div class="flex bg-white overflow-hidden shadow-lg sm:rounded">
-          <ch-map-form
-            :project="project"
-            :sag="sag" 
-            :mainOeuvre="mainOeuvre" 
+          <ch-map-form 
+            :projects="projects"   
             :globalClass="globalClass"
           />
         </div>
@@ -51,10 +49,8 @@ export default defineComponent({
   mounted() {
   },
 
-  props: [ 
-    "project",
-    "sag",  
-    "mainOeuvre",  
+  props: [  
+    "projects",  
   ],
 });
 </script>

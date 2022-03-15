@@ -4,7 +4,7 @@
     <div class="shadow rounded-sm p-3">
       <ch-services-create
         :services="services"
-        :categories="categories"
+        :ChildCategories="ChildCategories"
         :service="service"
         :globalClass="globalClass"
       />
@@ -31,7 +31,7 @@
         <ch-services-liste
           :formattedServices="formattedServices"
           :services="services"
-          :categories="categories"
+          :ChildCategories="ChildCategories"
           :service="service"
           :globalClass="globalClass"
         />
@@ -75,7 +75,7 @@ export default {
     };
   },
 
-  props: ["services", "formattedServices", "categories", "globalClass"],
+  props: ["services", "formattedServices", "ChildCategories", "globalClass"],
 
   mounted() {},
 

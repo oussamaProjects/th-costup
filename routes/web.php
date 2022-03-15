@@ -50,6 +50,8 @@ Route::get('services/{services}/selected', 'App\Http\Controllers\ServiceControll
 Route::resource('categories', 'App\Http\Controllers\CategoryController');
 Route::get('categories/{category}/services', 'App\Http\Controllers\CategoryController@getCategoryServices')->name('get-category-services');
 
+Route::resource('history_statues', 'App\Http\Controllers\HistoryStatueController');
+
 Route::resource('factors', 'App\Http\Controllers\FactorController');
 
 Route::resource('projects', 'App\Http\Controllers\ProjectController');

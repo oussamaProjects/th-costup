@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Factor;
+use App\Models\History_statue;
 use App\Models\Project;
 use App\Models\Service;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class Dashboard extends Controller
         $projects = Project::all();
         $categories = Category::where('parent_id', '!=', '0')->orderBy('parent_id', 'ASC')->get();
 
-        $services_categories = Category::where('parent_id', '!=', '0')->get();
+        $child_categories = Category::where('parent_id', '!=', '0')->get();
         $services = Service::all();
 
         $formatted_categories =  array();
@@ -88,7 +89,7 @@ class Dashboard extends Controller
             'formattedCategories' => $formatted_categories,
             'services' => $services,
             'formattedServices' => $formatted_services,
-            'servicesCategories' => $services_categories,
+            'ChildCategories' => $child_categories,
         ]);
     }
 
@@ -109,6 +110,7 @@ class Dashboard extends Controller
     {
 
         $projects = Project::all();
+        $history_statues = History_statue::all();
 
         $formatted_categories = array();
         $categories = Category::where('parent_id', '!=', 0)->orderBy('parent_id', 'ASC')->get();
@@ -144,6 +146,7 @@ class Dashboard extends Controller
 
         return Inertia::render('SAG', [
             'projects' => $projects,
+            'history_statues' => $history_statues,
             'categories' => $formatted_categories,
         ]);
     }
@@ -154,8 +157,8 @@ class Dashboard extends Controller
         $projects = Project::all();
         $factors = Factor::all();
         $categories = Category::all();
-
-        $services_categories = Category::where('parent_id', '!=', '0')->get();
+        $history_statues = History_statue::all();
+        $child_categories = Category::where('parent_id', '!=', '0')->get();
 
 
         $services = DB::table('services')
@@ -237,23 +240,44 @@ class Dashboard extends Controller
         return Inertia::render('Settings', [
             'factors' => $factors,
             'projects' => $projects,
+            'history_statues' => $history_statues,
             'categories' => $categories,
             'formattedCategories' => $formatted_categories,
             'services' => $services,
             // 'formattedServices' => $formatted_services,
-            'servicesCategories' => $services_categories,
+            'ChildCategories' => $child_categories,
         ]);
     }
 
     public function mapView()
     {
-        $project = Project::findOrFail(1);
-        $category = Category::findOrFail(2); 
-        
+        // $project = Project::findOrFail(1);
+        // $category = Category::findOrFail(2);
+
+        // $projects = Project::all();
+        $projects[0] = Project::findOrFail(1);
+        // dd( $projects);
+
+        foreach ($projects as $key => $project) {
+
+            $projects[$key]['sag'] = UtilityController::sag_values($project);
+            $projects[$key]['main_oeuvre'] = DB::table('projects')
+                ->join('sag_resources', 'projects.id', '=', 'sag_resources.project_id')
+                ->Join('services', 'sag_resources.resource_id', '=', 'services.id')
+                ->Join('categories', 'services.category_id', '=', 'categories.id')
+                ->where('categories.id',  '=', 2)
+                ->where('projects.id',  '=', $project->id)
+                ->select('services.*','sag_resources.*', 'categories.name as category_name', 'projects.id')
+                ->get()
+                ->toArray();
+        }
+
+        // dd($projects);
         return Inertia::render('mapView', [
-            'project' => $project,
-            'sag' => UtilityController::sag_values($project),
-            'mainOeuvre' => $category->services()->get(),
+            'projects' => $projects,
+            // 'mainOeuvre' => $category->services()->get(),
+            // 'project' => $project,
+            // 'sag' => UtilityController::sag_values($project),
         ]);
     }
 }
