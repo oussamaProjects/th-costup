@@ -295,22 +295,22 @@
             </tr>
             <tr>
                 <td>Custommer Demand</td>
-                <td>1</td>
+                <td>{{ $project['smph_custommer_demand'] }}</td>
                 <td rowspan="2" class="epo">{{ round($project['smph'], 2) }}</td>
 
 
                 <td>Custommer Demand</td>
-                <td>1</td>
+                <td>{{ $project['lmph_custommer_demand'] }}</td>
                 <td rowspan="2" class="epo">{{ round($project['lmph'], 2) }}</td>
 
             </tr>
 
             <tr>
                 <td>Production Available Time</td>
-                <td>4</td>
+                <td>{{ $project['smph_production_available_time'] }}</td>
 
                 <td>Production Available Time</td>
-                <td>4</td>
+                <td>{{ $project['lmph_production_available_time'] }}</td>
 
             </tr>
 
