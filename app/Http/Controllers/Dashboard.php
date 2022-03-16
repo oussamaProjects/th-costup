@@ -13,7 +13,7 @@ class Dashboard extends Controller
 {
     public function index()
     {
-      
+
         $projects = Project::all();
         $categories = Category::where('parent_id', '!=', '0')->orderBy('parent_id', 'ASC')->get();
 
@@ -90,12 +90,11 @@ class Dashboard extends Controller
             'formattedServices' => $formatted_services,
             'servicesCategories' => $services_categories,
         ]);
-        
     }
 
     public function calculator()
     {
-      
+
         $projects = Project::all();
         $factors = Factor::all();
         $categories = Category::where('parent_id', '!=', '0')->orderBy('parent_id', 'ASC')->get();
@@ -104,26 +103,25 @@ class Dashboard extends Controller
             'factors' => $factors,
             'projects' => $projects,
             'categories' => $categories,
-             
-        ]);
 
+        ]);
     }
-    
+
     public function settings()
     {
-      
+
         $projects = Project::all();
         $factors = Factor::all();
-        $categories = Category::all(); 
+        $categories = Category::all();
 
         $services_categories = Category::where('parent_id', '!=', '0')->get();
-         
+
 
         $services = DB::table('services')
-        ->select('services.*', 'categories.name as category_name')
-        ->join('categories', 'categories.id', 'services.category_id')  
-        ->get();
- 
+            ->select('services.*', 'categories.name as category_name')
+            ->join('categories', 'categories.id', 'services.category_id')
+            ->get();
+
         $formatted_categories =  array();
         // $formatted_services =  array();
 
@@ -199,10 +197,18 @@ class Dashboard extends Controller
             'factors' => $factors,
             'projects' => $projects,
             'categories' => $categories,
-            'formattedCategories' => $formatted_categories, 
+            'formattedCategories' => $formatted_categories,
             'services' => $services,
             // 'formattedServices' => $formatted_services,
             'servicesCategories' => $services_categories,
+        ]);
+    }
+
+    public function neveling()
+    {
+
+        return Inertia::render('Neveling', [
+            'projects' => [],
         ]);
     }
 }
