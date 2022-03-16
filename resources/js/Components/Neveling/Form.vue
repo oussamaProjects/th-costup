@@ -205,7 +205,6 @@ export default {
       UpdatedNbrResources = Math.floor(nbrResources);
       console.log("UpdatedNbrResources " + UpdatedNbrResources);
 
-      document.getElementById("rnc_att").innerHTML = parseInt(this.param.tt);
 
       stta = nbrResources * parseInt(this.param.tt);
       console.log("stta " + stta);
@@ -219,16 +218,16 @@ export default {
       if (gtta != 0) gtt = gtta / UpdatedNbrResources;
       console.log("gtt " + gtt);
 
-      document.getElementById("rnc_gtt").innerHTML = gtt;
 
       utt = gtt + parseInt(this.param.tt);
       console.log("Updated tackt time " + utt);
 
-      document.getElementById("rnc_stt").innerHTML = utt;
+      document.getElementById("rnc_att").innerHTML = parseInt(this.param.tt).toFixed(2);;
+      document.getElementById("rnc_gtt").innerHTML = gtt.toFixed(2);
+      document.getElementById("rnc_stt").innerHTML = utt.toFixed(2);
 
-      document.getElementById("UpdatedNbrResources_utt").innerHTML =
-        UpdatedNbrResources;
-      document.getElementById("utt").innerHTML = utt;
+      document.getElementById("UpdatedNbrResources_utt").innerHTML = UpdatedNbrResources;
+      document.getElementById("utt").innerHTML = utt.toFixed(2);;
 
       document.getElementById("UpdatedNbrResources_upat").innerHTML = "";
       document.getElementById("upat").innerHTML = "";
@@ -255,9 +254,6 @@ export default {
       UpdatedNbrResources = Math.ceil(nbrResources);
       console.log("UpdatedNbrResources " + UpdatedNbrResources);
 
-      document.getElementById("pnc_att").innerHTML = parseInt(this.param.tt);
-      document.getElementById("pnc_stt").innerHTML = parseInt(this.param.tt);
-      document.getElementById("pnc_gtt").innerHTML = 0;
 
       stta = nbrResources * parseInt(this.param.tt);
       console.log("stta " + stta);
@@ -271,9 +267,12 @@ export default {
       upat = parseInt(this.param.pat) + parseInt(gtta);
       console.log("Updated Production Available time " + upat);
 
-      document.getElementById("UpdatedNbrResources_upat").innerHTML =
-        UpdatedNbrResources;
-      document.getElementById("upat").innerHTML = upat;
+      document.getElementById("pnc_att").innerHTML = parseInt(this.param.tt);
+      document.getElementById("pnc_stt").innerHTML = parseInt(this.param.tt);
+      document.getElementById("pnc_gtt").innerHTML = 0;
+
+      document.getElementById("UpdatedNbrResources_upat").innerHTML = UpdatedNbrResources;
+      document.getElementById("upat").innerHTML = upat.toFixed(2);;
 
       document.getElementById("UpdatedNbrResources_utt").innerHTML = "";
       document.getElementById("utt").innerHTML = "";
