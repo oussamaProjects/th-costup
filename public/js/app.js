@@ -21020,7 +21020,7 @@ __webpack_require__.r(__webpack_exports__);
       this.uttDisplay = false;
       this.upatDisplay = false;
     },
-    resourceChanged: function resourceChanged() {
+    calcByResource: function calcByResource() {
       this.resourceNevelingCalc();
       this.PATNevelingCalc();
       this.uttDisplay = true;
@@ -26759,7 +26759,7 @@ var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
-    onSubmit: _cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[13] || (_cache[13] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.submit && $options.submit.apply($options, arguments);
     }, ["prevent"])),
     "class": "bg-white"
@@ -26848,13 +26848,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     type: "text",
     onChange: _cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return $options.resourceChanged && $options.resourceChanged.apply($options, arguments);
+      return _ctx.resourceChanged && _ctx.resourceChanged.apply(_ctx, arguments);
     }, ["prevent"])),
     placeholder: "Resource",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(this.globalClass.inputTextForm)
   }, null, 34
   /* CLASS, HYDRATE_EVENTS */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.param.nbrResource]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"w-full flex flex-col\">\r\n    <div class=\"mb-2 w-44 ml-auto\">\r\n    <button\r\n    type=\"submit\"\r\n    :disabled=\"param.processing\"\r\n    :class=\"this.globalClass.buttonForm\"\r\n    >\r\n    Enregistrer\r\n    </button>\r\n    </div>\r\n    </div> ")], 32
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.param.nbrResource]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    onClick: _cache[12] || (_cache[12] = function () {
+      return $options.calcByResource && $options.calcByResource.apply($options, arguments);
+    }),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["mt-14 ml-2", this.globalClass.link])
+  }, " Calculation ", 2
+  /* CLASS */
+  )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"w-full flex flex-col\">\r\n    <div class=\"mb-2 w-44 ml-auto\">\r\n    <button\r\n    type=\"submit\"\r\n    :disabled=\"param.processing\"\r\n    :class=\"this.globalClass.buttonForm\"\r\n    >\r\n    Enregistrer\r\n    </button>\r\n    </div>\r\n    </div> ")], 32
   /* HYDRATE_EVENTS */
   );
 }

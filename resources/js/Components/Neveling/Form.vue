@@ -146,6 +146,10 @@
             :class="this.globalClass.inputTextForm"
           />
         </div>
+
+        <a @click="calcByResource" class="mt-14 ml-2" :class="this.globalClass.link">
+          Calculation
+        </a>
       </div>
     </div>
 
@@ -202,7 +206,7 @@ export default {
       this.uttDisplay = false;
       this.upatDisplay = false;
     },
-    resourceChanged() {
+    calcByResource() {
       this.resourceNevelingCalc();
       this.PATNevelingCalc();
       this.uttDisplay = true;
