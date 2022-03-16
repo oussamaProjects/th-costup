@@ -70,7 +70,18 @@ class UtilityController extends Controller
             $project->smph = $smph;
             $project->lmph = $lmph;
 
-            $project->save();
+            try {
+                $project->epo  = $epo;
+                $project->epp  = $epp;
+                $project->epps = $epps;
+                $project->em   = $em;
+                $project->smph = $smph;
+                $project->lmph = $lmph;
+                $project->save();
+            } catch (\Exception $e) {
+                // do task when error
+                echo $e->getMessage();   
+            }
 
         }
 
