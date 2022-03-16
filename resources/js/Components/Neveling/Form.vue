@@ -38,6 +38,7 @@
             :class="this.globalClass.inputTextForm"
           />
         </div>
+
         <div class="mb-2">
           <div class="text-x">Shift</div>
           <input
@@ -73,16 +74,16 @@
         </div>
       </div>
 
-      <div class="w-full flex flex-col gap-2">
+      <div class="w-full flex flex-row gap-2">
         <div
-          class="flex flex-col gap-2 p-2 shadow bg-gray-100 text-sm"
+          class="flex flex-col gap-2 p-2 shadow bg-gray-100 text-sm w-1/2"
           :class="{ hidden: !uttDisplay }"
         >
           <div class="text-lg py-1 font-medium">
             Resource Neveling Calculation
           </div>
 
-          <div class="grid grid-cols-2 w-1/2">
+          <div class="grid grid-cols-2">
             <div class="font-medium">Updated tackt time</div>
             <div id="utt" class="utt text-custom_red font-bold"></div>
 
@@ -104,14 +105,14 @@
         </div>
 
         <div
-          class="flex flex-col gap-2 p-2 shadow bg-gray-100 text-sm"
+          class="flex flex-col gap-2 p-2 shadow bg-gray-100 text-sm w-1/2"
           :class="{ hidden: !upatDisplay }"
         >
           <div class="text-lg py-1 font-medium">
             Production Available time Neveling Calculation
           </div>
 
-          <div class="grid grid-cols-2 w-1/2">
+          <div class="grid grid-cols-2">
             <div class="font-medium">Updated Production Available time</div>
             <div id="upat" class="upat text-custom_red font-bold"></div>
 
@@ -130,6 +131,20 @@
             <div class="">GTT</div>
             <div id="pnc_gtt" class="text-custom_red"></div>
           </div>
+        </div>
+      </div>
+
+      <div class="w-full grid grid-cols-3 gap-x-3">
+        <div class="mt-6 mb-2">
+          <div class="text-x">Change the Resource</div>
+          <input
+            id="nbrResource"
+            v-model="param.nbrResource"
+            type="text"
+            @change.prevent="resourceChanged"
+            placeholder="Resource"
+            :class="this.globalClass.inputTextForm"
+          />
         </div>
       </div>
     </div>
@@ -159,6 +174,7 @@ export default {
         pat: 40,
         tt: 17,
         shift: 7,
+        nbrResource: 0,
       },
       upatDisplay: false,
       uttDisplay: false,
@@ -186,9 +202,16 @@ export default {
       this.uttDisplay = false;
       this.upatDisplay = false;
     },
+    resourceChanged() {
+      this.resourceNevelingCalc();
+      this.PATNevelingCalc();
+      this.uttDisplay = true;
+      this.upatDisplay = true;
+    },
+
     resourceNevelingCalc() {
       var nbrResources = 0;
-      var UpdatedNbrResources = 0;
+      var UpdatedNbrResources = parseInt(this.param.nbrResource);
       var stta = 0;
       var uatta = 0;
       var gtta = 0;
@@ -202,9 +225,11 @@ export default {
       nbrResources = parseFloat(nbrResources);
       console.log("nbrResources " + nbrResources);
 
-      UpdatedNbrResources = Math.floor(nbrResources);
+      if (UpdatedNbrResources == 0) {
+        UpdatedNbrResources = Math.floor(nbrResources);
+        // this.param.nbrResource = UpdatedNbrResources;
+      }
       console.log("UpdatedNbrResources " + UpdatedNbrResources);
-
 
       stta = nbrResources * parseInt(this.param.tt);
       console.log("stta " + stta);
@@ -218,19 +243,18 @@ export default {
       if (gtta != 0) gtt = gtta / UpdatedNbrResources;
       console.log("gtt " + gtt);
 
-
       utt = gtt + parseInt(this.param.tt);
       console.log("Updated tackt time " + utt);
 
-      document.getElementById("rnc_att").innerHTML = parseInt(this.param.tt).toFixed(2);;
+      document.getElementById("rnc_att").innerHTML = parseInt(
+        this.param.tt
+      ).toFixed(2);
       document.getElementById("rnc_gtt").innerHTML = gtt.toFixed(2);
       document.getElementById("rnc_stt").innerHTML = utt.toFixed(2);
 
-      document.getElementById("UpdatedNbrResources_utt").innerHTML = UpdatedNbrResources;
-      document.getElementById("utt").innerHTML = utt.toFixed(2);;
-
-      document.getElementById("UpdatedNbrResources_upat").innerHTML = "";
-      document.getElementById("upat").innerHTML = "";
+      document.getElementById("UpdatedNbrResources_utt").innerHTML =
+        UpdatedNbrResources;
+      document.getElementById("utt").innerHTML = utt.toFixed(2);
 
       this.uttDisplay = true;
       this.upatDisplay = false;
@@ -238,7 +262,7 @@ export default {
 
     PATNevelingCalc() {
       var nbrResources = 0;
-      var UpdatedNbrResources = 0;
+      var UpdatedNbrResources = parseInt(this.param.nbrResource);
       var stta = 0;
       var uatta = 0;
       var gtta = 0;
@@ -251,9 +275,11 @@ export default {
       nbrResources = parseFloat(nbrResources);
       console.log("nbrResources " + nbrResources);
 
-      UpdatedNbrResources = Math.ceil(nbrResources);
+      if (UpdatedNbrResources == 0) {
+        UpdatedNbrResources = Math.ceil(nbrResources);
+        // this.param.nbrResource = UpdatedNbrResources;
+      }
       console.log("UpdatedNbrResources " + UpdatedNbrResources);
-
 
       stta = nbrResources * parseInt(this.param.tt);
       console.log("stta " + stta);
@@ -271,11 +297,9 @@ export default {
       document.getElementById("pnc_stt").innerHTML = parseInt(this.param.tt);
       document.getElementById("pnc_gtt").innerHTML = 0;
 
-      document.getElementById("UpdatedNbrResources_upat").innerHTML = UpdatedNbrResources;
-      document.getElementById("upat").innerHTML = upat.toFixed(2);;
-
-      document.getElementById("UpdatedNbrResources_utt").innerHTML = "";
-      document.getElementById("utt").innerHTML = "";
+      document.getElementById("UpdatedNbrResources_upat").innerHTML =
+        UpdatedNbrResources;
+      document.getElementById("upat").innerHTML = upat.toFixed(2);
 
       this.upatDisplay = true;
       this.uttDisplay = false;

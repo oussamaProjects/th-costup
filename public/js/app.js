@@ -20995,7 +20995,8 @@ __webpack_require__.r(__webpack_exports__);
         cd: 3120,
         pat: 40,
         tt: 17,
-        shift: 7
+        shift: 7,
+        nbrResource: 0
       },
       upatDisplay: false,
       uttDisplay: false
@@ -21019,9 +21020,15 @@ __webpack_require__.r(__webpack_exports__);
       this.uttDisplay = false;
       this.upatDisplay = false;
     },
+    resourceChanged: function resourceChanged() {
+      this.resourceNevelingCalc();
+      this.PATNevelingCalc();
+      this.uttDisplay = true;
+      this.upatDisplay = true;
+    },
     resourceNevelingCalc: function resourceNevelingCalc() {
       var nbrResources = 0;
-      var UpdatedNbrResources = 0;
+      var UpdatedNbrResources = parseInt(this.param.nbrResource);
       var stta = 0;
       var uatta = 0;
       var gtta = 0;
@@ -21030,7 +21037,11 @@ __webpack_require__.r(__webpack_exports__);
       nbrResources = parseInt(this.param.cd) / parseInt(this.param.pat) / parseInt(this.param.tt);
       nbrResources = parseFloat(nbrResources);
       console.log("nbrResources " + nbrResources);
-      UpdatedNbrResources = Math.floor(nbrResources);
+
+      if (UpdatedNbrResources == 0) {
+        UpdatedNbrResources = Math.floor(nbrResources); // this.param.nbrResource = UpdatedNbrResources;
+      }
+
       console.log("UpdatedNbrResources " + UpdatedNbrResources);
       stta = nbrResources * parseInt(this.param.tt);
       console.log("stta " + stta);
@@ -21043,20 +21054,16 @@ __webpack_require__.r(__webpack_exports__);
       utt = gtt + parseInt(this.param.tt);
       console.log("Updated tackt time " + utt);
       document.getElementById("rnc_att").innerHTML = parseInt(this.param.tt).toFixed(2);
-      ;
       document.getElementById("rnc_gtt").innerHTML = gtt.toFixed(2);
       document.getElementById("rnc_stt").innerHTML = utt.toFixed(2);
       document.getElementById("UpdatedNbrResources_utt").innerHTML = UpdatedNbrResources;
       document.getElementById("utt").innerHTML = utt.toFixed(2);
-      ;
-      document.getElementById("UpdatedNbrResources_upat").innerHTML = "";
-      document.getElementById("upat").innerHTML = "";
       this.uttDisplay = true;
       this.upatDisplay = false;
     },
     PATNevelingCalc: function PATNevelingCalc() {
       var nbrResources = 0;
-      var UpdatedNbrResources = 0;
+      var UpdatedNbrResources = parseInt(this.param.nbrResource);
       var stta = 0;
       var uatta = 0;
       var gtta = 0;
@@ -21064,7 +21071,11 @@ __webpack_require__.r(__webpack_exports__);
       nbrResources = parseInt(this.param.cd) / parseInt(this.param.pat) / parseInt(this.param.tt);
       nbrResources = parseFloat(nbrResources);
       console.log("nbrResources " + nbrResources);
-      UpdatedNbrResources = Math.ceil(nbrResources);
+
+      if (UpdatedNbrResources == 0) {
+        UpdatedNbrResources = Math.ceil(nbrResources); // this.param.nbrResource = UpdatedNbrResources;
+      }
+
       console.log("UpdatedNbrResources " + UpdatedNbrResources);
       stta = nbrResources * parseInt(this.param.tt);
       console.log("stta " + stta);
@@ -21079,9 +21090,6 @@ __webpack_require__.r(__webpack_exports__);
       document.getElementById("pnc_gtt").innerHTML = 0;
       document.getElementById("UpdatedNbrResources_upat").innerHTML = UpdatedNbrResources;
       document.getElementById("upat").innerHTML = upat.toFixed(2);
-      ;
-      document.getElementById("UpdatedNbrResources_utt").innerHTML = "";
-      document.getElementById("utt").innerHTML = "";
       this.upatDisplay = true;
       this.uttDisplay = false;
     },
@@ -26726,19 +26734,32 @@ var _hoisted_14 = {
   "class": "mb-2 ml-4"
 };
 var _hoisted_15 = {
-  "class": "w-full flex flex-col gap-2"
+  "class": "w-full flex flex-row gap-2"
 };
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-lg py-1 font-medium\"> Resource Neveling Calculation </div><div class=\"grid grid-cols-2 w-1/2\"><div class=\"font-medium\">Updated tackt time</div><div id=\"utt\" class=\"utt text-custom_red font-bold\"></div><div class=\"font-medium\">Updated Resources</div><div id=\"UpdatedNbrResources_utt\" class=\"text-custom_red font-bold\"></div><div class=\"\">ATT</div><div id=\"rnc_att\" class=\"text-custom_red\"></div><div class=\"\">STT</div><div id=\"rnc_stt\" class=\"text-custom_red\"></div><div class=\"\">GTT</div><div id=\"rnc_gtt\" class=\"text-custom_red\"></div></div>", 2);
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-lg py-1 font-medium\"> Resource Neveling Calculation </div><div class=\"grid grid-cols-2\"><div class=\"font-medium\">Updated tackt time</div><div id=\"utt\" class=\"utt text-custom_red font-bold\"></div><div class=\"font-medium\">Updated Resources</div><div id=\"UpdatedNbrResources_utt\" class=\"text-custom_red font-bold\"></div><div class=\"\">ATT</div><div id=\"rnc_att\" class=\"text-custom_red\"></div><div class=\"\">STT</div><div id=\"rnc_stt\" class=\"text-custom_red\"></div><div class=\"\">GTT</div><div id=\"rnc_gtt\" class=\"text-custom_red\"></div></div>", 2);
 
 var _hoisted_18 = [_hoisted_16];
 
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-lg py-1 font-medium\"> Production Available time Neveling Calculation </div><div class=\"grid grid-cols-2 w-1/2\"><div class=\"font-medium\">Updated Production Available time</div><div id=\"upat\" class=\"upat text-custom_red font-bold\"></div><div class=\"font-medium\">Updated Resources</div><div id=\"UpdatedNbrResources_upat\" class=\"text-custom_red font-bold\"></div><div class=\"\">ATT</div><div id=\"pnc_att\" class=\"text-custom_red\"></div><div class=\"\">STT</div><div id=\"pnc_stt\" class=\"text-custom_red\"></div><div class=\"\">GTT</div><div id=\"pnc_gtt\" class=\"text-custom_red\"></div></div>", 2);
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-lg py-1 font-medium\"> Production Available time Neveling Calculation </div><div class=\"grid grid-cols-2\"><div class=\"font-medium\">Updated Production Available time</div><div id=\"upat\" class=\"upat text-custom_red font-bold\"></div><div class=\"font-medium\">Updated Resources</div><div id=\"UpdatedNbrResources_upat\" class=\"text-custom_red font-bold\"></div><div class=\"\">ATT</div><div id=\"pnc_att\" class=\"text-custom_red\"></div><div class=\"\">STT</div><div id=\"pnc_stt\" class=\"text-custom_red\"></div><div class=\"\">GTT</div><div id=\"pnc_gtt\" class=\"text-custom_red\"></div></div>", 2);
 
 var _hoisted_21 = [_hoisted_19];
+var _hoisted_22 = {
+  "class": "w-full grid grid-cols-3 gap-x-3"
+};
+var _hoisted_23 = {
+  "class": "mt-6 mb-2"
+};
+
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "text-x"
+}, "Change the Resource", -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
-    onSubmit: _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.submit && $options.submit.apply($options, arguments);
     }, ["prevent"])),
     "class": "bg-white"
@@ -26809,18 +26830,31 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, " PAT Neveling Calculation ", 2
   /* CLASS */
   )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["flex flex-col gap-2 p-2 shadow bg-gray-100 text-sm", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["flex flex-col gap-2 p-2 shadow bg-gray-100 text-sm w-1/2", {
       hidden: !$data.uttDisplay
     }])
   }, _hoisted_18, 2
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["flex flex-col gap-2 p-2 shadow bg-gray-100 text-sm", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["flex flex-col gap-2 p-2 shadow bg-gray-100 text-sm w-1/2", {
       hidden: !$data.upatDisplay
     }])
   }, _hoisted_21, 2
   /* CLASS */
-  )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"w-full flex flex-col\">\r\n    <div class=\"mb-2 w-44 ml-auto\">\r\n    <button\r\n    type=\"submit\"\r\n    :disabled=\"param.processing\"\r\n    :class=\"this.globalClass.buttonForm\"\r\n    >\r\n    Enregistrer\r\n    </button>\r\n    </div>\r\n    </div> ")], 32
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "nbrResource",
+    "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+      return $data.param.nbrResource = $event;
+    }),
+    type: "text",
+    onChange: _cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.resourceChanged && $options.resourceChanged.apply($options, arguments);
+    }, ["prevent"])),
+    placeholder: "Resource",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(this.globalClass.inputTextForm)
+  }, null, 34
+  /* CLASS, HYDRATE_EVENTS */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.param.nbrResource]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"w-full flex flex-col\">\r\n    <div class=\"mb-2 w-44 ml-auto\">\r\n    <button\r\n    type=\"submit\"\r\n    :disabled=\"param.processing\"\r\n    :class=\"this.globalClass.buttonForm\"\r\n    >\r\n    Enregistrer\r\n    </button>\r\n    </div>\r\n    </div> ")], 32
   /* HYDRATE_EVENTS */
   );
 }
