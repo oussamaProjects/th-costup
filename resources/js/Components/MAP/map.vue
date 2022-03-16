@@ -1,6 +1,6 @@
 <template>
-  <div class="map relative w-full">
-    <Carousel :autoplay="50000" :wrapAround="true">
+  <div class="map absolute top-0 left-0 right-0 bottom-0 w-full h-full">
+    <Carousel :autoplay="500000" :wrapAround="true">
       <slide v-for="project in projects" v-bind:key="project.id">
         <div class="carousel__item w-full">
           <ch-interactive-map 
@@ -42,7 +42,7 @@ export default {
 
   data() {
     return {
-      image: "./images/map-exemple  .jpg",
+      image: "./images/map-exemple.jpg",
     };
   },
 

@@ -254,8 +254,8 @@ class Dashboard extends Controller
         // $project = Project::findOrFail(1);
         // $category = Category::findOrFail(2);
 
-        // $projects = Project::all();
-        $projects[0] = Project::findOrFail(1);
+        $projects = Project::all();
+        // $projects[0] = Project::findOrFail(1);
         // dd( $projects);
 
         foreach ($projects as $key => $project) {

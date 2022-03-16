@@ -1,13 +1,13 @@
 <template>
   <div class="sag-list absolute right-2 top-2 w-96">
-    <Carousel :autoplay="30000" :wrap-around="true">
+    <Carousel :autoplay="3000" :wrap-around="true">
       <slide
         v-for="(category, index) in sagFormatted"
         v-bind:key="index"
         class="cats"
       >
         <div :set="(catParentName = category.parent_name)"></div>
-        <div class="flex flex-col w-full">
+        <div class="flex flex-col w-full m-1">
           <ch-category-head></ch-category-head>
 
           <div
@@ -17,7 +17,7 @@
             class="flex flex-col w-full bg-gray-100 shadow-md px-2"
             :class="'category mb-1 category_' + category.id"
           >
-            <div>
+            <di v>
               <div
                 v-if="catParentName != category.parent_name"
                 class="
@@ -31,7 +31,7 @@
               >
                 {{ category.parent_name }}
               </div>
-            </div>
+            </di>
 
             <div
               class="
