@@ -1,7 +1,7 @@
 <template>
-  <div class="map-container relative w-full">
+  <div class="map-container relative p-16 min-h-screen">
     <div class="map">
-      <img :src="imgSrc" alt="" srcset="" class="w-full"/>
+      <img :src="imgSrc" alt="" srcset="" class="h-full"/>
     </div>
 
     <div class="resources pins">

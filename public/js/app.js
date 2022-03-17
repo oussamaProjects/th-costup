@@ -28116,7 +28116,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "map-container relative w-full"
+  "class": "map-container relative p-16 min-h-screen"
 };
 var _hoisted_2 = {
   "class": "map"
@@ -28133,7 +28133,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     src: $props.imgSrc,
     alt: "",
     srcset: "",
-    "class": "w-full"
+    "class": "h-full"
   }, null, 8
   /* PROPS */
   , _hoisted_3)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.mainOeuvre, function (resource, index) {
@@ -28166,7 +28166,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "project-intro absolute left-16 top-16 p-3 text-left rounded w-48"
+  "class": "project-intro absolute left-16 top-1/3 p-3 text-left rounded w-48"
 };
 var _hoisted_2 = {
   "class": "name text-2xl font-bold uppercase text-custom_red"
@@ -28274,7 +28274,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "sag-list absolute right-2 top-2 w-96"
+  "class": "sag-list absolute right-2 top-1/4 w-96"
 };
 var _hoisted_2 = ["set"];
 var _hoisted_3 = {
@@ -28464,10 +28464,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "map absolute top-0 left-0 right-0 bottom-0 w-full h-full"
+  "class": "map absolute top-0 left-0 right-0 bottom-0 w-full min-h-screen bg-gray-200"
 };
 var _hoisted_2 = {
-  "class": "carousel__item w-full"
+  "class": "carousel__item"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ch_interactive_map = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ch-interactive-map");
@@ -36639,7 +36639,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cats {\r\n  font-size: 9px !important;\n}\n.carousel__slide {\r\n  align-items: flex-start;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cats {\r\n  font-size: 9px !important;\n}\n.carousel__slide {\r\n  align-items: flex-start;\n}\n.carousel__slide > .carousel__item { \r\n  opacity: 0;\r\n  transition: 0.5s;\n}\n.carousel__slide--visible > .carousel__item {\r\n  opacity: 1;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

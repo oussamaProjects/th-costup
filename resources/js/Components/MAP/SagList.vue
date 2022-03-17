@@ -1,5 +1,5 @@
 <template>
-  <div class="sag-list absolute right-2 top-2 w-96">
+  <div class="sag-list absolute right-2 top-1/4 w-96">
     <Carousel :autoplay="3000" :wrap-around="true">
       <slide
         v-for="(category, index) in sagFormatted"
@@ -122,5 +122,14 @@ export default {
 
 .carousel__slide {
   align-items: flex-start;
+}
+
+
+.carousel__slide > .carousel__item { 
+  opacity: 0;
+  transition: 0.5s;
+}
+.carousel__slide--visible > .carousel__item {
+  opacity: 1; 
 }
 </style>
