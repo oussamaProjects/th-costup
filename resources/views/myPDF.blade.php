@@ -259,26 +259,55 @@
 
         </style>
 
+
+        @php
+            
+            $percent = 0.4;
+            $epo_gain_marge = $project['epo'] * $percent;
+            $epp_gain_marge = $project['epp'] * $percent;
+            $epps_gain_marge = $project['epps'] * $percent;
+            $em_gain_marge = $project['em'] * $percent;
+            
+        @endphp
+
         <table class="blueTable">
+            <thead>
+               <tr>
+                <td></td>
+                <td>%</td>
+                <td>Total</td>
+                <td>Marge</td>
+               </tr>
+            </thead>
             <tr>
                 <td class="epo">Estimation le plus optimiste</td>
-                <td>{{ round($project['epo'], 2) }}</td>
+                <td>40%</td>
+                <td>{{ round($project['epo'], 2) }} Dhs</td>
+                <td>{{ round($epo_gain_marge, 2) }} Dhs</td>
             </tr>
             <tr>
                 <td class="epp">Estimation le plus probable</td>
-                <td>{{ round($project['epp'], 2) }}</td>
+                <td>40%</td>
+                <td>{{ round($project['epp'], 2) }} Dhs</td>
+                <td>{{ round($epp_gain_marge, 2) }} Dhs</td>
             </tr>
             <tr>
                 <td class="epps">Estimation le plus pessimiste</td>
-                <td>{{ round($project['epps'], 2) }}</td>
+                <td>40%</td>
+                <td>{{ round($project['epps'], 2) }} Dhs</td>
+                <td>{{ round($epps_gain_marge, 2) }} Dhs</td>
             </tr>
             <tr>
                 <td class="em">Estimation Moyen</td>
-                <td>{{ round($project['em'], 2) }}</td>
+                <td>40%</td>
+                <td>{{ round($project['em'], 2) }} Dhs</td>
+                <td>{{ round($em_gain_marge, 2) }} Dhs</td>
             </tr>
             <tr>
                 <td class="pv">Prix de vente H.T</td>
-                <td>{{ round($project['em'], 2) }}</td>
+                <td>40%</td>
+                <td>{{ round($project['em'], 2) }} Dhs</td>
+                <td>{{ round($em_gain_marge, 2) }} Dhs</td>
             </tr>
         </table>
     </div>
@@ -296,12 +325,12 @@
             <tr>
                 <td>Custommer Demand</td>
                 <td>{{ $project['smph_custommer_demand'] }}</td>
-                <td rowspan="2" class="epo">{{ round($project['smph'], 2) }}</td>
+                <td rowspan="2" class="epo">{{ round($project['smph'], 2) }} Dhs/m</td>
 
 
                 <td>Custommer Demand</td>
                 <td>{{ $project['lmph_custommer_demand'] }}</td>
-                <td rowspan="2" class="epo">{{ round($project['lmph'], 2) }}</td>
+                <td rowspan="2" class="epo">{{ round($project['lmph'], 2) }} Dhs/m</td>
 
             </tr>
 
@@ -315,7 +344,7 @@
             </tr>
 
         </table>
-        
+
         <br>
 
         @php
@@ -337,7 +366,7 @@
         @endphp
 
 
-        <table class="blueTable"> 
+        <table class="blueTable">
             <tr>
                 <td colspan="2" class="pv">Coût SMPH</td>
                 <td colspan="2" class="pv"> Coût LMPH</td>
@@ -345,26 +374,26 @@
 
             <tr>
                 <td>SMPH from Estimation le plus optimiste</td>
-                <td class="epo">{{ round($smph_epo, 2) }} </td>
+                <td class="epo">{{ round($smph_epo, 2) }} Dhs/m </td>
 
                 <td>LMPH from Estimation le plus optimiste</td>
-                <td class="epo">{{ round($lmph_epo, 2) }} </td>
+                <td class="epo">{{ round($lmph_epo, 2) }} Dhs/m </td>
             </tr>
 
             <tr>
                 <td>SMPH from Estimation le plus probable</td>
-                <td class="epo">{{ round($smph_epp, 2) }} </td>
+                <td class="epo">{{ round($smph_epp, 2) }} Dhs/m </td>
 
                 <td>LMPH from Estimation le plus probable</td>
-                <td class="epo">{{ round($lmph_epp, 2) }} </td>
+                <td class="epo">{{ round($lmph_epp, 2) }} Dhs/m </td>
             </tr>
 
             <tr>
                 <td>SMPH from Estimation le plus pessimiste</td>
-                <td class="epo">{{ round($smph_epps, 2) }} </td>
+                <td class="epo">{{ round($smph_epps, 2) }} Dhs/m </td>
 
                 <td>LMPH from Estimation le plus pessimiste</td>
-                <td class="epo">{{ round($lmph_epps, 2) }} </td>
+                <td class="epo">{{ round($lmph_epps, 2) }} Dhs/m </td>
             </tr>
 
         </table>
