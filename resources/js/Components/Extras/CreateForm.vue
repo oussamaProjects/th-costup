@@ -19,11 +19,14 @@
         <div class="w-full">
           <div class="mb-2 uppercase">Coût SMPH</div>
           <div class="mb-2">
+
+            <div class="text-xs">Customer Demand</div>
+
             <input
               id="smph_custommer_demand"
               v-model="extras.smph_custommer_demand"
               type="text"
-              placeholder="Custommer Demand"
+              placeholder="Customer Demand"
               :class="this.globalClass.inputTextForm"
             />
             <div
@@ -35,6 +38,7 @@
           </div>
 
           <div class="mb-2">
+            <div class="text-xs">Production Available Time</div>
             <input
               id="smph_production_available_time"
               v-model="extras.smph_production_available_time"
@@ -54,11 +58,13 @@
         <div class="w-full">
           <div class="mb-2 uppercase">Coût LMPH</div>
           <div class="mb-2">
+            
+            <div class="text-xs">Customer Demand</div>
             <input
               id="lmph_custommer_demand"
               v-model="extras.lmph_custommer_demand"
               type="text"
-              placeholder="Custommer Demand"
+              placeholder="Customer Demand"
               :class="this.globalClass.inputTextForm"
             />
             <div
@@ -70,6 +76,7 @@
           </div>
 
           <div class="mb-2">
+            <div class="text-xs">Production Available Time</div>
             <input
               id="lmph_production_available_time"
               v-model="extras.lmph_production_available_time"

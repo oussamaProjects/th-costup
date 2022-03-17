@@ -60,8 +60,8 @@ class UtilityController extends Controller
             $epps = ($epo * $factorsPercent / 100) + ($epo) + $epo;
             $epp = ($epo + $epps) / 2;
             $em = ((1 * $epo) + (4 * $epp) + (1 * $epps)) / 6;
-            $smph = ($em * $smph_cd) / $smph_pat;
-            $lmph = ($em * $lmph_cd) / $lmph_pat;
+            $smph = ($em * $smph_pat) / $smph_cd;
+            $lmph = ($em * $lmph_pat) /  $lmph_cd;
 
             $project->epo  = $epo;
             $project->epp  = $epp;
@@ -80,9 +80,8 @@ class UtilityController extends Controller
                 $project->save();
             } catch (\Exception $e) {
                 // do task when error
-                echo $e->getMessage();   
+                echo $e->getMessage();
             }
-
         }
 
         return $project;
