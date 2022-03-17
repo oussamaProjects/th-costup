@@ -315,6 +315,59 @@
             </tr>
 
         </table>
+        
+        <br>
+
+        @php
+            
+            $smph_cd = $project['smph_custommer_demand'] == 0 ? 1 : $project['smph_custommer_demand'];
+            $smph_pat = $project['smph_production_available_time'] == 0 ? 1 : $project['smph_production_available_time'];
+            $lmph_cd = $project['lmph_custommer_demand'] == 0 ? 1 : $project['lmph_custommer_demand'];
+            $lmph_pat = $project['lmph_production_available_time'] == 0 ? 1 : $project['lmph_production_available_time'];
+            
+            $smph_epo = ($project['epo'] * $smph_pat) / $smph_cd;
+            $lmph_epo = ($project['epo'] * $lmph_pat) / $lmph_cd;
+            
+            $smph_epp = ($project['epp'] * $smph_pat) / $smph_cd;
+            $lmph_epp = ($project['epp'] * $lmph_pat) / $lmph_cd;
+            
+            $smph_epps = ($project['epps'] * $smph_pat) / $smph_cd;
+            $lmph_epps = ($project['epps'] * $lmph_pat) / $lmph_cd;
+            
+        @endphp
+
+
+        <table class="blueTable"> 
+            <tr>
+                <td colspan="2" class="pv">Coût SMPH</td>
+                <td colspan="2" class="pv"> Coût LMPH</td>
+            </tr>
+
+            <tr>
+                <td>SMPH from Estimation le plus optimiste</td>
+                <td class="epo">{{ round($smph_epo, 2) }} </td>
+
+                <td>LMPH from Estimation le plus optimiste</td>
+                <td class="epo">{{ round($lmph_epo, 2) }} </td>
+            </tr>
+
+            <tr>
+                <td>SMPH from Estimation le plus probable</td>
+                <td class="epo">{{ round($smph_epp, 2) }} </td>
+
+                <td>LMPH from Estimation le plus probable</td>
+                <td class="epo">{{ round($lmph_epp, 2) }} </td>
+            </tr>
+
+            <tr>
+                <td>SMPH from Estimation le plus pessimiste</td>
+                <td class="epo">{{ round($smph_epps, 2) }} </td>
+
+                <td>LMPH from Estimation le plus pessimiste</td>
+                <td class="epo">{{ round($lmph_epps, 2) }} </td>
+            </tr>
+
+        </table>
     </div>
 
     @env('local')

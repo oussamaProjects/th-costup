@@ -56,7 +56,9 @@ class UtilityController extends Controller
                 $total_plus_margin += $value->total_plus_margin;
             }
 
-            $epo = $total_plus_margin;
+            // $epo = $total_plus_margin; 
+            $epo = $total_plus_margin + ($total_plus_margin * $factorsPercent / 100);
+
             $epps = ($epo * $factorsPercent / 100) + ($epo) + $epo;
             $epp = ($epo + $epps) / 2;
             $em = ((1 * $epo) + (4 * $epp) + (1 * $epps)) / 6;
