@@ -19,6 +19,13 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <jet-nav-link :href="route('neveling')" :active="route().current('neveling')">
+                                    Neveling
+                                </jet-nav-link>
+                            </div>
+
+                            <!-- Navigation Links -->
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <jet-nav-link :href="route('settings')" :active="route().current('settings')">
                                     Settings
                                 </jet-nav-link>
@@ -167,6 +174,10 @@
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1"> 
  
+                        <jet-responsive-nav-link :href="route('neveling')" :active="route().current('neveling')"> 
+                            Neveling
+                        </jet-responsive-nav-link> 
+                        
                         <jet-responsive-nav-link :href="route('settings')" :active="route().current('settings')"> 
                             Settings
                         </jet-responsive-nav-link> 

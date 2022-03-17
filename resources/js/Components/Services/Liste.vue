@@ -155,7 +155,7 @@ export default {
 
     closeUpdateModal() {
       this.service = {
-        naem: null,
+        name: null,
         description: null,
         unit_measure: null,
         qty: null,

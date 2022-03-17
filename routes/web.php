@@ -25,7 +25,7 @@ Route::get('/clear-cache', function () {
 |
 */
 
-Route::get('/', function () {  
+Route::get('/', function () {
     // $password = '123456';
     // $hashedPassword = Hash::make($password);
     // echo $hashedPassword;
@@ -39,6 +39,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',  'App\Http\Controllers\Dashboard@index')->name('dashboard');
+ 
 Route::middleware(['auth:sanctum', 'verified'])->get('/settings',   'App\Http\Controllers\Dashboard@settings')->name('settings');
 Route::middleware(['auth:sanctum', 'verified'])->get('/calculator', 'App\Http\Controllers\Dashboard@calculator')->name('calculator');
 Route::middleware(['auth:sanctum', 'verified'])->get('/SAG',        'App\Http\Controllers\Dashboard@SAG')->name('sag');
@@ -51,6 +52,9 @@ Route::resource('categories', 'App\Http\Controllers\CategoryController');
 Route::get('categories/{category}/services', 'App\Http\Controllers\CategoryController@getCategoryServices')->name('get-category-services');
 
 Route::resource('history_statues', 'App\Http\Controllers\HistoryStatueController');
+ 
+Route::middleware(['auth:sanctum', 'verified'])->get('/neveling',  'App\Http\Controllers\Dashboard@neveling')->name('neveling');
+ 
 
 Route::resource('factors', 'App\Http\Controllers\FactorController');
 
@@ -61,6 +65,10 @@ Route::get('projects/{project}/factorsNotInProject',         'App\Http\Controlle
 Route::post('projects/storeProjectFactors',    'App\Http\Controllers\ProjectController@storeProjectFactors')->name('store-project-factors');
 
 Route::get('projects/{project}/values',         'App\Http\Controllers\ProjectController@getProjectValues')->name('get-project-values');
+ 
+Route::post('projects/storeProjectCategories',  'App\Http\Controllers\ProjectController@storeProjectCategories')->name('store-project-categories');
+Route::get('projects/{project}/extras',  'App\Http\Controllers\ProjectController@getProjectExtras')->name('get-project-extras');
+Route::post('projects/storeProjectExtras',      'App\Http\Controllers\ProjectController@storeProjectExtras')->name('store-project-extras');
 
 Route::post('projects/storeProjectCategories',  'App\Http\Controllers\ProjectController@storeProjectCategories')->name('store-project-categories');
 Route::post('projects/storeProjectServices',    'App\Http\Controllers\ProjectController@storeProjectServices')->name('store-project-services');
@@ -78,6 +86,6 @@ Route::post('sag/storeSAGMovementNote',  'App\Http\Controllers\SAGController@sto
 Route::resource('histories', 'App\Http\Controllers\HistoryController');
 Route::get('resources/{resource}/histories', 'App\Http\Controllers\HistoryController@getHistories')->name('get-project-pre-sag');
 
-
 Route::get('pdf-dac/{project}','App\Http\Controllers\PdfGenerateController@dac')->name('generate-dac-pdf');
 Route::get('pdf-sag/{project}','App\Http\Controllers\PdfGenerateController@sag')->name('generate-sag-pdf');
+Route::get('pdf-generate/{project}', 'App\Http\Controllers\PdfGenerateController@PDFgenerate')->name('generate-pdf');

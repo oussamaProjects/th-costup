@@ -148,6 +148,7 @@ class Dashboard extends Controller
             'projects' => $projects,
             'history_statues' => $history_statues,
             'categories' => $formatted_categories,
+
         ]);
     }
 
@@ -159,6 +160,9 @@ class Dashboard extends Controller
         $categories = Category::all();
         $history_statues = History_statue::all();
         $child_categories = Category::where('parent_id', '!=', '0')->get();
+
+
+        $services_categories = Category::where('parent_id', '!=', '0')->get();
 
 
         $services = DB::table('services')
@@ -278,6 +282,14 @@ class Dashboard extends Controller
             // 'mainOeuvre' => $category->services()->get(),
             // 'project' => $project,
             // 'sag' => UtilityController::sag_values($project),
+        ]);
+    }
+
+    public function neveling()
+    {
+
+        return Inertia::render('Neveling', [
+            'projects' => [],
         ]);
     }
 }

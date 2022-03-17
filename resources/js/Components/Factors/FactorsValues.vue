@@ -2,7 +2,6 @@
   <ChCircleLoader v-if="this.isLoading" :color="'#3b82f6'"></ChCircleLoader>
 
   <div class="flex flex-col w-full">
-    
     <transition-group name="factorList" tag="p">
       <ch-factor-values
         v-for="(factor, index) in availableFactorsProject"
@@ -133,18 +132,19 @@ export default {
       _this.$emit("addFactorToForm", event);
     },
 
-    saveFactorValues(project_id) {
+    saveFactorValues() {
       var factorsRequest = Array();
       var factorTotal = 0;
       var factorsPercent = 0;
       var _i = 0;
       var _this = this;
-      // console.log(_this.project_id);
+      console.log('saveFactorValues');
+      console.log(_this.project.id);
       _this.availableFactorsProject.forEach(function (factor) {
         factorTotal += factor.value;
-        if (_this.project_id != 0 && _this.project_id != null) {
+        if (_this.project.id != 0 && _this.project.id != null) {
           factorsRequest[_i] = {
-            project_id: _this.project_id,
+            project_id: _this.project.id,
             factor_id: factor.id,
             value: factor.value,
           };
@@ -152,9 +152,7 @@ export default {
         }
       });
 
-      if (project_id != 0 && project_id != null) {
-        _this.storeProjectFactors(factorsRequest);
-      }
+      _this.storeProjectFactors(factorsRequest);
 
       factorsPercent = factorTotal / this.availableFactorsProject.length;
 
@@ -173,7 +171,7 @@ export default {
     },
   },
   computed: {},
-  props: ["project_id", "factorsNotInProject", "factorsProject", "globalClass"],
+  props: ["project", "factorsNotInProject", "factorsProject", "globalClass"],
 };
 </script>
 
@@ -187,7 +185,8 @@ export default {
   transition: all 1s;
 }
 /* .factorList-leave-active below version 2.1.8 */
-.factorList-enter, .factorList-leave-to  {
+.factorList-enter,
+.factorList-leave-to {
   opacity: 0;
   transform: translateX(30px);
 }

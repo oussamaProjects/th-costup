@@ -5,233 +5,247 @@
         :currentGlobalStep="this.currentGlobalStep"
       ></ch-stepper-head>
 
-      <ch-projects-list
-        :projects="this.projects"
-        :currentGlobalStep="this.currentGlobalStep"
-        @chooseProjects="chooseProjects"
-        :globalClass="globalClass"
-      ></ch-projects-list>
+      <div class="content relative">
+        <ChCircleLoader
+          v-if="isPageLoading"
+          :color="'#3b82f6'"
+        ></ChCircleLoader>
 
-      <!-- Tabs Start -->
-      <ul
-        class="flex -mb-px"
-        id="myTab"
-        data-tabs-toggle="#myTabContent"
-        role="tablist"
-        v-if="this.currentGlobalStep == 1"
-      >
-        <span :set="(liCatParentIndex = 0)"></span>
+        <ch-projects-list
+          :projects="this.projects"
+          :currentGlobalStep="this.currentGlobalStep"
+          @chooseProjects="chooseProjects"
+          :globalClass="globalClass"
+        ></ch-projects-list>
 
-        <div v-for="(category, index) in projectData" v-bind:key="index">
-          <li
-            v-if="liCatParentName != category.parent_name"
-            class="mr-2"
-            role="presentation"
-            :title="category.parent_name"
-          >
-            <span :set="(liCatParentIndex += 1)"></span>
-            <a
-              class="
-                inline-block
-                text-xs
-                font-medium
-                text-center
-                p-2
-                uppercase
-                border
-              "
-              :id="'cat_' + liCatParentIndex + '-tab'"
-              :data-tabs-target="'cat_' + liCatParentIndex"
-              type="button"
-              role="tab"
-              :aria-controls="'cat_' + liCatParentIndex"
-              aria-selected="false"
-              @click.prevent="setActive"
-              :class="
-                isActive('cat_' + liCatParentIndex)
-                  ? 'text-custom_blue bg-main hover:text-custom_blue hover:border-main hover:bg-white'
-                  : 'hover:text-custom_blue hover:border-main hover:bg-white'
-              "
-              :href="'#cat_' + liCatParentIndex"
-            >
-              {{ liCatParentIndex }} - {{ category.parent_name }}
-            </a>
-          </li>
-          <span :set="(liCatParentName = category.parent_name)"></span>
-        </div>
-      </ul>
-      <!-- End Tabs -->
-
-      <div id="myTabContent">
-        <div
-          class="categoryContent relative"
+        <!-- Tabs Start -->
+        <ul
+          class="flex -mb-px"
+          id="myTab"
+          data-tabs-toggle="#myTabContent"
+          role="tablist"
           v-if="this.currentGlobalStep == 1"
         >
-          <div
-            class="
-              flex flex-col
-              justify-items-stretch
-              items-stretch
-              text-xs
-              tabs
-              relative
-            "
-          >
-            <div :set="(catParentIndex = 0)"></div>
+          <span :set="(liCatParentIndex = 0)"></span>
 
-            <div
-              v-for="(category, index) in projectData"
-              v-bind:key="index"
-              class="cats"
+          <div v-for="(category, index) in projectData" v-bind:key="index">
+            <li
+              v-if="liCatParentName != category.parent_name"
+              class="mr-2"
+              role="presentation"
+              :title="category.parent_name"
             >
-              <div v-if="catParentName != category.parent_name">
-                <div :set="(catParentIndex += 1)"></div>
-              </div>
-
-              <div
-                :set="(catParentName = category.parent_name)"
-                :class="'cat_' + catParentIndex"
-              ></div>
-
-              <div
-                :id="'cat_' + catParentIndex"
-                class=""
-                role="tabpanel"
-                :aria-labelledby="'cat_' + catParentIndex + '-tab'"
-                :class="{ hidden: !isActive('cat_' + catParentIndex) }"
+              <span :set="(liCatParentIndex += 1)"></span>
+              <a
+                class="
+                  inline-block
+                  text-xs
+                  font-medium
+                  text-center
+                  p-2
+                  uppercase
+                  border
+                "
+                :id="'cat_' + liCatParentIndex + '-tab'"
+                :data-tabs-target="'cat_' + liCatParentIndex"
+                type="button"
+                role="tab"
+                :aria-controls="'cat_' + liCatParentIndex"
+                aria-selected="false"
+                @click.prevent="setActive"
+                :class="
+                  isActive('cat_' + liCatParentIndex)
+                    ? 'text-custom_blue bg-main hover:text-custom_blue hover:border-main hover:bg-white'
+                    : 'hover:text-custom_blue hover:border-main hover:bg-white'
+                "
+                :href="'#cat_' + liCatParentIndex"
               >
+                {{ liCatParentIndex }} - {{ category.parent_name }}
+              </a>
+            </li>
+            <span :set="(liCatParentName = category.parent_name)"></span>
+          </div>
+        </ul>
+        <!-- End Tabs -->
+
+        <div id="myTabContent">
+          <div
+            class="categoryContent relative"
+            v-if="this.currentGlobalStep == 1"
+          >
+            <div
+              class="
+                flex flex-col
+                justify-items-stretch
+                items-stretch
+                text-xs
+                tabs
+                relative
+              "
+            >
+              <div :set="(catParentIndex = 0)"></div>
+
+              <div
+                v-for="(category, index) in projectData"
+                v-bind:key="index"
+                class="cats"
+              >
+                <div v-if="catParentName != category.parent_name">
+                  <div :set="(catParentIndex += 1)"></div>
+                </div>
+
                 <div
-                  :data-category_id="category.id"
-                  :data-category_parent_id="category.parent_id"
-                  :data-category_parent_name="category.parent_name"
-                  class="flex flex-col w-full"
-                  :class="'category mb-1 category_' + category.id"
+                  :set="(catParentName = category.parent_name)"
+                  :class="'cat_' + catParentIndex"
+                ></div>
+
+                <div
+                  :id="'cat_' + catParentIndex"
+                  class=""
+                  role="tabpanel"
+                  :aria-labelledby="'cat_' + catParentIndex + '-tab'"
+                  :class="{ hidden: !isActive('cat_' + catParentIndex) }"
                 >
-                  <div>
-                    <div
-                      v-if="catParentName != category.parent_name"
-                      class="
-                        p-3
-                        text-center
-                        uppercase
-                        font-bold
-                        text-bg
-                        bg-main
-                        text-custom_blue
-                      "
-                    >
-                      {{ category.parent_name }}
-                    </div>
-
-                    <ch-category-table-head
-                      :currentGlobalStep="this.currentGlobalStep"
-                    ></ch-category-table-head>
-                  </div>
-
-                  <ch-add-services
-                    :addServices="addServices"
-                    :category="category"
-                    :globalClass="globalClass"
-                    @showListeServices="showListeServicesModal"
-                  ></ch-add-services>
-
                   <div
-                    class="
-                      flex
-                      justify-items-stretch
-                      items-stretch
-                      services
-                      relative
-                    "
+                    :data-category_id="category.id"
+                    :data-category_parent_id="category.parent_id"
+                    :data-category_parent_name="category.parent_name"
+                    class="flex flex-col w-full"
+                    :class="'category mb-1 category_' + category.id"
                   >
-                    <div
-                      v-if="enableEditCatId != category.id"
-                      class="bg-gray-200 absolute inset-0 z-50 opacity-25"
-                    ></div>
+                    <div>
+                      <div
+                        v-if="catParentName != category.parent_name"
+                        class="
+                          p-3
+                          text-center
+                          uppercase
+                          font-bold
+                          text-bg
+                          bg-main
+                          text-custom_blue
+                        "
+                      >
+                        {{ category.parent_name }}
+                      </div>
 
-                    <div v-if="enableEditCatId == category.id && isLoading">
-                      <ChCircleLoader
-                        v-if="isLoading"
-                        :color="'#3b82f6'"
-                      ></ChCircleLoader>
+                      <ch-category-table-head
+                        :currentGlobalStep="this.currentGlobalStep"
+                      ></ch-category-table-head>
                     </div>
+
+                    <ch-add-services
+                      :addServices="addServices"
+                      :category="category"
+                      :globalClass="globalClass"
+                      @showListeServices="showListeServicesModal"
+                    ></ch-add-services>
 
                     <div
                       class="
                         flex
-                        items-center
-                        p-2
-                        uppercase
-                        font-bold
-                        bg-main
-                        text-custom_blue
+                        justify-items-stretch
+                        items-stretch
+                        services
+                        relative
                       "
-                      style="min-width: 240px"
                     >
-                      {{ category.name }}
+                      <div
+                        v-if="enableEditCatId != category.id"
+                        class="bg-gray-200 absolute inset-0 z-50 opacity-25"
+                      ></div>
+
+                      <div v-if="enableEditCatId == category.id && isLoading">
+                        <ChCircleLoader
+                          v-if="isLoading"
+                          :color="'#3b82f6'"
+                        ></ChCircleLoader>
+                      </div>
+
+                      <div
+                        class="
+                          flex
+                          items-center
+                          p-2
+                          uppercase
+                          font-bold
+                          bg-main
+                          text-custom_blue
+                        "
+                        style="min-width: 240px"
+                      >
+                        {{ category.name }}
+                      </div>
+
+                      <div
+                        class="
+                          flex flex-col
+                          border-b border-r
+                          flex-grow
+                          services-values
+                        "
+                      >
+                        <transition-group name="list" tag="p">
+                          <div
+                            v-for="service in category.services"
+                            v-bind:key="service.id"
+                            :class="'service service_' + service.id"
+                            :data-service_id="service.id"
+                          >
+                            <ch-services-values-row
+                              :service="service"
+                              @calculateValues="calculate"
+                              @removeRow="removeServiceRow"
+                              :globalClass="this.globalClass"
+                            ></ch-services-values-row>
+                          </div>
+                        </transition-group>
+                      </div>
                     </div>
 
-                    <div
-                      class="
-                        flex flex-col
-                        border-b border-r
-                        flex-grow
-                        services-values
-                      "
-                    >
-                      <transition-group name="list" tag="p">
-                        <div
-                          v-for="service in category.services"
-                          v-bind:key="service.id"
-                          :class="'service service_' + service.id"
-                          :data-service_id="service.id"
-                        >
-                          <ch-services-values-row
-                            :service="service"
-                            @calculateValues="calculate"
-                            @removeRow="removeServiceRow"
-                            :globalClass="this.globalClass"
-                          ></ch-services-values-row>
-                        </div>
-                      </transition-group>
-                    </div>
+                    <ch-category-values-row
+                      :category="category"
+                      :isLoading="isLoading"
+                      @getCategorySumValues="saveValues"
+                      @getCategoryEditValues="enableEditValues"
+                    ></ch-category-values-row>
                   </div>
-
-                  <ch-category-values-row
-                    :category="category"
-                    :isLoading="isLoading"
-                    @getCategorySumValues="saveValues"
-                    @getCategoryEditValues="enableEditValues"
-                  ></ch-category-values-row>
                 </div>
               </div>
-            </div>
 
-            <!-- <ch-categories-step
+              <!-- <ch-categories-step
             :currentstep="currentstep"
             :step="catParentIndex"
             :stepcount="2"
             @step-change="stepChanged"
           >
           </ch-categories-step> -->
+            </div>
           </div>
         </div>
+
+        <ch-factors-values
+          @refreshProjectValues="initializeProject"
+          :project="project"
+          :factorsNotInProject="this.factorsNotInProject"
+          :factorsProject="this.factorsProject"
+          :globalClass="globalClass"
+          v-if="currentGlobalStep == 2"
+        />
+
+        <ch-extras-component
+          :project="project"
+          :extras="projectExtras"
+          :globalClass="globalClass"
+          v-if="currentGlobalStep == 3"
+        />
+
+        <ch-calculator-results
+          :project="this.project"
+          :globalClass="globalClass"
+          v-if="currentGlobalStep == 4"
+        ></ch-calculator-results>
       </div>
-
-      <ch-factors-values
-        @refreshProjectValues="initializeProject"
-        :project_id="project.id"
-        :factorsNotInProject="this.factorsNotInProject"
-        :factorsProject="this.factorsProject"
-        :globalClass="globalClass"
-        v-if="currentGlobalStep == 2"
-      />
-
-      <ch-calculator-results
-        :project="this.project"
-        :globalClass="globalClass"
-        v-if="currentGlobalStep == 3"
-      ></ch-calculator-results>
 
       <ch-stepper
         :currentGlobalStep="this.currentGlobalStep"
@@ -278,8 +292,10 @@ import ChStepper from "./stepper.vue";
 import ChStepperHead from "./stepperHead.vue";
 import ChProjectsList from "./projectsListe.vue";
 import ChCategoryTableHead from "./categoriesTableHead.vue";
-import ChCircleLoader from "../CircleLoader.vue";
+import ChExtrasComponent from "../Extras/Component.vue";
 import ChFactorsValues from "../Factors/FactorsValues.vue";
+
+import ChCircleLoader from "../CircleLoader.vue";
 
 import ChTab from "../Tab.vue";
 import ChTabs from "../Tabs.vue";
@@ -301,15 +317,18 @@ export default {
     ChTab,
     ChTabs,
     ChFactorsValues,
+    ChExtrasComponent,
   },
   data() {
     return {
       enableEditCatId: 0,
       project_id: 1,
       factorsProject: null,
+      projectExtras: null,
       factorsNotInProject: null,
       project: null,
       isLoading: false,
+      isPageLoading: false,
       projectData: null,
       categoryOfSelectFromServices: null,
       selectFromServices: null,
@@ -338,6 +357,7 @@ export default {
 
       this.initializeProject();
       this.initializeFactors();
+      this.initializeExtras();
       this.getProjectValues();
 
       setTimeout(() => {
@@ -348,6 +368,7 @@ export default {
     changeProject() {
       this.initializeProject();
       this.initializeFactors();
+      this.initializeExtras();
       this.getProjectValues();
     },
 
@@ -402,46 +423,47 @@ export default {
       var profitMarginTotal = 0;
       var i = 0;
 
-      var categorySumValuesNode = categoryNode.querySelector(
-        ".category-sum-values"
-      );
+      if (this.currentGlobalStep == 1) {
+        var categorySumValuesNode = categoryNode.querySelector(
+          ".category-sum-values"
+        );
 
-      var servicesNode = categoryNode.querySelector(".services");
-      var servicesValuesNode = servicesNode.querySelector(".services-values");
-      var categoryServicesNode =
-        servicesValuesNode.querySelectorAll(".service");
+        var servicesNode = categoryNode.querySelector(".services");
+        var servicesValuesNode = servicesNode.querySelector(".services-values");
+        var categoryServicesNode =
+          servicesValuesNode.querySelectorAll(".service");
 
-      categoryServicesNode.forEach(function (serviceNode) {
-        _this.resetServicesValues(serviceNode);
-        i++;
-        var service_id = serviceNode.getAttribute("data-service_id");
-        var quantity = serviceNode.querySelector(".qty").value;
-        var occup_hour = serviceNode.querySelector(".occup_hour").value;
-        var price = serviceNode.querySelector(".price").innerHTML;
-        var subTotal = serviceNode.querySelector(".subTotal").innerHTML;
-        var marge = serviceNode.querySelector(".marge").innerHTML;
-        var percentMargin =
-          serviceNode.querySelector(".profit_margin_p_c").value;
-        var profitMargin =
-          serviceNode.querySelector(".marge_subTotal").innerHTML;
+        categoryServicesNode.forEach(function (serviceNode) {
+          _this.resetServicesValues(serviceNode);
+          i++;
+          var service_id = serviceNode.getAttribute("data-service_id");
+          var quantity = serviceNode.querySelector(".qty").value;
+          var occup_hour = serviceNode.querySelector(".occup_hour").value;
+          var price = serviceNode.querySelector(".price").innerHTML;
+          var subTotal = serviceNode.querySelector(".subTotal").innerHTML;
+          var marge = serviceNode.querySelector(".marge").innerHTML;
+          var percentMargin =
+            serviceNode.querySelector(".profit_margin_p_c").value;
+          var profitMargin =
+            serviceNode.querySelector(".marge_subTotal").innerHTML;
 
-        // Parsing
-        quantity = parseFloat(quantity);
-        occup_hour = parseFloat(occup_hour);
-        price = parseFloat(price);
-        subTotal = parseFloat(subTotal);
-        marge = parseFloat(marge);
-        percentMargin = parseFloat(percentMargin);
-        profitMargin = parseFloat(profitMargin);
+          // Parsing
+          quantity = parseFloat(quantity);
+          occup_hour = parseFloat(occup_hour);
+          price = parseFloat(price);
+          subTotal = parseFloat(subTotal);
+          marge = parseFloat(marge);
+          percentMargin = parseFloat(percentMargin);
+          profitMargin = parseFloat(profitMargin);
 
-        quantityTotal += quantity;
-        occupHourTotal += occup_hour;
-        priceTotal += price;
-        subTotalTotal += subTotal;
-        margeTotal += marge;
-        percentMarginTotal += percentMargin;
-        profitMarginTotal += profitMargin;
-      });
+          quantityTotal += quantity;
+          occupHourTotal += occup_hour;
+          priceTotal += price;
+          subTotalTotal += subTotal;
+          margeTotal += marge;
+          percentMarginTotal += percentMargin;
+          profitMarginTotal += profitMargin;
+        });
 
       percentMarginTotal = percentMarginTotal / i;
       var category_id = categoryNode.getAttribute("data-category_id");
@@ -470,6 +492,9 @@ export default {
       profitMarginHTML.innerHTML = !isNaN(profitMarginTotal)
         ? profitMarginTotal.toFixed(2)
         : 0;
+ 
+      }
+ 
     },
 
     addServices(services_id) {
@@ -485,8 +510,6 @@ export default {
         var categoryNode = null;
         _this.projectData.filter(function (category) {
           if (category.id == category_id) {
-            // console.log(res.data);
-            // console.log(category.services);
             category.services = category.services.concat(res.data);
 
             categoryNode = document.querySelector(
@@ -500,6 +523,7 @@ export default {
         });
 
         setTimeout(() => {
+          // Re-Calculate the data after the DOM is changed
           _this.resetCategoriesValues(categoryNode);
           _this.saveServicesValues(_this.project_id, categoryNode);
           _this.saveCategoryValues(_this.project_id, categoryNode);
@@ -721,12 +745,10 @@ export default {
     },
 
     initializeProject() {
-      // console.log("refreshProjectResults from form");
       var _this = this;
       if (_this.project_id != 0 && _this.project_id != null) {
         axios.get(`/projects/${_this.project_id}`).then((res) => {
           _this.project = res.data;
-          // console.log(res.data);
         });
       }
     },
@@ -743,6 +765,15 @@ export default {
           .then((res) => {
             _this.factorsNotInProject = res.data;
           });
+      }
+    },
+
+    initializeExtras() {
+      var _this = this;
+      if (_this.project_id != 0 && _this.project_id != null) {
+        axios.get(`/projects/${_this.project_id}/extras`).then((res) => {
+          _this.projectExtras = res.data;
+        });
       }
     },
 
@@ -804,11 +835,20 @@ export default {
 
     globalStepChanged(step) {
       this.currentGlobalStep = step;
-      if (this.currentGlobalStep == 1)
+      this.isPageLoading = true;
+      if (this.currentGlobalStep == 1) {
         setTimeout(() => {
           this.calculateAll();
-        }, 500);
-      if (this.currentGlobalStep == 2) this.initializeProject();
+        }, 1000);
+      }
+
+      if (this.currentGlobalStep >= 2) {
+        this.initializeProject();
+      }
+
+      setTimeout(() => {
+        this.isPageLoading = false;
+      }, 1000);
     },
 
     calculateAll() {
@@ -819,6 +859,7 @@ export default {
         categoryNode = document.querySelector(
           "[data-category_id='" + category.id + "']"
         );
+
         _this.resetCategoriesValues(categoryNode);
       });
     },

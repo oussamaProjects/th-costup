@@ -46,6 +46,7 @@ class HandleInertiaRequests extends Middleware
                             'projects' => fn () => $request->session()->get('flash.success.form.store.projects'),
                             'factors' => fn () => $request->session()->get('flash.success.form.store.factors'),
                             'history_statues' => fn () => $request->session()->get('flash.success.form.store.history_statues'),
+                            'extras' => fn () => $request->session()->get('flash.success.form.store.extras'),
                         ],
                         'update' => [
                             'categories' => fn () => $request->session()->get('flash.success.form.update.categories'),
@@ -53,6 +54,7 @@ class HandleInertiaRequests extends Middleware
                             'projects' => fn () => $request->session()->get('flash.success.form.update.projects'),
                             'factors' => fn () => $request->session()->get('flash.success.form.update.factors'),
                             'history_statues' => fn () => $request->session()->get('flash.success.form.update.history_statues'),
+                            'extras' => fn () => $request->session()->get('flash.success.form.update.factors'),
                         ],
                     ],
                     'list' => [
@@ -61,12 +63,14 @@ class HandleInertiaRequests extends Middleware
                         'projects' => fn () => $request->session()->get('flash.success.list.projects'),
                         'factors' => fn () => $request->session()->get('flash.success.list.factors'),
                         'history_statues' => fn () => $request->session()->get('flash.success.list.history_statues'),
+                        'extras' => fn () => $request->session()->get('flash.success.list.extras'),
                     ],
                     'calculator' => [
                         'categories' => fn () => $request->session()->get('flash.success.calculator.categories'),
                         'services' => fn () => $request->session()->get('flash.success.calculator.services'),
                         'projects' => fn () => $request->session()->get('flash.success.calculator.projects'),
                         'factors' => fn () => $request->session()->get('flash.success.calculator.factors'),
+                        'extras' => fn () => $request->session()->get('flash.success.calculator.extras'),
                     ],
 
                 ],
@@ -78,6 +82,7 @@ class HandleInertiaRequests extends Middleware
                             'projects' => fn () => $request->session()->get('flash.failures.form.store.projects'),
                             'factors' => fn () => $request->session()->get('flash.failures.form.store.factors'),
                             'history_statues' => fn () => $request->session()->get('flash.failures.form.store.history_statues'),
+                            'extras' => fn () => $request->session()->get('flash.failures.form.store.extras'),
                         ],
                         'update' => [
                             'categories' => fn () => $request->session()->get('flash.failures.form.update.categories'),
@@ -85,6 +90,7 @@ class HandleInertiaRequests extends Middleware
                             'projects' => fn () => $request->session()->get('flash.failures.form.update.projects'),
                             'factors' => fn () => $request->session()->get('flash.failures.form.update.factors'),
                             'history_statues' => fn () => $request->session()->get('flash.failures.form.update.history_statues'),
+                            'extras' => fn () => $request->session()->get('flash.failures.form.update.extras'),
                         ],
                     ],
                     'list' => [
@@ -93,6 +99,7 @@ class HandleInertiaRequests extends Middleware
                         'projects' => fn () => $request->session()->get('flash.failures.list.projects'),
                         'factors' => fn () => $request->session()->get('flash.failures.list.factors'),
                         'history_statues' => fn () => $request->session()->get('flash.failures.list.history_statues'),
+                        'extras' => fn () => $request->session()->get('flash.failures.list.extras'),
                     ],
                     
                     'calculator' => [
@@ -100,6 +107,7 @@ class HandleInertiaRequests extends Middleware
                         'services' => fn () => $request->session()->get('flash.failures.calculator.services'),
                         'projects' => fn () => $request->session()->get('flash.failures.calculator.projects'),
                         'factors' => fn () => $request->session()->get('flash.failures.calculator.factors'),
+                        'extras' => fn () => $request->session()->get('flash.failures.calculator.extras'),
                     ],
                 ],
 

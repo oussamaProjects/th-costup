@@ -64,7 +64,7 @@ class ServiceController extends Controller
         $check_name = Service::where('name', 'like', $request->input('name'))->first();
 
         if ($check_name !== null) {
-            return Redirect::route('settings')->with('flash.failures.form.store.services', 'Le nom de la categorie  "' . $service->name . '" exist deja !');
+            return Redirect::route('settings')->with('flash.failures.form.store.services', 'Le nom du service  "' . $service->name . '" exist deja !');
         }
 
         $service->name = $request->input('name');
@@ -122,13 +122,13 @@ class ServiceController extends Controller
 
         if ($check_name !== null) {
             $service->save();
-            // return Redirect::route('settings')->with('flash.failures.form.update.services', 'La categorie "' . $service->name . '" exist deja !');
+            return Redirect::route('settings')->with('flash.failures.form.update.services', 'Le service "' . $service->name . '" a été bien modifié ! mais le nom exist deja !');
         }
 
         $service->name = $request->input('name');
         $service->save();
 
-        // return Redirect::route('settings')->with('flash.success.form.update.services', 'Le service "' . $service->name . '" a été bien modifié !');
+        return Redirect::route('settings')->with('flash.success.form.update.services', 'Le service "' . $service->name . '" a été bien modifié !');
     }
 
     /**

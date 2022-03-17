@@ -11,8 +11,8 @@
       {{ service.name }}
     </div>
 
-    <div class="px-1" style="width: 5%">
-      {{ service.unit_measure }}
+    <div class="px-1" style="width: 5%;font-size: 10px;">
+      {{ service.unit_measure == 0 ? "Heure/m" : "Unité" }}
     </div>
 
     <div class="px-1" style="width: 8%">
@@ -21,7 +21,10 @@
         v-model.number="service.qty"
         type="number"
         placeholder="qty"
-        :class="'qty border-gray-300 bg-main rounded-full text-center ' + this.globalClass.inputTextForm"
+        :class="
+          'qty border-gray-300 bg-main rounded-full text-center ' +
+          this.globalClass.inputTextForm
+        "
         @change.prevent="calculate"
       />
     </div>
@@ -38,7 +41,10 @@
         v-model="service.occup_hour"
         type="number"
         placeholder="occup hour"
-        :class="'occup_hour border-gray-300 bg-main rounded-full text-center ' + this.globalClass.inputTextForm"
+        :class="
+          'occup_hour border-gray-300 bg-main rounded-full text-center ' +
+          this.globalClass.inputTextForm
+        "
         @change.prevent="calculate"
       />
     </div>
@@ -86,7 +92,10 @@
         v-model="service.profit_margin_p_c"
         type="number"
         placeholder="profit_margin_p_c"
-        :class="'profit_margin_p_c border-gray-300 bg-main rounded-full text-center ' + this.globalClass.inputTextForm"
+        :class="
+          'profit_margin_p_c border-gray-300 bg-main rounded-full text-center ' +
+          this.globalClass.inputTextForm
+        "
         @change.prevent="calculate"
       />
     </div>

@@ -81,7 +81,7 @@ class FactorController extends Controller
 
         if ($check_name !== null) {
             $factor->save();
-            return Redirect::route('settings')->with('flash.failures.form.update.factors', 'Le factor "' . $factor->name . '" exist deja !');
+            return Redirect::route('settings')->with('flash.failures.form.update.factors', 'Le factor "' . $factor->name . '" a été bien modifié ! mais le nom exist deja !');
         }
 
         $factor->name = $request->input('name');

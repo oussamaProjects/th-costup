@@ -92,7 +92,7 @@ class CategoryController extends Controller
         $category->parent_id = $request->input('parent_id') ?? 0;
         if ($check_name !== null) {
             $category->save();
-            return Redirect::route('settings')->with('flash.failures.form.update.categories', 'La categorie "' . $category->name . '" exist deja !');
+            return Redirect::route('settings')->with('flash.failures.form.update.categories', 'La catégorie "' . $category->name . '" a été bien modifié ! mais le nom exist deja !');
         }
 
         $category->name = $request->input('name');
