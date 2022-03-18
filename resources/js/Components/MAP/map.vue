@@ -1,5 +1,5 @@
 <template>
-  <div class="map absolute top-0 left-0 right-0 bottom-0 w-full min-h-screen bg-gray-200">
+  <div class="map absolute top-0 left-0 right-0 bottom-0 w-full min-h-screen bg-gray-200 overflow-hidden">
     <Carousel :autoplay="500000" :wrapAround="true">
       <slide v-for="project in projects" v-bind:key="project.id">
         <div class="carousel__item">
@@ -42,7 +42,7 @@ export default {
 
   data() {
     return {
-      image: "./images/map-exemple.jpg",
+      image: "./images/map-exemple-1.jpg",
     };
   },
 

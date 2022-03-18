@@ -1,7 +1,7 @@
 <template>
   <div class="map-container relative p-16 min-h-screen">
     <div class="map">
-      <img :src="imgSrc" alt="" srcset="" class="h-full"/>
+      <img :src="imgSrc" alt="" srcset="" class="h-full" />
     </div>
 
     <div class="resources pins">
@@ -10,7 +10,21 @@
         :key="resource.id"
         :class="'pin pin-' + index"
       >
-        <div style="">{{ resource.actual }}</div>
+        <div style="" v-if="resource.actual > 0">
+          <img
+            v-if="resource.resource_id == 1"
+            :src="img.yellow_helmet"
+            alt=""
+            :srcset="img.blue_helmet"
+          />
+          <img
+            v-if="resource.resource_id != 1"
+            :src="img.blue_helmet"
+            alt=""
+            :srcset="img.blue_helmet"
+          />
+          <span class="number">{{ resource.actual }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -21,7 +35,12 @@ export default {
   components: {},
 
   data() {
-    return {};
+    return {
+      img: {
+        yellow_helmet: "./images/icons/yellow-helmet.png",
+        blue_helmet: "./images/icons/blue-helmet.png",
+      },
+    };
   },
 
   mounted() {},
@@ -42,61 +61,53 @@ export default {
 }
 
 .pins .pin {
-  height: 14px;
-  width: 14px;
+  width: 24px;
   border-radius: 50%;
   left: 25%;
   top: 50%;
   position: absolute;
-  animation-duration: 0.8s;
+  animation-duration: 1.8s;
   animation-name: clignoter;
   animation-iteration-count: infinite;
   transition: none;
 }
 .pins .pin.pin-0 {
-  animation-duration: 0.82s;
-  background-color: brown;
+  animation-duration: 1.82s;
   left: 52%;
-  top: 52%; 
+  top: 52%;
 }
 
 .pins .pin.pin-1 {
-  animation-duration: 0.82s;
-  background-color: red;
-  left: 52%;
-  top: 52%; 
+  animation-duration: 1.82s;
+  left: 50%;
+  top: 50%;
 }
 
 .pins .pin.pin-2 {
-  animation-duration: 0.8s;
-  background-color: brown;
+  animation-duration: 1.8s;
   left: 40%;
-  top: 30%; 
+  top: 30%;
 }
 .pins .pin.pin-3 {
-  animation-duration: 0.81s;
-  background-color: blue;
+  animation-duration: 1.81s;
   left: 44%;
-  top: 44%; 
+  top: 44%;
 }
 .pins .pin.pin-4 {
-  animation-duration: 0.85s;
-  background-color: green;
+  animation-duration: 1.85s;
   left: 20%;
   top: 56%;
 }
 .pins .pin.pin-5 {
-  animation-duration: 0.72s;
-  background-color: blueviolet;
+  animation-duration: 1.72s;
   left: 46%;
-  top: 46%; 
+  top: 46%;
 }
 
 .pins .pin.pin-6 {
-  animation-duration: 0.72s;
-  background-color: coral;
+  animation-duration: 1.72s;
   left: 30%;
-  top: 46%; 
+  top: 46%;
 }
 
 @keyframes clignoter {
@@ -104,7 +115,7 @@ export default {
     opacity: 1;
   }
   40% {
-    opacity: 0;
+    opacity: 0.25;
   }
   100% {
     opacity: 1;
