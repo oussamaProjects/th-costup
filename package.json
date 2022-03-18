@@ -26,6 +26,8 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
-        "inertia-vue-form-wizard": "^0.1.0"
+        "apexcharts": "^3.33.2",
+        "inertia-vue-form-wizard": "^0.1.0",
+        "vue3-apexcharts": "^1.4.1"
     }
 }

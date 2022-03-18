@@ -43,6 +43,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/settings',  'App\Http\Con
 Route::middleware(['auth:sanctum', 'verified'])->get('/calculator',  'App\Http\Controllers\Dashboard@calculator')->name('calculator');
 Route::middleware(['auth:sanctum', 'verified'])->get('/neveling',  'App\Http\Controllers\Dashboard@neveling')->name('neveling');
 
+Route::get('projectsDetails', 'App\Http\Controllers\Dashboard@projectsDetails')->name('projects-details');
+Route::get('charts', 'App\Http\Controllers\ChartsController@index')->name('charts');
+
 Route::resource('factors', 'App\Http\Controllers\FactorController');
 
 Route::resource('projects', 'App\Http\Controllers\ProjectController');
