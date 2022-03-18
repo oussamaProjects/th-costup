@@ -148,7 +148,6 @@ class Dashboard extends Controller
             'projects' => $projects,
             'history_statues' => $history_statues,
             'categories' => $formatted_categories,
-
         ]);
     }
 
