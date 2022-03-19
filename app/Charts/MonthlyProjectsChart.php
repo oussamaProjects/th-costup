@@ -3,7 +3,6 @@
 namespace App\Charts;
 
 use App\Models\Project;
-use App\Models\Service;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class MonthlyProjectsChart
@@ -18,7 +17,7 @@ class MonthlyProjectsChart
     public function buildPieChart(): array
     {
 
-        $projects  = Project::all();
+        $projects = Project::all();
         $addDataArray = array();
         $setLabelsArray = array();
 
@@ -51,9 +50,9 @@ class MonthlyProjectsChart
 
         $chart = $this->chart->areaChart()
             ->setTitle('Monthly Users')
-            ->addArea('Active users', [10, 30, 25])
-            ->addArea('Inactive users', [5, 15, 35])
-            ->setColors(['#ffc63b', '#ff6384', '#ff9384', '#ff6744', '#f46984'])
+            ->addArea('Active users', [10, 30, 25, 15, 13, 19, 9, 8, 30, 25, 20, 40])
+            ->addArea('Inactive users', [5, 15, 35, 25, 20, 40, 50, 12, 7, 15, 13, 19])
+            ->setColors(['#ffc63b', '#ff6384', '#ff9384', '#ff6744', '#f46484', '#ff9874', '#f46184'])
             ->toVue();
 
         return $chart;

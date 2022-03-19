@@ -9,6 +9,6 @@ class ChartsController extends Controller
 {
     public function index(MonthlyProjectsChart $chart)
     {
-        return Inertia::render('Chart', ['pieChart' => $chart->buildPieChart(), 'areaChart' => $chart->buildAreaChart()]);
+        return Inertia::render('Chart', ['Chart' => $chart->buildPieChart() ]);
     }
 }

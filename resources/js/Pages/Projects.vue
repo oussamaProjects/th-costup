@@ -14,7 +14,7 @@
             :key="project.id"
             class="flex flex-col"
           >
-            <div class="text-center p-4 uppercase font-medium text-xl mt-6">
+            <div class="text-center p-4 uppercase font-medium text-3xl mt-6">
               {{ project.name }}
             </div>
 
@@ -29,42 +29,33 @@
               </thead>
               <tr>
                 <td class="epo">Estimation le plus optimiste</td>
-                <td>40%</td>
+                <td rowspan="5">40%</td>
                 <td>{{ project.epo.toFixed(2) }} Dhs</td>
                 <td>{{ (project.epo * 0.4).toFixed(2) }} Dhs</td>
               </tr>
               <tr>
                 <td class="epp">Estimation le plus probable</td>
-                <td>40%</td>
                 <td>{{ project.epp.toFixed(2) }} Dhs</td>
                 <td>{{ (project.epp * 0.4).toFixed(2) }} Dhs</td>
               </tr>
               <tr>
                 <td class="epps">Estimation le plus pessimiste</td>
-                <td>40%</td>
                 <td>{{ project.epps.toFixed(2) }} Dhs</td>
                 <td>{{ (project.epps * 0.4).toFixed(2) }} Dhs</td>
               </tr>
               <tr>
                 <td class="em">Estimation Moyen</td>
-                <td>40%</td>
                 <td>{{ project.em.toFixed(2) }} Dhs</td>
                 <td>{{ (project.em * 0.4).toFixed(2) }} Dhs</td>
               </tr>
               <tr>
                 <td class="pv">Prix de vente H.T</td>
-                <td>40%</td>
                 <td>{{ project.em.toFixed(2) }} Dhs</td>
                 <td>{{ (project.em * 0.4).toFixed(2) }} Dhs</td>
               </tr>
             </table>
 
             <table class="blueTable">
-              <tr>
-                <td colspan="6" class="pv">
-                  SMPH = square meter per hour or LMPH = linear meter per hour
-                </td>
-              </tr>
               <tr>
                 <td colspan="3" class="pv">Coût SMPH</td>
                 <td colspan="3" class="pv">Coût LMPH</td>
@@ -87,6 +78,38 @@
                 <td>{{ project.lmph_production_available_time }}</td>
               </tr>
             </table>
+
+            <apexchart
+              :width="project.Chart.width"
+              :height="project.Chart.height"
+              :type="project.Chart.type"
+              :options="project.Chart.options"
+              :series="project.Chart.series"
+            ></apexchart>
+
+            <div class="max-full mt-4 flex">
+              <a
+                :href="'/project-analytics/' + project.id"
+                target="_blank"
+                :class="
+                  'bg-main ml-auto w-44 text-center ' + globalClass.buttonForm
+                "
+                rel="noopener noreferrer"
+                >Analytics</a
+              >
+            </div>
+
+            <div class="max-full mt-4 flex">
+              <a
+                :href="'/pdf-generate/' + project.id"
+                target="_blank"
+                :class="
+                  'bg-main ml-auto w-44 text-center ' + globalClass.buttonForm
+                "
+                rel="noopener noreferrer"
+                >Generate the PDF</a
+              >
+            </div>
           </div>
         </div>
 
@@ -103,10 +126,17 @@ export default {
   components: { AppLayout, ApexCharts },
 
   data() {
-
     return {
-      
-    }
+      globalClass: {
+        inputTextForm:
+          "appearance-none border border-gray-400 hover:border-gray-300 rounded-sm w-full p-2 text-gray-700 leading-tight focus:outline-none shadow bg-white hover:bg-main text-xs transition-all duration-300 transform",
+        buttonForm:
+          "appearance-none border border-main hover:border-main rounded-sm w-full p-2 text-custom_blue leading-tight focus:outline-none shadow bg-white hover:bg-main text-xs transition-all duration-300 transform",
+        link: "text-xs text-custom_blue hover:text-custom_blue transition-all duration-300 transform cursor-pointer",
+        textError: "text-error text-xs bg-error p-1 rounded-xs mt-1",
+        textSucces: "text-custom_blue text-xs bg-success p-1 rounded-xs mt-1",
+      },
+    };
   },
 
   mounted() {},

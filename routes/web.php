@@ -42,9 +42,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',  'App\Http\Co
 Route::middleware(['auth:sanctum', 'verified'])->get('/settings',  'App\Http\Controllers\Dashboard@settings')->name('settings');
 Route::middleware(['auth:sanctum', 'verified'])->get('/calculator',  'App\Http\Controllers\Dashboard@calculator')->name('calculator');
 Route::middleware(['auth:sanctum', 'verified'])->get('/neveling',  'App\Http\Controllers\Dashboard@neveling')->name('neveling');
+Route::middleware(['auth:sanctum', 'verified'])->get('/projectsDetails',  'App\Http\Controllers\ProjectController@projectsDetails')->name('projects-details');
+Route::middleware(['auth:sanctum', 'verified'])->get('/charts',  'App\Http\Controllers\ChartsController@index')->name('charts');
 
-Route::get('projectsDetails', 'App\Http\Controllers\Dashboard@projectsDetails')->name('projects-details');
-Route::get('charts', 'App\Http\Controllers\ChartsController@index')->name('charts');
 
 Route::resource('factors', 'App\Http\Controllers\FactorController');
 
@@ -72,3 +72,4 @@ Route::resource('services', 'App\Http\Controllers\ServiceController');
 Route::get('services/{services}/selected', 'App\Http\Controllers\ServiceController@getSelectedServices');
 
 Route::get('pdf-generate/{project}', 'App\Http\Controllers\PdfGenerateController@PDFgenerate')->name('generate-pdf');
+Route::get('project-analytics/{project}', 'App\Http\Controllers\AnalyticsGenerateController@projectAnalytics')->name('project-analytics');
