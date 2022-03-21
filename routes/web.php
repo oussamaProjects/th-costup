@@ -54,10 +54,13 @@ Route::get('categories/{category}/services', 'App\Http\Controllers\CategoryContr
 Route::resource('history_statues', 'App\Http\Controllers\HistoryStatueController');
  
 Route::middleware(['auth:sanctum', 'verified'])->get('/neveling',  'App\Http\Controllers\Dashboard@neveling')->name('neveling');
- 
+Route::middleware(['auth:sanctum', 'verified'])->get('/projectsDetails',  'App\Http\Controllers\ProjectController@projectsDetails')->name('projects-details');
+Route::middleware(['auth:sanctum', 'verified'])->get('/charts',  'App\Http\Controllers\ChartsController@index')->name('charts');
+
 
 Route::resource('factors', 'App\Http\Controllers\FactorController');
 
+Route::resource('clients', 'App\Http\Controllers\ClientController');
 Route::resource('projects', 'App\Http\Controllers\ProjectController');
 
 Route::get('projects/{project}/factors',         'App\Http\Controllers\ProjectController@getProjectFactors')->name('get-project-factors');
@@ -89,3 +92,4 @@ Route::get('resources/{resource}/histories', 'App\Http\Controllers\HistoryContro
 Route::get('pdf-dac/{project}','App\Http\Controllers\PdfGenerateController@dac')->name('generate-dac-pdf');
 Route::get('pdf-sag/{project}','App\Http\Controllers\PdfGenerateController@sag')->name('generate-sag-pdf');
 Route::get('pdf-generate/{project}', 'App\Http\Controllers\PdfGenerateController@PDFgenerate')->name('generate-pdf');
+Route::get('project-analytics/{project}', 'App\Http\Controllers\AnalyticsGenerateController@projectAnalytics')->name('project-analytics');

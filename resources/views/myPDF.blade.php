@@ -181,7 +181,7 @@
             <tfoot>
                 @if (isset($category['qty']) && $category['qty'] != 0)
                     <tr>
-                        <td>{{ $category['id'] }}</td>
+                        <td></td>
                         <td></td>
                         <td>{{ $category['qty'] }}</td>
                         <td></td>
@@ -272,41 +272,37 @@
 
         <table class="blueTable">
             <thead>
-               <tr>
-                <td></td>
-                <td>%</td>
-                <td>Total</td>
-                <td>Marge</td>
-               </tr>
+                <tr>
+                    <td></td>
+                    <td>%</td>
+                    <td>Total</td>
+                    <td>Marge</td>
+                </tr>
             </thead>
             <tr>
                 <td class="epo">Estimation le plus optimiste</td>
-                <td>40%</td>
-                <td>{{ round($project['epo'], 2) }} Dhs</td>
+                <td rowspan="5">40%</td>
+                <td class="em">{{ round($project['epo'], 2) }} Dhs</td>
                 <td>{{ round($epo_gain_marge, 2) }} Dhs</td>
             </tr>
             <tr>
                 <td class="epp">Estimation le plus probable</td>
-                <td>40%</td>
-                <td>{{ round($project['epp'], 2) }} Dhs</td>
+                <td class="em">{{ round($project['epp'], 2) }} Dhs</td>
                 <td>{{ round($epp_gain_marge, 2) }} Dhs</td>
             </tr>
             <tr>
                 <td class="epps">Estimation le plus pessimiste</td>
-                <td>40%</td>
-                <td>{{ round($project['epps'], 2) }} Dhs</td>
+                <td class="em">{{ round($project['epps'], 2) }} Dhs</td>
                 <td>{{ round($epps_gain_marge, 2) }} Dhs</td>
             </tr>
             <tr>
                 <td class="em">Estimation Moyen</td>
-                <td>40%</td>
-                <td>{{ round($project['em'], 2) }} Dhs</td>
+                <td class="em">{{ round($project['em'], 2) }} Dhs</td>
                 <td>{{ round($em_gain_marge, 2) }} Dhs</td>
             </tr>
             <tr>
                 <td class="pv">Prix de vente H.T</td>
-                <td>40%</td>
-                <td>{{ round($project['em'], 2) }} Dhs</td>
+                <td class="em">{{ round($project['em'], 2) }} Dhs</td>
                 <td>{{ round($em_gain_marge, 2) }} Dhs</td>
             </tr>
         </table>

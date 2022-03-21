@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
                         'store' => [
                             'categories' => fn () => $request->session()->get('flash.success.form.store.categories'),
                             'services' => fn () => $request->session()->get('flash.success.form.store.services'),
+                            'clients' => fn () => $request->session()->get('flash.success.form.store.clients'),
                             'projects' => fn () => $request->session()->get('flash.success.form.store.projects'),
                             'factors' => fn () => $request->session()->get('flash.success.form.store.factors'),
                             'history_statues' => fn () => $request->session()->get('flash.success.form.store.history_statues'),
@@ -51,6 +52,7 @@ class HandleInertiaRequests extends Middleware
                         'update' => [
                             'categories' => fn () => $request->session()->get('flash.success.form.update.categories'),
                             'services' => fn () => $request->session()->get('flash.success.form.update.services'),
+                            'clients' => fn () => $request->session()->get('flash.success.form.update.clients'),
                             'projects' => fn () => $request->session()->get('flash.success.form.update.projects'),
                             'factors' => fn () => $request->session()->get('flash.success.form.update.factors'),
                             'history_statues' => fn () => $request->session()->get('flash.success.form.update.history_statues'),
@@ -60,6 +62,7 @@ class HandleInertiaRequests extends Middleware
                     'list' => [
                         'categories' => fn () => $request->session()->get('flash.success.list.categories'),
                         'services' => fn () => $request->session()->get('flash.success.list.services'),
+                        'clients' => fn () => $request->session()->get('flash.success.list.clients'),
                         'projects' => fn () => $request->session()->get('flash.success.list.projects'),
                         'factors' => fn () => $request->session()->get('flash.success.list.factors'),
                         'history_statues' => fn () => $request->session()->get('flash.success.list.history_statues'),
@@ -68,6 +71,7 @@ class HandleInertiaRequests extends Middleware
                     'calculator' => [
                         'categories' => fn () => $request->session()->get('flash.success.calculator.categories'),
                         'services' => fn () => $request->session()->get('flash.success.calculator.services'),
+                        'clients' => fn () => $request->session()->get('flash.success.calculator.clients'),
                         'projects' => fn () => $request->session()->get('flash.success.calculator.projects'),
                         'factors' => fn () => $request->session()->get('flash.success.calculator.factors'),
                         'extras' => fn () => $request->session()->get('flash.success.calculator.extras'),
@@ -79,6 +83,7 @@ class HandleInertiaRequests extends Middleware
                         'store' => [
                             'categories' => fn () => $request->session()->get('flash.failures.form.store.categories'),
                             'services' => fn () => $request->session()->get('flash.failures.form.store.services'),
+                            'clients' => fn () => $request->session()->get('flash.failures.form.store.clients'),
                             'projects' => fn () => $request->session()->get('flash.failures.form.store.projects'),
                             'factors' => fn () => $request->session()->get('flash.failures.form.store.factors'),
                             'history_statues' => fn () => $request->session()->get('flash.failures.form.store.history_statues'),
@@ -87,6 +92,7 @@ class HandleInertiaRequests extends Middleware
                         'update' => [
                             'categories' => fn () => $request->session()->get('flash.failures.form.update.categories'),
                             'services' => fn () => $request->session()->get('flash.failures.form.update.services'),
+                            'clients' => fn () => $request->session()->get('flash.failures.form.update.clients'),
                             'projects' => fn () => $request->session()->get('flash.failures.form.update.projects'),
                             'factors' => fn () => $request->session()->get('flash.failures.form.update.factors'),
                             'history_statues' => fn () => $request->session()->get('flash.failures.form.update.history_statues'),
@@ -96,6 +102,7 @@ class HandleInertiaRequests extends Middleware
                     'list' => [
                         'categories' => fn () => $request->session()->get('flash.failures.list.categories'),
                         'services' => fn () => $request->session()->get('flash.failures.list.services'),
+                        'clients' => fn () => $request->session()->get('flash.failures.list.clients'),
                         'projects' => fn () => $request->session()->get('flash.failures.list.projects'),
                         'factors' => fn () => $request->session()->get('flash.failures.list.factors'),
                         'history_statues' => fn () => $request->session()->get('flash.failures.list.history_statues'),
@@ -105,6 +112,7 @@ class HandleInertiaRequests extends Middleware
                     'calculator' => [
                         'categories' => fn () => $request->session()->get('flash.failures.calculator.categories'),
                         'services' => fn () => $request->session()->get('flash.failures.calculator.services'),
+                        'clients' => fn () => $request->session()->get('flash.failures.calculator.clients'),
                         'projects' => fn () => $request->session()->get('flash.failures.calculator.projects'),
                         'factors' => fn () => $request->session()->get('flash.failures.calculator.factors'),
                         'extras' => fn () => $request->session()->get('flash.failures.calculator.extras'),

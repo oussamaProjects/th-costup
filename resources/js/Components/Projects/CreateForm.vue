@@ -35,8 +35,6 @@
             :class="this.globalClass.inputTextForm"
           /> 
         </div>
-
-       
       </div>
 
       <div class="w-full flex flex-col">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Client;
 use App\Models\Factor;
 use App\Models\History_statue;
 use App\Models\Project;
@@ -15,6 +16,7 @@ class Dashboard extends Controller
     public function index()
     {
 
+        $clients = Client::all();
         $projects = Project::all();
         $categories = Category::where('parent_id', '!=', '0')->orderBy('parent_id', 'ASC')->get();
 
@@ -84,6 +86,7 @@ class Dashboard extends Controller
         }
 
         return Inertia::render('Dashboard', [
+            'clients' => $clients,
             'projects' => $projects,
             'categories' => $categories,
             'formattedCategories' => $formatted_categories,
@@ -154,6 +157,7 @@ class Dashboard extends Controller
     public function settings()
     {
 
+        $clients = Client::all();
         $projects = Project::all();
         $factors = Factor::all();
         $categories = Category::all();
@@ -163,14 +167,12 @@ class Dashboard extends Controller
 
         $services_categories = Category::where('parent_id', '!=', '0')->get();
 
-
         $services = DB::table('services')
             ->select('services.*', 'categories.name as category_name')
             ->join('categories', 'categories.id', 'services.category_id')
             ->get();
 
         $formatted_categories =  array();
-        // $formatted_services =  array();
 
         foreach ($categories as $cat_key => $category) {
 
@@ -208,7 +210,6 @@ class Dashboard extends Controller
             }
         }
 
-
         foreach ($categories as $cat_key => &$category) {
             $parents = $category->parent()->get();
             if (!$parents->isEmpty()) {
@@ -216,31 +217,8 @@ class Dashboard extends Controller
             }
         }
 
-        // foreach ($services as $key => $service) {
-        //     $category = $service->categories()->get();
-        //     $formatted_services[$key]['id']                = $service->id;
-        //     $formatted_services[$key]['name']              = $service->name;
-        //     $formatted_services[$key]['description']       = $service->description;
-        //     $formatted_services[$key]['unit_measure']      = $service->unit_measure;
-        //     $formatted_services[$key]['qty']               = $service->qty;
-        //     $formatted_services[$key]['occup_hour']        = $service->occup_hour;
-        //     $formatted_services[$key]['price']             = $service->price;
-        //     $formatted_services[$key]['profit_margin_p_c'] = $service->profit_margin_p_c;
-
-        //     if (!$category->isEmpty()) {
-        //         $formatted_services[$key]['category_name'] = $category[0]->name;
-        //     }
-        // }
-
-
-        // foreach ($services->items as $key => $service) {
-        //     $category = $service->categories()->get(); 
-        //     if (!$category->isEmpty()) {
-        //         $service[$key]['category_name'] = $category[0]->name;
-        //     }
-        // }
-
         return Inertia::render('Settings', [
+            'clients' => $clients,
             'factors' => $factors,
             'projects' => $projects,
             'history_statues' => $history_statues,

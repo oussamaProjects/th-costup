@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\ResourcesCategoriesChart;
 use App\Models\Category;
 use App\Models\Factor;
 use App\Models\Project;
@@ -391,5 +392,20 @@ class ProjectController extends Controller
     {
         $project->delete();
         return Redirect::back()->with('flash.success.list.projects', 'Le project ' . $project->name . ' a été supprimer !');
+    }
+
+
+    public function projectsDetails(ResourcesCategoriesChart $chart)
+    {
+
+        $projects = Project::all(); 
+
+        foreach ($projects as $key => $project) {
+            $projects[$key]['Chart'] =  $chart->buildBarChart($project);
+        }
+
+        return Inertia::render('Projects', [
+            'projects' => $projects,
+        ]);
     }
 }

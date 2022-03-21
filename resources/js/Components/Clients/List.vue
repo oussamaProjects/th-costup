@@ -1,24 +1,26 @@
 <template>
   <div
-    v-if="$page.props.flash.failures.list.projects"
+    v-if="$page.props.flash.failures.list.clients"
     class="alert w-full text-xs text-error px-3 py-1 my-2 text-center"
   >
-    {{ $page.props.flash.failures.list.projects }}
+    {{ $page.props.flash.failures.list.clients }}
   </div>
 
   <div
-    v-if="$page.props.flash.success.list.projects"
+    v-if="$page.props.flash.success.list.clients"
     class="alert w-full text-xs text-success px-3 py-1 my-2 text-center"
   >
-    {{ $page.props.flash.success.list.projects }}
+    {{ $page.props.flash.success.list.clients }}
   </div>
-
   <table class="table-fixe w-full text-sm">
     <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
       <tr>
         <th class="p-1 whitespace-wrap">
           <div class="font-semibold text-left">Nom</div>
         </th>
+        <th class="p-1 whitespace-wrap">
+          <div class="font-semibold text-left">Address</div>
+        </th> 
         <th class="p-1 whitespace-wrap">
           <div class="font-semibold text-left">Description</div>
         </th> 
@@ -28,12 +30,13 @@
       </tr>
     </thead>
     <tbody class="text-xs m divide-y divide-gray-100">
-      <tr v-for="project in this.projects" v-bind:key="project.id">
-        <td class="p-1 whitespace-wrap">{{ project.name }}</td>
-        <td class="p-1 whitespace-wrap">{{ project.description }}</td> 
+      <tr v-for="client in this.clients" v-bind:key="client.id">
+        <td class="p-1 whitespace-wrap">{{ client.name }}</td>
+        <td class="p-1 whitespace-wrap">{{ client.address }}</td> 
+        <td class="p-1 whitespace-wrap">{{ client.description }}</td> 
 
         <td class="p-1 whitespace-wrap flex items-center justify-center">
-          <a href="#" @click="showUpdateProjectsModal(project.id)">
+          <a href="#" @click="showUpdateClientsModal(client.id)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="text-success h-3 w-3"
@@ -49,7 +52,7 @@
               />
             </svg>
           </a>
-          <a href="#" @click="deleteCategory(project.id)">
+          <a href="#" @click="deleteClient(client.id)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="ml-2 text-error h-3 w-3"
@@ -71,9 +74,8 @@
   </table>
 
   <ch-update-modal
-    :showUpdateModal="displayUpdateProjectsModal"
-    :projects="projects"
-    :project="project"
+    :showUpdateModal="displayUpdateClientsModal"
+    :client="client"
     @closeModal="closeUpdateModal"
     :globalClass="this.globalClass"
   ></ch-update-modal>
@@ -89,36 +91,39 @@ export default {
 
   data() {
     return {
-      project: this.project,
-      displayUpdateProjectsModal: false,
+      client: this.client,
+      displayUpdateClientsModal: false,
     };
   },
 
-  props: [ "projects", "project", "globalClass"],
+  props: [ "client", "clients", "globalClass"],
 
   mounted() {},
 
   methods: {
-    showUpdateProjectsModal(id) {
-      axios.get(`/projects/${id}`).then((res) => {
-        this.project.id = res.data.id;
-        this.project.name = res.data.name;
-        this.project.description = res.data.description; 
+    showUpdateClientsModal(id) {
+      axios.get(`/clients/${id}`).then((res) => {
+        console.log(res.data);
+        this.client.id = res.data.id;
+        this.client.name = res.data.name;
+        this.client.address = res.data.address;
+        this.client.description = res.data.description; 
       });
 
-      this.displayUpdateProjectsModal = true;
+      this.displayUpdateClientsModal = true;
     },
 
-    deleteCategory(id) {
-      this.$inertia.delete(`/projects/${id}`);
+    deleteClient(id) {
+      this.$inertia.delete(`/clients/${id}`);
     },
 
     closeUpdateModal() {
-      this.project = {
+      this.client = {
         name: null,
+        address: null, 
         description: null, 
       };
-      this.displayUpdateProjectsModal = false;
+      this.displayUpdateClientsModal = false;
     },
   },
 };

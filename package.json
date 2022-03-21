@@ -34,6 +34,8 @@
         "scss-loader": "^0.0.1",
         "vue-carousel-3d": "^1.0.1",
         "vue-owl-carousel": "^2.0.3",
-        "vue3-carousel": "^0.1.36"
+        "vue3-carousel": "^0.1.36",
+        "apexcharts": "^3.33.2", 
+        "vue3-apexcharts": "^1.4.1"
     }
 }

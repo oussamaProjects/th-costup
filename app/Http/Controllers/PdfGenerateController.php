@@ -39,8 +39,12 @@ class PdfGenerateController extends Controller
         ];
 
         $pdf = PDF::loadView('SAG', $data)->setPaper('a4', 'landscape');
-
         return $pdf->stream('Arbeitsstunden1');
         return $pdf->download('Nicesnippets1.pdf');
+    }
+    
+    public function categories_values(Project $project)
+    {
+        return UtilityController::project_categories_resources_values($project);
     }
 }

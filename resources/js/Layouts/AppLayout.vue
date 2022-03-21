@@ -31,11 +31,25 @@
                                 </jet-nav-link>
                             </div>
 
-                            
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <jet-nav-link :href="route('calculator')" :active="route().current('calculator')">
                                     Calculator
+                                </jet-nav-link>
+                            </div>
+
+                            <!-- Navigation Links -->
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <jet-nav-link :href="route('projects-details')" :active="route().current('projects-details')">
+                                    Projects Details
+                                </jet-nav-link>
+                            </div>
+ 
+
+                            <!-- Navigation Links -->
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <jet-nav-link :href="route('charts')" :active="route().current('charts')">
+                                    Charts
                                 </jet-nav-link>
                             </div>
  
@@ -192,6 +206,14 @@
                         
                         <jet-responsive-nav-link :href="route('mapView')" :active="route().current('mapView')"> 
                             Map view
+                        </jet-responsive-nav-link> 
+                        
+                        <jet-responsive-nav-link :href="route('projects-details')" :active="route().current('projects-details')"> 
+                            Projects Details
+                        </jet-responsive-nav-link> 
+                            
+                        <jet-responsive-nav-link :href="route('charts')" :active="route().current('charts')"> 
+                            Charts
                         </jet-responsive-nav-link> 
 
                     </div>
