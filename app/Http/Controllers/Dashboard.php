@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Client;
+use App\Models\Day;
 use App\Models\Factor;
 use App\Models\History_statue;
 use App\Models\Project;
 use App\Models\Service;
+use App\Models\Shift;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -248,7 +250,7 @@ class Dashboard extends Controller
                 ->Join('categories', 'services.category_id', '=', 'categories.id')
                 ->where('categories.id',  '=', 2)
                 ->where('projects.id',  '=', $project->id)
-                ->select('services.*','sag_resources.*', 'categories.name as category_name', 'projects.id')
+                ->select('services.*', 'sag_resources.*', 'categories.name as category_name', 'projects.id')
                 ->get()
                 ->toArray();
         }
@@ -264,9 +266,18 @@ class Dashboard extends Controller
 
     public function neveling()
     {
-
         return Inertia::render('Neveling', [
             'projects' => [],
+        ]);
+    }
+    public function planning()
+    {
+        $days = Day::all();
+        $shift = Shift::all();
+
+        return Inertia::render('Planning', [
+            'days' => $days,
+            'shift' => $shift,
         ]);
     }
 }

@@ -45,6 +45,16 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/calculator', 'App\Http\Co
 Route::middleware(['auth:sanctum', 'verified'])->get('/SAG',        'App\Http\Controllers\Dashboard@SAG')->name('sag');
 Route::middleware(['auth:sanctum', 'verified'])->get('/mapView',    'App\Http\Controllers\Dashboard@mapView')->name('mapView');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/neveling',  'App\Http\Controllers\Dashboard@neveling')->name('neveling');
+Route::middleware(['auth:sanctum', 'verified'])->get('/planning',  'App\Http\Controllers\Dashboard@planning')->name('planning');
+Route::middleware(['auth:sanctum', 'verified'])->get('/projectsDetails',  'App\Http\Controllers\ProjectController@projectsDetails')->name('projects-details');
+Route::middleware(['auth:sanctum', 'verified'])->get('/charts',  'App\Http\Controllers\ChartsController@index')->name('charts');
+
+Route::group(['middleware' => ['auth', 'permission']], function() {
+    Route::get('/charts',  'App\Http\Controllers\ChartsController@index')->name('charts');
+});
+
+
 Route::resource('services', 'App\Http\Controllers\ServiceController');
 Route::get('services/{services}/selected', 'App\Http\Controllers\ServiceController@getSelectedServices');
 
@@ -53,15 +63,12 @@ Route::get('categories/{category}/services', 'App\Http\Controllers\CategoryContr
 
 Route::resource('history_statues', 'App\Http\Controllers\HistoryStatueController');
  
-Route::middleware(['auth:sanctum', 'verified'])->get('/neveling',  'App\Http\Controllers\Dashboard@neveling')->name('neveling');
-Route::middleware(['auth:sanctum', 'verified'])->get('/projectsDetails',  'App\Http\Controllers\ProjectController@projectsDetails')->name('projects-details');
-Route::middleware(['auth:sanctum', 'verified'])->get('/charts',  'App\Http\Controllers\ChartsController@index')->name('charts');
-
 
 Route::resource('factors', 'App\Http\Controllers\FactorController');
 
 Route::resource('clients', 'App\Http\Controllers\ClientController');
 Route::resource('projects', 'App\Http\Controllers\ProjectController');
+Route::resource('shifts', 'App\Http\Controllers\ShiftsController');
 
 Route::get('projects/{project}/factors',         'App\Http\Controllers\ProjectController@getProjectFactors')->name('get-project-factors');
 Route::get('projects/{project}/factorsNotInProject',         'App\Http\Controllers\ProjectController@getFactorsNotInProject')->name('get-factors-not-in-project');

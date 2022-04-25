@@ -1,26 +1,27 @@
 <template>
   <div>
     <div class="w-full relative p-4 border-b border-tertiary">
-      <div class="uppercase font-medium text-custom_blue my-4">Neveling</div>
+      <div class="uppercase font-medium text-custom_blue my-4">Planning</div>
       <div class="shadow rounded-sm p-3">
         <ch-form
-          :projects="projects"
-          :project="project"
+          :shifts="shifts"
+          :days="days"
           :globalClass="globalClass"
         />
+        
       </div>
-    </div>     
+    </div>
   </div>
 </template>
 
 <script>
 import JetDialogModal from "@/Jetstream/DialogModal.vue";
-import ChForm from "./Form.vue"; 
+import ChForm from "./Form.vue";
 
 export default {
   components: {
     JetDialogModal,
-    ChForm, 
+    ChForm,
   },
 
   data() {
@@ -34,7 +35,7 @@ export default {
     };
   },
 
-  props: ["projects", "globalClass"],
+  props: ["days", "shifts","globalClass"],
 
   mounted() {},
 

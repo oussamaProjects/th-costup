@@ -67,6 +67,13 @@
                                     Map view
                                 </jet-nav-link>
                             </div>
+                            
+                                <!-- Navigation Links -->
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <jet-nav-link :href="route('planning')" :active="route().current('planning')">
+                                    Planning
+                                </jet-nav-link>
+                            </div>
  
                         </div>
 
@@ -214,6 +221,10 @@
                             
                         <jet-responsive-nav-link :href="route('charts')" :active="route().current('charts')"> 
                             Charts
+                        </jet-responsive-nav-link> 
+                            
+                        <jet-responsive-nav-link :href="route('planning')" :active="route().current('planning')"> 
+                            Planning
                         </jet-responsive-nav-link> 
 
                     </div>

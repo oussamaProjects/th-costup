@@ -291,10 +291,10 @@ class ProjectController extends Controller
     public function getProjectExtras(Project $project)
     {
         $extras = array(
-            "smph_custommer_demand" => $project->smph_custommer_demand,
-            "smph_production_available_time" => $project->smph_production_available_time,
-            "lmph_custommer_demand" => $project->lmph_custommer_demand,
-            "lmph_production_available_time" => $project->lmph_production_available_time,
+            "smph_custommer_demand" => $project->smph_custommer_demand ?? 1,
+            "smph_production_available_time" => $project->smph_production_available_time ?? 1,
+            "lmph_custommer_demand" => $project->lmph_custommer_demand ?? 1,
+            "lmph_production_available_time" => $project->lmph_production_available_time ?? 1,
         );
 
         return $extras;
@@ -372,10 +372,10 @@ class ProjectController extends Controller
     {
 
         $project = Project::where('id', '=', $request->input('project_id'))->first();
-        $project->smph_custommer_demand = $request['extras']['smph_custommer_demand'] ?? 0;
-        $project->smph_production_available_time = $request['extras']['smph_production_available_time'] ?? 0;
-        $project->lmph_custommer_demand = $request['extras']['lmph_custommer_demand'] ?? 0;
-        $project->lmph_production_available_time = $request['extras']['lmph_production_available_time'] ?? 0;
+        $project->smph_custommer_demand = $request['extras']['smph_custommer_demand'] ?? 1;
+        $project->smph_production_available_time = $request['extras']['smph_production_available_time'] ?? 1;
+        $project->lmph_custommer_demand = $request['extras']['lmph_custommer_demand'] ?? 1;
+        $project->lmph_production_available_time = $request['extras']['lmph_production_available_time'] ?? 1;
 
         $project->save();
 
@@ -398,7 +398,7 @@ class ProjectController extends Controller
     public function projectsDetails(ResourcesCategoriesChart $chart)
     {
 
-        $projects = Project::all(); 
+        $projects = Project::all();
 
         foreach ($projects as $key => $project) {
             $projects[$key]['Chart'] =  $chart->buildBarChart($project);
