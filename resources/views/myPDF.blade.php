@@ -124,7 +124,7 @@
 
         <thead>
             <tr bgcolor='#f7cee2'>
-                <th colspan="2">Catégorie</th>
+                {{-- <th colspan="2">Catégorie</th> --}}
                 <th>Libelé</th>
                 <th>Unité de mesure</th>
                 <th>Quantité</th>
@@ -142,9 +142,33 @@
 
         @foreach ($categories ?? '' as $category)
             @foreach ($category['services'] as $service)
+                @if ($parent_name != $category['parent_name'])
+                    <tr>
+                        <td colspan="11" class="cat_parent">
+                            {{ $category['parent_name'] }}
+                        </td>
+                    </tr>
+                @endif
+
+                @php
+                    $parent_name = $category['parent_name'];
+                @endphp
+
+                @if ($cat_name != $category['name'])
+                    <tr>
+                        <td colspan="11" class="cat">
+                            {{ $category['name'] }}
+                        </td>
+                    </tr>
+                @endif
+                
+                @php
+                    $cat_name = $category['name'];
+                @endphp
+
                 <tr>
 
-                    @if ($cat_name != $category['name'])
+                    {{-- @if ($cat_name != $category['name'])
                         <td rowspan="{{ count($category['services']) + 1 }}" class="cat_parent">
                             {{ $category['parent_name'] }}
                         </td>
@@ -164,8 +188,8 @@
                     @endif
                     @php
                         $cat_name = $category['name'];
-                    @endphp
-
+                    @endphp --}}
+                <tr>
                     <td>{{ $service['name'] }}</td>
                     <td>{{ $service['unit_measure'] }}</td>
                     <td>{{ $service['qty'] }}</td>

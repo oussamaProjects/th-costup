@@ -303,7 +303,6 @@ class ProjectController extends Controller
         $project = Project::findOrFail($project_id);
 
         $project->factors()->detach();
-
         foreach ($requestArray->all() as $key => $request) {
             if ($request != null) {
 
